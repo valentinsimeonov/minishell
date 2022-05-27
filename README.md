@@ -4,7 +4,7 @@
 
 2. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
-3. 
+3. Search for the Function Allowed to Use in this Project
 
 
 **Architecture:**
@@ -59,3 +59,5 @@ subject such as \ (backslash) or ; (semicolon).
 1. Test out the Shell in order to To Learn about Character Behaviour
 
 2. Find out from Daniel how to Push to the Same Repo
+
+3. 
