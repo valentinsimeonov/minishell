@@ -37,7 +37,7 @@ subject such as \ (backslash) or ; (semicolon).
 
 
 
-**TODO:**
+**TO DO:**
 
 1. Test out the Shell in order to To Learn about Character Behaviour
 
