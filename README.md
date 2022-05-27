@@ -10,11 +10,28 @@
 **Architecture:**
 
 1. Module 1:
+	- Builtin Commands:
+		◦ echo with option -n
+		◦ cd with only a relative or absolute path
+		◦ pwd with no options
+		◦ export with no options
+		◦ unset with no options
+		◦ env with no options or arguments
+		◦ exit with no options
+
+2. Module 2:
 	- Lexar
 	- Parser
 	- Command List
 
-2. Executor
+3. Module 3:
+	- Executor
+
+4. Module 4:
+	- Signal Handling
+		◦ ctrl-C displays a new prompt on a new line.
+		◦ ctrl-D exits the shell.
+		◦ ctrl-\ does nothing.
 
 
 **Investigate:**
