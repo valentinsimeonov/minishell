@@ -31,16 +31,28 @@
  	- malloc
  	- free
 
-
- 	- write
- 	- access
-
+	<fcntl.h>
  	- open
+
+	<unistd.h>
  	- read
  	- close
-
-
+	- write
+ 	- access
+	- unlink
+ 	- execve
+ 	- dup
+ 	- dup2
+ 	- pipe
  	- fork
+	- getcwd
+		-get the pathname of the current work directory
+		char *getcwd(char *buf, size_t size);
+ 	- chdir
+		-The chdir() changes the cwd to path, which can be relative to the cwd or an absolute path name.
+		-Return Value: upon success: 0 -- else: -1
+
+	<sys/wait.h>
  	- wait
  	- waitpid
  	- wait3 -> not used
@@ -56,24 +68,12 @@
 
 
  	- exit
- 	- getcwd
-		-get the pathname of the current work directory
-		char *getcwd(char *buf, size_t size);
- 	- chdir
-		-The chdir() changes the cwd to path, which can be relative to the cwd or an absolute path name.
-		-Return Value: upon success: 0 -- else: -1
 
 	<sys/stat.h> : https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html
  	- stat
  	- lstat
  	- fstat
 
-
- 	- unlink
- 	- execve
- 	- dup
- 	- dup2
- 	- pipe
  	- stat -> not used
  	- lstat -> not used
  	- fstat -> not used
