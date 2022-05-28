@@ -1,16 +1,25 @@
 **Research:**
 
-1. https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+1. Shell Introduction: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html
 
-2. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
+2. Write your Own Shell Tutorial: https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
-3. Search for the Functions Allowed to Use in this Project
+3. Write a Shell in C Tutorial: https://brennan.io/2015/01/16/write-a-shell-in-c/
+
+3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
+
+4. Search for the Functions Allowed to Use in this Project \n
 	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 
+				https://www.man7.org/linux/man-pages/man3/readline.3.html
 	- readline
  	- rl_clear_history
  	- rl_on_new_line
+		Function: int rl_on_new_line ()
+		Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
  	- rl_replace_line
  	- rl_redisplay
+	 	Function: int rl_redisplay ()
+		Change what's displayed on the screen to reflect the current contents of rl_line_buffer.
  	- add_history
 
 
@@ -27,11 +36,16 @@
  	- waitpid
  	- wait3
  	- wait4
+
+
+	Signal.h:
  	- signal
  	- sigaction
  	- sigemptyset
  	- sigaddset
  	- kill
+
+
  	- exit
  	- getcwd
  	- chdir
@@ -53,6 +67,8 @@
  	- ttyslot
  	- ioctl
  	- getenv
+
+	Termcap database emulation:  https://pubs.opengroup.org/onlinepubs/7908799/xcurses/tgetent.html
  	- tcsetattr
  	- tcgetatt
  	- tgetent
@@ -61,6 +77,8 @@
  	- tgetst
  	- tgoto
  	- tputs
+
+
 
 **Architecture:**
 
@@ -76,6 +94,9 @@
 
 2. Module 2:
 	- Lexar
+		Tokens:
+			- ordinary token recognition
+			- processing of here-documents
 	- Parser
 	- Command List
 
@@ -87,6 +108,9 @@
 		◦ ctrl-C displays a new prompt on a new line.
 		◦ ctrl-D exits the shell.
 		◦ ctrl-\ does nothing.
+
+5. Module 5:
+	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
 
 
 **Investigate:**
@@ -111,8 +135,10 @@ subject such as \ (backslash) or ; (semicolon).
 
 **TO DO:**
 
-1. Test out the Shell in order to To Learn about Character Behaviour
+1. Test out the Shell in order to Learn about Character Behaviour
 
 2. Find out from Daniel how to Push to the Same Repo
 
-3. 
+3. Check out the Repos that have Completed Strictly what is Demanded
+
+4.
