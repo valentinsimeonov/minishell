@@ -8,11 +8,9 @@
 
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
 
-5. 
+5. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
-3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
-
-4. Search for the Functions Allowed to Use in this Project \n
+6. Search for the Functions Allowed to Use in this Project \n
 	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 
 				https://www.man7.org/linux/man-pages/man3/readline.3.html
 	- readline
@@ -52,14 +50,18 @@
 	<signal.h>:
  	- signal
  	- sigaction
+ 	- kill
  	- sigemptyset -> not used
  	- sigaddset -> not used
- 	- kill
 
 
  	- exit
  	- getcwd
+		-get the pathname of the current work directory
+		char *getcwd(char *buf, size_t size);
  	- chdir
+		-The chdir() changes the cwd to path, which can be relative to the cwd or an absolute path name.
+		-Return Value: upon success: 0 -- else: -1
 
 	<sys/stat.h> : https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html
  	- stat
@@ -68,14 +70,14 @@
 
 
  	- unlink
- 	- stat -> not used
- 	- lstat -> not used
- 	- fstat -> not used
- 	- unlink -> not used
  	- execve
  	- dup
  	- dup2
  	- pipe
+ 	- stat -> not used
+ 	- lstat -> not used
+ 	- fstat -> not used
+ 	- unlink -> not used
  	- opendir -> not used
  	- readdir -> not used
  	- closedir -> not used
@@ -161,4 +163,4 @@ subject such as \ (backslash) or ; (semicolon).
 
 3. Check out the Repos that have Completed Strictly what is Demanded
 
-4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
+4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix -> DONE
