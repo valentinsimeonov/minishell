@@ -4,13 +4,16 @@
 
 2. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
-3. Search for the Function Allowed to Use in this Project
+3. Search for the Functions Allowed to Use in this Project
+	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 
 	- readline
  	- rl_clear_history
  	- rl_on_new_line
  	- rl_replace_line
  	- rl_redisplay
  	- add_history
+
+
  	- printf
  	- malloc
  	- free
