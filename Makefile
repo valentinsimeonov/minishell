@@ -18,7 +18,7 @@ $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
 $(NAME): $(OBJ) 
-	$(CC) $(CFLAGS) -o $@ $(OBJ)
+	$(CC) $(CFLAGS) -o $@ -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline $(OBJ)
 
 
 clean:
