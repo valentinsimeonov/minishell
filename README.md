@@ -45,15 +45,15 @@
  	- fork
  	- wait
  	- waitpid
- 	- wait3
- 	- wait4
+ 	- wait3 -> not used
+ 	- wait4 -> not used
 
 
 	<signal.h>:
  	- signal
  	- sigaction
- 	- sigemptyset
- 	- sigaddset
+ 	- sigemptyset -> not used
+ 	- sigaddset -> not used
  	- kill
 
 
@@ -68,30 +68,34 @@
 
 
  	- unlink
+ 	- stat -> not used
+ 	- lstat -> not used
+ 	- fstat -> not used
+ 	- unlink -> not used
  	- execve
  	- dup
  	- dup2
  	- pipe
- 	- opendir
- 	- readdir
- 	- closedir
- 	- strerror
- 	- perror
- 	- isatty
- 	- ttyname
- 	- ttyslot
- 	- ioctl
- 	- getenv
+ 	- opendir -> not used
+ 	- readdir -> not used
+ 	- closedir -> not used
+ 	- strerror -> not used
+ 	- perror -> not used
+ 	- isatty -> not used
+ 	- ttyname -> not used
+ 	- ttyslot -> not used
+ 	- ioctl -> not used
+ 	- getenv -> not used
 
 	Termcap database emulation:  https://pubs.opengroup.org/onlinepubs/7908799/xcurses/tgetent.html
- 	- tcsetattr
- 	- tcgetatt
- 	- tgetent
- 	- tgetflag
- 	- tgetnum
- 	- tgetst
- 	- tgoto
- 	- tputs
+ 	- tcsetattr -> not used
+ 	- tcgetatt -> not used
+ 	- tgetent -> not used
+ 	- tgetflag -> not used
+ 	- tgetnum -> not used
+ 	- tgetst -> not used
+ 	- tgoto -> not used
+ 	- tputs -> not used
 
 
 **Architecture:**
