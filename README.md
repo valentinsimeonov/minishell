@@ -6,6 +6,10 @@
 
 3. Write a Shell in C Tutorial: https://brennan.io/2015/01/16/write-a-shell-in-c/
 
+4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
+
+5. 
+
 3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
 4. Search for the Functions Allowed to Use in this Project \n
@@ -22,15 +26,22 @@
 		Change what's displayed on the screen to reflect the current contents of rl_line_buffer.
  	- add_history
 
-
+	<stdio.h>
  	- printf
+
+	<stdlib.h>
  	- malloc
  	- free
+
+
  	- write
  	- access
+
  	- open
  	- read
  	- close
+
+
  	- fork
  	- wait
  	- waitpid
@@ -38,7 +49,7 @@
  	- wait4
 
 
-	Signal.h:
+	<signal.h>:
  	- signal
  	- sigaction
  	- sigemptyset
@@ -49,9 +60,13 @@
  	- exit
  	- getcwd
  	- chdir
+
+	<sys/stat.h> : https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html
  	- stat
  	- lstat
  	- fstat
+
+
  	- unlink
  	- execve
  	- dup
@@ -79,7 +94,6 @@
  	- tputs
 
 
-
 **Architecture:**
 
 1. Module 1:
@@ -98,7 +112,7 @@
 			- ordinary token recognition
 			- processing of here-documents
 	- Parser
-	- Command List
+	- Command Table List
 
 3. Module 3:
 	- Executor
@@ -138,7 +152,9 @@ subject such as \ (backslash) or ; (semicolon).
 1. Test out the Shell in order to Learn about Character Behaviour
 
 2. Find out from Daniel how to Push to the Same Repo
+	- Best Solution that will Help us in a Normal Flow in a Compay as well is to Branch, Pull and then Merge
+	- Workaround would be to Git Add only one File at a Time and we Would have to Work on Separate Files (I guess it's a Waste of Time and we Don't Learn Anything)
 
 3. Check out the Repos that have Completed Strictly what is Demanded
 
-4.
+4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix

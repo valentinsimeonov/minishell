@@ -1,6 +1,7 @@
 
-typedef enum e_tokrn{
+typedef enum e_token{
 	PIPE,
 	IN,
 	OUT
-}	t_num;
+}	t_num
+
