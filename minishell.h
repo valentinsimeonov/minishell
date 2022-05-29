@@ -6,12 +6,12 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 11:24:05 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/29 16:27:49 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -24,26 +24,30 @@
 # include <sys/stat.h>  /// For lstats
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
-
 /* 1 Module Lexar */
-#include "lexar.h"
-
+# include "1_module_lexar/lexar.h"
 /* 2 Module Builtins */
-#include "builtins.h"
+# include "2_module_builtins/builtins.h"
+/* Libft Library */
+# include "libft/libft.h"
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-} t_list;
+
 
 typedef struct s_variables
 {
 	// int			i;
 	// int			j;
 	int			arguments;
-}
+}			t_variables;
 
-char		*readline(const char *);
+
+
+
+/* Temporary Palce for Function Prototypes (Will sort out Later) */
+void	create_lexar(t_list *lexar_list, char **array);
+int		size_of_array(char **array);
+t_list	*create_stack_value(char **value);
+
+
 
 #endif
