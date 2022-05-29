@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 15:23:46 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:26:01 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@
 #include "libft/libft.h"
 
 
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-} t_list;
 
 typedef struct s_variables
 {
