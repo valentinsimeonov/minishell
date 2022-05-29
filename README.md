@@ -162,3 +162,15 @@ subject such as \ (backslash) or ; (semicolon).
 3. Check out the Repos that have Completed Strictly what is Demanded
 
 4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
+
+
+
+**Temporary WorkSpace:**
+Pseude Code:
+
+if (var == PIPE)
+if (var == 23)
+
+return(something)
+
+
