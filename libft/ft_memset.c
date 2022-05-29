@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/01 17:07:17 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/02 20:37:55 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	
-	char	*line;
-	char	space;
+	int		i;
+	char	*p;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	i = 0;
+	p = (char *)b;
+	while (i < (int) len)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		*(p + i) = c;
+		i++;
 	}
-	return (0);
+	return (p);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/11 19:45:05 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/09/29 18:02:03 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	
-	char	*line;
-	char	space;
+	char	*p;
+	size_t	i;
+	size_t	lenstr;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
-	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+	i = 0;
+	if (!s)
+		return (NULL);
+	p = (char *)malloc((len + 1) * sizeof(char));
+	if (!p)
+		return (NULL);
+	lenstr = ft_strlen(s);
+	if (start >= lenstr)
+		return (p);
+	while (i < len)
+	{	
+		*(p + i) = *(s + start);
+		i++;
+		start++;
 	}
-	return (0);
+	*(p + i) = '\0';
+	return (p);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

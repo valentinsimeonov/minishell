@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/28 15:32:46 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/11/30 18:33:29 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	
-	char	*line;
-	char	space;
+	size_t			i;
+	unsigned char	*ps1;
+	unsigned char	*ps2;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	i = 0;
+	ps1 = (unsigned char *)s1;
+	ps2 = (unsigned char *)s2;
+	if (ps1 == 0 || ps2 == 0)
+		return (ps1[i] - ps2[i]);
+	while ((i < n) && (ps1[i] != '\0' || ps2[i] != '\0'))
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		if (ps1[i] != ps2[i])
+			return (ps1[i] - ps2[i]);
+		if (ps1[i] == ps2[i])
+			i++;
 	}
 	return (0);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

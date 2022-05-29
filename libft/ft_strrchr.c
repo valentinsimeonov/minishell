@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/08/30 13:00:00 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/09/29 13:41:14 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_strrchr(const char *s, int c)
 {
-	
-	char	*line;
-	char	space;
+	int		i;
+	char	*p;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	i = 0;
+	p = (char *)s;
+	i = ft_strlen(s);
+	while (i >= 0)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		if (s[i] == c)
+			return (p + i);
+		i--;
 	}
-	return (0);
+	return (NULL);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

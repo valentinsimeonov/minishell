@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/07 11:14:46 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/04 22:04:33 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	
-	char	*line;
-	char	space;
+	size_t	nlen;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	nlen = ft_strlen(needle);
+	if (!nlen)
+		return ((char *)haystack);
+	while (len && *haystack)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		if (ft_strncmp(haystack, needle, nlen) == 0)
+			return ((char *)haystack);
+		if (len <= nlen)
+			break ;
+		len--;
+		haystack++;
 	}
-	return (0);
+	return (NULL);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

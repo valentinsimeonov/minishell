@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/25 16:43:52 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/09/28 18:21:20 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+static int	ft_min(int a, int b)
 {
-	
-	char	*line;
-	char	space;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
-	{
-		line = readline("minishell> ");
-		ft_split(line, space);
-	}
-	return (0);
+	if (a > b)
+		return (b);
+	else
+		return (a);
 }
 
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	dlen;
+	size_t	slen;
 
-
-// char	**ft_split(char const *s, char c)
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	if (dstsize > dlen)
+		ft_strlcpy(dst + dlen, src, dstsize - dlen);
+	return (ft_min(dstsize, dlen) + slen);
+}

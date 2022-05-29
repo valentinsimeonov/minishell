@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/05 11:16:16 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/02 20:35:18 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	
-	char	*line;
-	char	space;
+	size_t	lensrc;
+	size_t	buffer;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	lensrc = ft_strlen(src);
+	if (dstsize != 0)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		if (lensrc >= dstsize)
+		{
+			buffer = dstsize - 1;
+		}
+		else
+		{
+			buffer = lensrc;
+		}
+		ft_memcpy(dst, src, buffer);
+		*(dst + buffer) = '\0';
 	}
-	return (0);
+	return (lensrc);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

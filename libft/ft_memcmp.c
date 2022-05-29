@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/03 16:45:27 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/02 20:37:28 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	
-	char	*line;
-	char	space;
+	size_t			i;
+	unsigned char	*p1;
+	unsigned char	*p2;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	i = 0;
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	while (i < n)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		if (*(p1 + i) != *(p2 + i))
+			return (*(p1 + i) - *(p2 + i));
+		i++;
 	}
 	return (0);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/24 19:01:58 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/03 21:58:39 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putnbr_fd(int n, int fd)
 {
-	
-	char	*line;
-	char	space;
+	int	temp;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	temp = n;
+	if (n == -2147483648)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	return (0);
+	if (temp < 0)
+	{
+		ft_putchar_fd('-', fd);
+		temp *= -1;
+	}
+	if (temp < 10)
+	{
+		ft_putchar_fd(temp + '0', fd);
+	}
+	else
+	{
+		ft_putnbr_fd(temp / 10, fd);
+		ft_putnbr_fd(temp % 10, fd);
+	}
 }
-
-
-
-// char	**ft_split(char const *s, char c)

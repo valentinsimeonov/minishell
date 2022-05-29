@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/02 13:37:39 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/02 20:34:41 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_bzero(void *s, size_t n)
 {
-	
-	char	*line;
-	char	space;
+	int		i;
+	char	*p;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	i = 0;
+	p = (char *)s;
+	while (i < (int) n)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		*(p + i) = '\0';
+		i++;
 	}
-	return (0);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

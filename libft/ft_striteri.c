@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/25 16:16:49 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/09/25 19:23:42 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	
-	char	*line;
-	char	space;
+	unsigned int	index;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	index = 0;
+	if (!f || !s)
+		return ;
+	while (s[index] != '\0')
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		f(index, &s[index]);
+		index++;
 	}
-	return (0);
+	return ;
 }
-
-
-
-// char	**ft_split(char const *s, char c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:38:31 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:23:46 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
 # include <sys/stat.h>  /// For lstats
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
-
 /* 1 Module Lexar */
 #include "1_module_lexar/lexar.h"
-
 /* 2 Module Builtins */
 #include "2_module_builtins/builtins.h"
+/* Libft Library */
+#include "libft/libft.h"
+
+
 
 typedef struct s_list
 {

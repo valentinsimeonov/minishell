@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/09/16 11:33:44 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/11/21 20:39:51 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putchar_fd(char c, int fd)
 {
-	
-	char	*line;
-	char	space;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
-	{
-		line = readline("minishell> ");
-		ft_split(line, space);
-	}
-	return (0);
+	write(fd, &c, 1);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

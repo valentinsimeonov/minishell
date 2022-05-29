@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Created: 2021/08/26 16:37:57 by vsimeono          #+#    #+#             */
+/*   Updated: 2021/10/03 22:14:00 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_toupper(int c)
 {
-	
-	char	*line;
-	char	space;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	space = ' ';
-	while (7)
+	if (c >= 97 && c <= 122)
 	{
-		line = readline("minishell> ");
-		ft_split(line, space);
+		c = c - 32;
+		return (c);
 	}
-	return (0);
+	return (c);
 }
-
-
-
-// char	**ft_split(char const *s, char c)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 14:41:14 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/29 15:11:32 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,10 @@ $(%.o): $(%.c)
 #add $(CFLAGS) later, they are just annoying now
 $(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
-#	$(MAKE) -C libft
+	$(MAKE) -C libft
 	$(CC)  $(LIBS_MAC) $(OBJ) -o $(NAME) 
 else
-#	$(MAKE) -C libft
+	$(MAKE) -C libft
 	$(CC)  $(OBJ) $(LIBS_LINUX) -o $(NAME)
 endif
 
