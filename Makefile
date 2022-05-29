@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qduong <qduong@students.42wolfsburg.de>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
+#    Updated: 2022/05/29 21:38:09 by qduong           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 SRC = minishell.c
@@ -8,7 +20,13 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+UNAME_S := $(shell uname -s)
+
+LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -lreadline
+
+LIB_LINUX = -lreadline
+
+#CFLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -f
 
@@ -17,15 +35,23 @@ all: $(NAME)
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
-$(NAME): $(OBJ) 
-	$(CC) $(CFLAGS) -o $@ -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline $(OBJ)
-
+#add $(CFLAGS) later, they are just annoying now
+$(NAME): $(OBJ)
+ifeq ($(UNAME_S), Darwin)
+	$(MAKE) -C libft
+	$(CC) $(OBJ) libft/libft.a $(LIB_MAC) -o $(NAME) 
+else
+	$(MAKE) -C libft
+	$(CC) $(OBJ) libft/libft.a $(LIB_LINUX) -o $(NAME)
+endif
 
 clean:
 	$(RM) *.o
+	$(RM) libft/*.o
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) libft/libft.a
 
 re: fclean all
 
