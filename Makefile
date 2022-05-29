@@ -6,7 +6,7 @@
 #    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 14:23:39 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/29 14:38:18 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ UNAME_S := $(shell uname -s)
 
 LIBS =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 
-CFLAGS = -Wall -Werror -Wextra -g
+#CFLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -f
 
@@ -33,13 +33,14 @@ all: $(NAME)
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
-$(NAME): $(OBJS)
+#add $(CFLAGS) later, they are just annoying now
+$(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
 #	$(MAKE) -C libft
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+	$(CC)  $(LIBS) $(OBJ) -o $(NAME) 
 else
 #	$(MAKE) -C libft
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC)  $(OBJ) -lreadline -o $(NAME)
 endif
 
 clean:

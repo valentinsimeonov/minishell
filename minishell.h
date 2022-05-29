@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 11:24:05 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/29 14:38:31 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 
 /* 1 Module Lexar */
-#include "lexar.h"
+#include "1_module_lexar/lexar.h"
 
 /* 2 Module Builtins */
-#include "builtins.h"
+#include "2_module_builtins/builtins.h"
 
 typedef struct s_list
 {
@@ -42,8 +42,6 @@ typedef struct s_variables
 	// int			i;
 	// int			j;
 	int			arguments;
-}
-
-char		*readline(const char *);
+}			t_variables;
 
 #endif
