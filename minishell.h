@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 15:26:01 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:48:31 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -25,11 +25,11 @@
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
 /* 1 Module Lexar */
-#include "1_module_lexar/lexar.h"
+# include "1_module_lexar/lexar.h"
 /* 2 Module Builtins */
-#include "2_module_builtins/builtins.h"
+# include "2_module_builtins/builtins.h"
 /* Libft Library */
-#include "libft/libft.h"
+# include "libft/libft.h"
 
 
 

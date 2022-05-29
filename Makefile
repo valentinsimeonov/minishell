@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
+#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 15:28:30 by vsimeono         ###   ########.fr        #
+#    Updated: 2022/05/29 15:57:17 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,17 +39,19 @@ $(%.o): $(%.c)
 $(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
 	$(MAKE) -C libft
-	$(CC)  $(LIBS_MAC) $(OBJ) -o $(NAME) 
+	$(CC) $(OBJ) libft/libft.a $(LIB_MAC) -o $(NAME) 
 else
 	$(MAKE) -C libft
-	$(CC)  $(OBJ) $(LIBS_LINUX) -o $(NAME)
+	$(CC) $(OBJ) libft/libft.a $(LIB_LINUX) -o $(NAME)
 endif
 
 clean:
 	$(RM) *.o
+	$(RM) libft/*.o
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) libft/libft.a
 
 re: fclean all
 
