@@ -103,6 +103,14 @@
 **Architecture:**
 
 1. Module 1:
+	- Lexar
+		Tokens:
+			- ordinary token recognition
+			- processing of here-documents
+	- Parser
+	- Command Table List
+
+2. Module 2:
 	- Builtin Commands:
 		◦ echo with option -n
 		◦ cd with only a relative or absolute path
@@ -112,13 +120,6 @@
 		◦ env with no options or arguments
 		◦ exit with no options
 
-2. Module 2:
-	- Lexar
-		Tokens:
-			- ordinary token recognition
-			- processing of here-documents
-	- Parser
-	- Command Table List
 
 3. Module 3:
 	- Executor
@@ -163,4 +164,16 @@ subject such as \ (backslash) or ; (semicolon).
 
 3. Check out the Repos that have Completed Strictly what is Demanded
 
-4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix -> DONE
+4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
+
+
+
+**Temporary WorkSpace:**
+Pseude Code:
+
+if (var == PIPE)
+if (var == 23)
+
+return(something)
+
+
