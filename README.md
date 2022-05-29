@@ -1,3 +1,14 @@
+**Compile in Linux**
+Run
+	```
+	sudo apt-get install libreadline-dev
+	```
+And then
+	```
+	make
+	```
+
+
 **Research:**
 
 1. Shell Introduction: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html
