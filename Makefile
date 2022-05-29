@@ -6,7 +6,7 @@
 #    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 14:38:18 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/29 14:41:14 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ CC = gcc
 
 UNAME_S := $(shell uname -s)
 
-LIBS =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+
+LIB_LINUX = -lreadline
 
 #CFLAGS = -Wall -Werror -Wextra -g
 
@@ -37,10 +39,10 @@ $(%.o): $(%.c)
 $(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
 #	$(MAKE) -C libft
-	$(CC)  $(LIBS) $(OBJ) -o $(NAME) 
+	$(CC)  $(LIBS_MAC) $(OBJ) -o $(NAME) 
 else
 #	$(MAKE) -C libft
-	$(CC)  $(OBJ) -lreadline -o $(NAME)
+	$(CC)  $(OBJ) $(LIBS_LINUX) -o $(NAME)
 endif
 
 clean:
