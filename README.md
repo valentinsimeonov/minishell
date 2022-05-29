@@ -8,7 +8,6 @@
 
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
 
-5. 
 
 3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
@@ -101,6 +100,14 @@
 **Architecture:**
 
 1. Module 1:
+	- Lexar
+		Tokens:
+			- ordinary token recognition
+			- processing of here-documents
+	- Parser
+	- Command Table List
+
+2. Module 2:
 	- Builtin Commands:
 		◦ echo with option -n
 		◦ cd with only a relative or absolute path
@@ -110,13 +117,6 @@
 		◦ env with no options or arguments
 		◦ exit with no options
 
-2. Module 2:
-	- Lexar
-		Tokens:
-			- ordinary token recognition
-			- processing of here-documents
-	- Parser
-	- Command Table List
 
 3. Module 3:
 	- Executor

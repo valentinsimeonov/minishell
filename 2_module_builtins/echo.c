@@ -1,25 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 10:52:28 by vsimeono         ###   ########.fr       */
+/*   Created: 2022/05/29 10:54:17 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/05/29 10:56:54 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-int	main(int argc, char **argv, char **envp)
-{
-	
-	char	*line;
-
-	while (7)
-	{
-		line = readline("minishell> ");
-	}
-	return (0);
-}

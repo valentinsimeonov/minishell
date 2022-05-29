@@ -1,25 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   lexar.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 10:52:28 by vsimeono         ###   ########.fr       */
+/*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/05/29 11:24:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexar.h"
 
-int	main(int argc, char **argv, char **envp)
-{
-	
-	char	*line;
-
-	while (7)
-	{
-		line = readline("minishell> ");
-	}
-	return (0);
-}
