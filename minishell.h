@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 15:48:31 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/29 16:27:49 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,15 @@ typedef struct s_variables
 	// int			j;
 	int			arguments;
 }			t_variables;
+
+
+
+
+/* Temporary Palce for Function Prototypes (Will sort out Later) */
+void	create_lexar(t_list *lexar_list, char **array);
+int		size_of_array(char **array);
+t_list	*create_stack_value(char **value);
+
+
 
 #endif
