@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 14:04:15 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:07:29 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
 /* 1 Module Lexar */
-# include "lexar/lexar.h"
+# include "1_module_lexar/lexar.h"
 /* 2 Module Builtins */
-# include "builtins/builtins.h"
+# include "2_module_builtins/builtins.h"
 /* Libft Library */
 # include "libft/libft.h"
 
@@ -43,11 +43,11 @@ typedef struct s_variables
 
 
 
-/* Temporary Palce for Function Prototypes (Will sort out Later) */
+/* Temporary Place for Function Prototypes (Will sort out Later) */
 void	create_lexar(t_list *lexar_list, char **array);
 int		size_of_array(char **array);
-t_list	*create_stack_value(char **value);
-
+t_list	*create_element(char **value);
+void	print_list(t_list **stack);
 
 
 #endif

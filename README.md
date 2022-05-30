@@ -19,9 +19,10 @@ And then
 
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
 
-5. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
-6. Search for the Functions Allowed to Use in this Project \n
+3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
+
+4. Search for the Functions Allowed to Use in this Project \n
 	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 
 				https://www.man7.org/linux/man-pages/man3/readline.3.html
 	- readline
@@ -42,28 +43,16 @@ And then
  	- malloc
  	- free
 
-	<fcntl.h>
- 	- open
 
-	<unistd.h>
+ 	- write
+ 	- access
+
+ 	- open
  	- read
  	- close
-	- write
- 	- access
-	- unlink
- 	- execve
- 	- dup
- 	- dup2
- 	- pipe
- 	- fork
-	- getcwd
-		-get the pathname of the current work directory
-		char *getcwd(char *buf, size_t size);
- 	- chdir
-		-The chdir() changes the cwd to path, which can be relative to the cwd or an absolute path name.
-		-Return Value: upon success: 0 -- else: -1
 
-	<sys/wait.h>
+
+ 	- fork
  	- wait
  	- waitpid
  	- wait3 -> not used
@@ -73,22 +62,30 @@ And then
 	<signal.h>:
  	- signal
  	- sigaction
- 	- kill
  	- sigemptyset -> not used
  	- sigaddset -> not used
+ 	- kill
 
 
  	- exit
+ 	- getcwd
+ 	- chdir
 
 	<sys/stat.h> : https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html
  	- stat
  	- lstat
  	- fstat
 
+
+ 	- unlink
  	- stat -> not used
  	- lstat -> not used
  	- fstat -> not used
  	- unlink -> not used
+ 	- execve
+ 	- dup
+ 	- dup2
+ 	- pipe
  	- opendir -> not used
  	- readdir -> not used
  	- closedir -> not used
