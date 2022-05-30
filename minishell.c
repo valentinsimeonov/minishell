@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 14:41:33 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:27:33 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	
+	char	cwd[256];
 	char	*line;
 	char	space;
 
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+      perror("getcwd() error");
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	space = ' ';
 	while (7)
 	{
-		line = readline("minishell> ");
+		line = readline(cwd);
 		ft_split(line, space);
 	}
 	return (0);
 }
 
-
-
-// char	**ft_split(char const *s, char c)
