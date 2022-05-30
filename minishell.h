@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 15:07:29 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:10:46 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ typedef struct s_variables
 
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
+
+/* 1 Module Lexar */
 void	create_lexar(t_list *lexar_list, char **array);
 int		size_of_array(char **array);
+
+	/* Linked Lists Utils */
 t_list	*create_element(char **value);
 void	print_list(t_list **stack);
+void	free_list(t_list **list);
+void	delete_list(t_list **list);
 
 
 #endif

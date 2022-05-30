@@ -7,7 +7,7 @@ Run
 And then
 
 	make
-	
+
 
 **Research:**
 
@@ -203,3 +203,5 @@ if (var == 23)
 return(something)
 
 
+Linked Lists Functions from GeektoGeek:
+https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/
