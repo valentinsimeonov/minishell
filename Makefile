@@ -3,18 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qduong <qduong@students.42wolfsburg.de>    +#+  +:+       +#+         #
+#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 21:38:09 by qduong           ###   ########.fr        #
+#    Updated: 2022/05/30 14:04:55 by danisanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c
-
-INCLUDE = minishell.h
+SRC = minishell.c builtins/cmds.c 
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 13:31:55 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:14:47 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,23 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	cwd[256];
 	char	*line;
-	char	space;
+	char	**args;
 	t_list	lexar_list;
 	
-
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
       perror("getcwd() error");
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	space = ' ';
 	while (7)
 	{
 		line = readline(cwd);
-		ft_split(line, space);
+		//typing enter without args should just prompt cwd
+		//needs to be fixed: input can also contain '  \n' etc
+		if (line == "\n")
+			continue ;
+		args = ft_split(line, ' ');
+		
 	}
 	return (0);
 }

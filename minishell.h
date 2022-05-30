@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/29 16:27:49 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:04:15 by danisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
 /* 1 Module Lexar */
-# include "1_module_lexar/lexar.h"
+# include "lexar/lexar.h"
 /* 2 Module Builtins */
-# include "2_module_builtins/builtins.h"
+# include "builtins/builtins.h"
 /* Libft Library */
 # include "libft/libft.h"
 
