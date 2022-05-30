@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 20:19:26 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:54:26 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	
 	char	*line;
-	t_list	lexar_list;
+	t_list	*lexar_list;
 
-
+	
+	lexar_list = NULL;
 	(void)argc;
 	(void)argv;
 	(void)envp;
@@ -33,17 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	while (i < 3)
 	{
 		line = readline("minishell> ");
-		// array = ft_split(line, ' ');
-		// size_of_array(array);
-		// printf("%s\n", array[0]);
-		// printf("%d", size_of_array(array));
-		// create_lexar(&lexar_list, array);
-		create_lexar(&lexar_list, ft_split(line, ' '));
-		// free_list(&lexar_list);
-		// ft_lstclear(&lexar_list, (void (*)(void *))free_list);
-		// free(line);
-		delete_list(lexar_list);  ///   Doesn't Work to Delete the List
-		// free(&line);
+		create_lexar(lexar_list, ft_split(line, ' '));
 		i++;
 	}
 	return (0);
@@ -68,20 +59,7 @@ void	delete_list(t_list **list)
    *list = NULL;
 }
 
-void	free_list(t_list **list)
-{
-    t_list    *tmp1;
-    t_list    *tmp2;
-    
-    tmp1 = *list;
-    while (tmp1 != NULL)
-    {
-        tmp2 = tmp1->next;
-        free(tmp1);
-        tmp1 = tmp2;
-    }
-}
-
+/* Creating the Lexar Linked List with the Arguments from the Prompt */
 void	create_lexar(t_list *lexar_list, char **array)
 {
 	int		i;
@@ -93,9 +71,9 @@ void	create_lexar(t_list *lexar_list, char **array)
 		i++;
 	}
 	print_list(&lexar_list);
-	// free(array);
 }
 
+/* Getting the Length of a 2D Array */
 int		size_of_array(char **array)
 {
 	int		i;
@@ -106,6 +84,7 @@ int		size_of_array(char **array)
 	return(i);
 }
 
+/* Creating One Element to Place in a Linked List */
 t_list	*create_element(char **value)
 {
 	t_list	*element;
@@ -118,6 +97,7 @@ t_list	*create_element(char **value)
 	return (element);
 }
 
+/* Printing the Elements from a Linked List */
 void	print_list(t_list **stack)
 {
 	t_list *temp_p;
@@ -138,10 +118,7 @@ void	print_list(t_list **stack)
 	}
 }
 
-
-
-
-
+/* Getting the Lenght of the Linked List */
 int	len_list(t_list **list)
 {
 	t_list	*temp;
