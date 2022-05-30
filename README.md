@@ -175,6 +175,24 @@ subject such as \ (backslash) or ; (semicolon).
 4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
 
 
+**Git Professional WorkFlow"**
+
+1. Create 3 Branches
+	- Main Branch
+	- Daniela's Branch
+	- Valentin's Branch
+
+	Commands to Create Branch:
+		- git branch "name" = to Create the Branch
+		- git checkout "name"  = To Switch to Branch
+		- git add .  = to Add All your Files
+		- git commit -m "message"  = to Commit Files
+		- git push --set-upstream origin name  = To Push, Just the First Time !!
+		- git push
+
+2. Work in Own Branch and Merge
+
+
 
 **Temporary WorkSpace:**
 Pseude Code:
