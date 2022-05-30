@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 20:54:26 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:58:01 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-/* Function to delete the entire linked list */
-void	delete_list(t_list **list)
-{
-   /* deref **list to get the real head */
-   t_list	*head;
-   t_list	*next;
-   
-   head = *list;
-   while (head != NULL) 
-   {
-       next = head->next;
-       free(head);
-       head = next;
-   }
-   /* deref **list to affect the real head back
-      in the caller. */
-   *list = NULL;
-}
+
 
 /* Creating the Lexar Linked List with the Arguments from the Prompt */
 void	create_lexar(t_list *lexar_list, char **array)
@@ -118,6 +101,13 @@ void	print_list(t_list **stack)
 	}
 }
 
+
+
+///////////  Linked Lists Functions   /////////////
+
+
+
+
 /* Getting the Lenght of the Linked List */
 int	len_list(t_list **list)
 {
@@ -136,4 +126,23 @@ int	len_list(t_list **list)
 		}
 	}
 	return (counter);
+}
+
+/* Function to delete the entire linked list */
+void	delete_list(t_list **list)
+{
+   /* deref **list to get the real head */
+   t_list	*head;
+   t_list	*next;
+   
+   head = *list;
+   while (head != NULL) 
+   {
+       next = head->next;
+       free(head);
+       head = next;
+   }
+   /* deref **list to affect the real head back
+      in the caller. */
+   *list = NULL;
 }
