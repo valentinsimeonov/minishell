@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/29 16:03:04 by danisanc         ###   ########.fr        #
+#    Updated: 2022/05/31 10:09:16 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -lreadline
 
 LIB_LINUX = -lreadline
 
-#CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -f
 
@@ -35,7 +35,6 @@ all: $(NAME)
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
-#add $(CFLAGS) later, they are just annoying now
 $(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
 	$(MAKE) -C libft

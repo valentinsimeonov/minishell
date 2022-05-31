@@ -111,11 +111,11 @@ And then
 **Architecture:**
 
 1. Module 1:
-	- Lexar
-		Tokens:
-			- ordinary token recognition
-			- processing of here-documents
+	- Lexar   **DONE**
+	- ENV List
 	- Parser
+		- ordinary token recognition
+		- processing of here-documents
 	- Command Table List
 
 2. Module 2:
@@ -205,3 +205,10 @@ return(something)
 
 Linked Lists Functions from GeektoGeek:
 https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/
+
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
