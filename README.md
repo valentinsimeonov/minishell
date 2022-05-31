@@ -207,7 +207,7 @@ Linked Lists Functions from GeektoGeek:
 https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/
 
 
-![alt text](https://github.com/garadraw/minishell/blob/Siramis/Minishell Edge Case 1 and 2.jpg?raw=true)
+![alt text](https://github.com/garadraw/minishell/blob/Siramis/Minishell_Edge_Case_1_and_2.jpg?raw=true)
 
 ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
 
