@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/31 11:11:24 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:57:46 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ typedef struct s_env
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
 /* 1 Module Lexar */
-void	create_lexar(t_list *lexar_list, char **array);   
+// void	create_lexar(t_list *lexar_list, char **array);   
+void	create_lexar(t_list *lexar_list, char *line);   
+
 int		size_of_array(char **array);
 
 	/* Linked Lists Utils */

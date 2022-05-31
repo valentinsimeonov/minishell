@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/31 19:53:47 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/05/31 22:13:55 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	
-	// char	*line;
+	char	*line;
 	t_list	*lexar_list;
 	t_env	*env_list;
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	env_list = NULL;
 	(void)argc;
 	(void)argv;
-	// (void)envp;
+	(void)envp;
  /// FOR ENVP /////
 	// int		i;
 	// int		j;
@@ -43,129 +43,32 @@ int	main(int argc, char **argv, char **envp)
 	while (i < 3)
 	{
 		line = readline("minishell> ");
-		create_lexar(lexar_list, ft_split(line, ' '));
+		create_lexar(lexar_list, line);
 		// create_env_list(envp);
 		i++;
 	}
 	return (0);
 }
 
-			/*				ENV List			*/
 
-// t_env		create_env_list(char	**envp)
-// {
-// 	t_env	*env;
-
-// 	env = NULL;
-// 	// char	*line; 
-// 	printf("%s", *envp);
-// 	return (*env);
-// }
-			/*				PARSER				*/
-Pseudo Code:
-if (ft_strchr(lexar_list[i], '|'))
-	array = ft_split(lexar_list[i], '|');
-	ft_lstadd_back(&command_list, create_element(&array[i]));
-
-void	create_command_list(t_list *lexar_list)
-{
-	int		i;
-	char	**array;
-	char	*char_location;
-
-	i = 0;
-	while (lexar_list->next != NULL)
-	{
-		if (ft_strchr(lexar_list->line, '|'))
-		{
-			char_location = ft_strchr(lexar_list->line, '|');
-			array = ft_split(lexar_list->line, '|');
-			while (i < size_of_array(array)
-			{
-				ft_lstadd_back(&command_list, create_element(&array[i]));
-				i++;
-			}
-			print_list(&lexar_list);
-		}
-	}
-}
-
- /////SEcond Try for PArser ///
- 
-
-Pseude code:
-
-while (lexar_list->next != NULL)
-	{
-		if (!ft_strchr(lexar_list->line, '|'))
-			
-			
-
- 
-void	create_command_list(t_list *lexar_list)
-{
-	int		i;
-	int		j;
-	char	**array;
-	char	*char_location;
-
-	i = 0;
-	while (lexar_list->next != NULL)
-	{
-		if (ft_strchr(lexar_list->line, '|'))
-		{
-			// char_location = ft_strchr(lexar_list->line, '|');
-			array = ft_split(lexar_list->line, '|');
-			while (array[i] != NULL )
-			{
-				if (!strchr(array[j], '|'))
-				{
-					while (!strchr(array[j], '|'))
-					{
-						ft_lstadd_back(&parser_list, create_element(&array[j]));
-						j++;
-					}
-				}
-				else if (strchr(array[k], '|'))
-				{
-					ft_lstadd_back(&parser_list, create_element(&array[k]));
-				}
-				i++;
-			}
-		}
-		next = lexar_list->next;
-	}
-
-}
-
-			
-			while (*arrayi < size_of_array(array))
-			{
-				ft_lstadd_back(&command_list, create_element(&array[i]));
-				i++;
-			}
-			print_list(&lexar_list);
-		}
-	}
-}
-
-
-
-
-
-
-
-
-
-	
 			/*             LEXAR				*/
 
 /* Creating the Lexar Linked List with the Arguments from the Prompt */
-void	create_lexar(t_list *lexar_list, char **array)
+void	create_lexar(t_list *lexar_list, char *line)
 {
 	int		i;
+	char	**array;
 
 	i = 0;
+	array = ft_split(line, ' ');
+	if (ft_strchr(line, '"'))
+	{
+		array = ft_split(line, '"');
+	}
+	else if (ft_strchr(line, '\''))
+	{
+		array = ft_split(line, '\'');
+	}
 	while (i < size_of_array(array))
 	{
 		ft_lstadd_back(&lexar_list, create_element(&array[i]));
@@ -218,6 +121,116 @@ void	print_list(t_list **stack)
 		printf("%s\n", temp_p->line);
 	}
 }
+
+
+			/*				ENV List			*/
+
+// t_env		create_env_list(char	**envp)
+// {
+// 	t_env	*env;
+
+// 	env = NULL;
+// 	// char	*line; 
+// 	printf("%s", *envp);
+// 	return (*env);
+// }
+			/*				PARSER				*/
+// Pseudo Code:
+// if (ft_strchr(lexar_list[i], '|'))
+// 	array = ft_split(lexar_list[i], '|');
+// 	ft_lstadd_back(&command_list, create_element(&array[i]));
+
+// void	create_command_list(t_list *lexar_list)
+// {
+// 	int		i;
+// 	char	**array;
+// 	char	*char_location;
+
+// 	i = 0;
+// 	while (lexar_list->next != NULL)
+// 	{
+// 		if (ft_strchr(lexar_list->line, '|'))
+// 		{
+// 			char_location = ft_strchr(lexar_list->line, '|');
+// 			array = ft_split(lexar_list->line, '|');
+// 			while (i < size_of_array(array)
+// 			{
+// 				ft_lstadd_back(&command_list, create_element(&array[i]));
+// 				i++;
+// 			}
+// 			print_list(&lexar_list);
+// 		}
+// 	}
+// }
+
+//  /////SEcond Try for PArser ///
+ 
+
+// Pseude code:
+
+// while (lexar_list->next != NULL)
+// 	{
+// 		if (!ft_strchr(lexar_list->line, '|'))
+			
+			
+
+ 
+// void	create_command_list(t_list *lexar_list)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**array;
+// 	char	*char_location;
+
+// 	i = 0;
+// 	while (lexar_list->next != NULL)
+// 	{
+// 		if (ft_strchr(lexar_list->line, '|'))
+// 		{
+// 			// char_location = ft_strchr(lexar_list->line, '|');
+// 			array = ft_split(lexar_list->line, '|');
+// 			while (array[i] != NULL )
+// 			{
+// 				if (!strchr(array[j], '|'))
+// 				{
+// 					while (!strchr(array[j], '|'))
+// 					{
+// 						ft_lstadd_back(&parser_list, create_element(&array[j]));
+// 						j++;
+// 					}
+// 				}
+// 				else if (strchr(array[k], '|'))
+// 				{
+// 					ft_lstadd_back(&parser_list, create_element(&array[k]));
+// 				}
+// 				i++;
+// 			}
+// 		}
+// 		next = lexar_list->next;
+// 	}
+
+// }
+
+			
+// 			while (*arrayi < size_of_array(array))
+// 			{
+// 				ft_lstadd_back(&command_list, create_element(&array[i]));
+// 				i++;
+// 			}
+// 			print_list(&lexar_list);
+// 		}
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+	
 
 
 
