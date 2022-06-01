@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/31 21:57:46 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:42:34 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,15 @@ typedef struct s_variables
 
 typedef struct s_env
 {
-	char	*pwd;
-	char	*old_pwd;
+	char			*bash_variable;
+	char			*bash_v_content;
+	struct s_env	*next;
 } t_env;
 
+typedef struct s_data 
+{
+	
+} t_data ;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
@@ -62,6 +67,11 @@ void	free_list(t_list **list);
 void	delete_list(t_list **list);
 
 /*				ENV List			*/
-t_env		create_env_list(char	**envp);
+// t_env		create_env_list(char	**envp);
+void		create_env_list(char	**envp);
+t_env	*create_env_element(char **value);
+void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
+void	print_env_list(t_env **stack);
+
 
 #endif
