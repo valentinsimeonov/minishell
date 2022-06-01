@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/01 18:33:36 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:08:31 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 int	main(int argc, char **argv, char **envp)
 {
 	
-	// char	*line;
+	char	*line;
 	t_list	*lexar_list;
-	// t_env	*env_list;
 
-	
 	lexar_list = NULL;
-	// env_list = NULL;
 	(void)argc;
 	(void)argv;
 	// (void)envp;
@@ -30,20 +27,20 @@ int	main(int argc, char **argv, char **envp)
 	create_env_list(envp);
 	
 	/* Creating the LEXAR */
-	// int		i;
-	// i = 0;
-	// while (i < 3)
-	// {
-	// 	line = readline("minishell> ");
-	// 	create_lexar(lexar_list, line);
-	// 	// create_env_list(envp);
-	// 	i++;
-	// }
+	int		i;
+	i = 0;
+	while (i < 3)
+	{
+		line = readline("minishell> ");
+		create_lexar(lexar_list, line);
+		i++;
+	}
 	
 	return (0);
 }
 
-			/*				ENV List			*/
+/*				ENV List			*/
+
 void		create_env_list(char	**envp)
 {
 	t_env	*env_list;
@@ -55,13 +52,14 @@ void		create_env_list(char	**envp)
 	j = 0;
 	env_list = NULL;
 	while (envp[i] != NULL)
-	// while (i < size_of_array(envp))
 	{
 		array = ft_split(envp[i], '=');
+		// printf("%s", *array);
 		j = 0;
 		while(array[j] != NULL && j < 2)
 		{
 			ft_lstadd_back_env_element(&env_list, create_env_element(array));
+			// printf("%s", env_list->bash_v_content);
 			j++;
 		}
 		i++;
@@ -84,19 +82,19 @@ t_env	*create_env_element(char **value)
 }
 
 /* Adding Elements to the back of the ENV List (Modified ft_lstadd_back) */
-void	ft_lstadd_back_env_element(t_env **lst, t_env *new)
+void	ft_lstadd_back_env_element(t_env **env_list, t_env *new)
 {
 	t_env	*temp;
 
-	temp = *lst;
-	if (*lst)
+	temp = *env_list;
+	if (*env_list)
 	{
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new;
 	}
 	else
-		*lst = new;
+		*env_list = new;
 }
 
 /* Printing the Elements from a Linked List */
@@ -111,6 +109,8 @@ void	print_env_list(t_env **env_list)
 	{	
 		while (temp->next != NULL)
 		{
+			printf("%s", "The Pointer of the Element: ");
+			printf("%p\n", temp->next);
 			printf("%s", "In List, bash_variable: ");
 			printf("%s\n", temp->bash_variable);
 			printf("%s", "In List, bash_v_content: ");
@@ -124,7 +124,7 @@ void	print_env_list(t_env **env_list)
 }
 
 
-// 			/*				PARSER				*/
+/*				PARSER				*/
 			
 // // Pseudo Code:
 // if (ft_strchr(lexar_list[i], '|'))
@@ -158,7 +158,7 @@ void	print_env_list(t_env **env_list)
 
 
 
-			/*             LEXAR				*/
+/*             LEXAR				*/
 
 /* Creating the Lexar Linked List with the Arguments from the Prompt */
 void	create_lexar(t_list *lexar_list, char *line)
@@ -227,17 +227,14 @@ void	print_list(t_list **stack)
 
 
 
-//  /////SEcond Try for PArser ///
+/*		Second Try for PArser		*/
  
-
 // Pseude code:
 
 // while (lexar_list->next != NULL)
 // 	{
 // 		if (!ft_strchr(lexar_list->line, '|'))
 			
-			
-
  
 // void	create_command_list(t_list *lexar_list)
 // {

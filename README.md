@@ -1,3 +1,41 @@
+**Architecture:**
+
+1. Module 1:
+	- Lexar   **DONE**
+	- ENV List **NEED to DEBUG** Adding Duplicate Elements
+	- Parser
+		- ordinary token recognition
+		- processing of here-documents
+	- Command Table List
+
+2. Module 2:
+	- Builtin Commands:
+		◦ echo with option -n
+		◦ cd with only a relative or absolute path
+		◦ pwd with no options
+		◦ export with no options
+		◦ unset with no options
+		◦ env with no options or arguments
+		◦ exit with no options
+
+3. Module 3:
+	- Executor
+
+4. Module 4:
+	- Signal Handling
+		◦ ctrl-C displays a new prompt on a new line.
+		◦ ctrl-D exits the shell.
+		◦ ctrl-\ does nothing.
+
+5. Module 5:
+	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
+
+
+
+
+
+
+
 **Compile in Linux**
 
 Run
@@ -106,40 +144,6 @@ And then
  	- tgetst -> not used
  	- tgoto -> not used
  	- tputs -> not used
-
-
-**Architecture:**
-
-1. Module 1:
-	- Lexar   **DONE**
-	- ENV List
-	- Parser
-		- ordinary token recognition
-		- processing of here-documents
-	- Command Table List
-
-2. Module 2:
-	- Builtin Commands:
-		◦ echo with option -n
-		◦ cd with only a relative or absolute path
-		◦ pwd with no options
-		◦ export with no options
-		◦ unset with no options
-		◦ env with no options or arguments
-		◦ exit with no options
-
-
-3. Module 3:
-	- Executor
-
-4. Module 4:
-	- Signal Handling
-		◦ ctrl-C displays a new prompt on a new line.
-		◦ ctrl-D exits the shell.
-		◦ ctrl-\ does nothing.
-
-5. Module 5:
-	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
 
 
 **Investigate:**
