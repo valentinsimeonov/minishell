@@ -6,6 +6,14 @@
 	- Parser
 		- ordinary token recognition
 		- processing of here-documents
+
+		Need to Build a Struct that has:
+		- Input File < In File
+		- Input File << Here Doc
+		- Outputs Truncate
+		- Outputs Append
+		- Error File (Second > )
+
 	- Command Table List
 
 2. Module 2:

@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/01 20:08:31 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:37:43 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	/* Creating the ENV List */
 	create_env_list(envp);
-	
+
 	/* Creating the LEXAR */
 	int		i;
 	i = 0;
@@ -54,14 +54,7 @@ void		create_env_list(char	**envp)
 	while (envp[i] != NULL)
 	{
 		array = ft_split(envp[i], '=');
-		// printf("%s", *array);
-		j = 0;
-		while(array[j] != NULL && j < 2)
-		{
-			ft_lstadd_back_env_element(&env_list, create_env_element(array));
-			// printf("%s", env_list->bash_v_content);
-			j++;
-		}
+		ft_lstadd_back_env_element(&env_list, create_env_element(array));
 		i++;
 	}
 	print_env_list(&env_list);
@@ -111,13 +104,13 @@ void	print_env_list(t_env **env_list)
 		{
 			printf("%s", "The Pointer of the Element: ");
 			printf("%p\n", temp->next);
-			printf("%s", "In List, bash_variable: ");
+			printf("%s", "In List1, bash_variable: ");
 			printf("%s\n", temp->bash_variable);
-			printf("%s", "In List, bash_v_content: ");
+			printf("%s", "In List1, bash_v_content: ");
 			printf("%s\n", temp->bash_v_content);
 			temp = temp->next;
 		}
-		printf("%s", "In List: ");
+		printf("%s", "In List2: ");
 		printf("%s\n", temp->bash_variable);
 		printf("%s\n", temp->bash_v_content);
 	}
