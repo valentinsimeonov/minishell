@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/01 20:05:21 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:39:37 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@
 
 
 
-typedef struct s_variables
+typedef struct s_parser
 {
-	// int			i;
-	// int			j;
-	int			arguments;
-}			t_variables;
+	char	*command;
+	char	*arg;
+	char	*input_file;	     //   - Input File < In File
+	char 	*input_heredoc;      //	  - Input File << Here Doc
+	char	*output_truncate;    //	  - Outputs Truncate
+	char	*output_append;	     //   - Outputs Append
+	char	*err_file;           //   - Error File (Second > )
+}			t_parser;
 
 typedef struct s_env
 {
@@ -47,19 +51,31 @@ typedef struct s_env
 	struct s_env	*next;
 } t_env;
 
-typedef struct s_data 
-{
-	
-	
-} t_data ;
+// typedef struct s_data 
+// {
+// 	struct t_parser *to_parser_list;
+// 	struct t_env	*to_env_list;
+// } t_data ;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
-/* 1 Module Lexar */
-// void	create_lexar(t_list *lexar_list, char **array);   
-void	create_lexar(t_list *lexar_list, char *line);   
-
+	/* 1 Module Lexar */
+int		lexar(t_list **lexar_list, char *line);
+static int	create_lexar_list(char *line, t_list **lexar_list, int *start, int *end);   
 int		size_of_array(char **array);
+static void	finding_last_quote(char *line, int *end);
+
+static int	remove_quotes(char **str);
+char	*remove_char(char *str, int index);
+
+
+
+	/*  Module Parser */
+void	is_d_quotes_closed(t_list *lexar_list);
+
+
+
+
 
 	/* Linked Lists Utils */
 t_list	*create_element(char **value);
@@ -67,9 +83,9 @@ void	print_list(t_list **stack);
 void	free_list(t_list **list);
 void	delete_list(t_list **list);
 
-/*				ENV List			*/
+	/*		ENV List	*/
 // t_env		create_env_list(char	**envp);
-void		create_env_list(char	**envp);
+void	create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
 void	print_env_list(t_env **stack);
