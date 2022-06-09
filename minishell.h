@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/06 17:39:37 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/07 19:07:48 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ typedef struct s_env
 	char			*bash_variable;
 	char			*bash_v_content;
 	struct s_env	*next;
-} t_env;
+}	t_env;
 
-// typedef struct s_data 
-// {
-// 	struct t_parser *to_parser_list;
-// 	struct t_env	*to_env_list;
-// } t_data ;
+typedef struct s_all 
+{
+	t_parser to_parser_list;
+	t_env	to_env_list;
+}	t_all;
+
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
@@ -67,14 +68,13 @@ static void	finding_last_quote(char *line, int *end);
 
 static int	remove_quotes(char **str);
 char	*remove_char(char *str, int index);
-
+int		is_invisible(int c);
+int		is_special_char(int c);
+static void	is_file_sign(char *line, int *end);
 
 
 	/*  Module Parser */
 void	is_d_quotes_closed(t_list *lexar_list);
-
-
-
 
 
 	/* Linked Lists Utils */

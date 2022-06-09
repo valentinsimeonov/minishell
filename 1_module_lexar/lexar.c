@@ -6,11 +6,17 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/31 10:21:52 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/07 19:08:11 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexar.h"
+
+
+
+
+
+
 
 // /* Creating the Lexar Linked List with the Arguments from the Prompt */
 // void	create_lexar(t_list *lexar_list, char **array)

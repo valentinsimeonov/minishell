@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/06 17:44:10 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:59:47 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,19 @@ int		lexar(t_list **lexar_list, char *line)
 	end = 0;
 	while (line[end])
 	{
+		if (line[end] == '#')
+			ft_bzero(&line[end], ft_strlen(&line[end]));
 		if (line[end] == '"' || line[end] == '\'')
 			finding_last_quote(line, &end);
-		end++;
+		else if (is_special_char(line[end]))
+			is_file_sign(line, &end);
+		else
+			end++;
+		if (line[start] && (is_invisible(line[end]) || is_special_char(line[end]) || is_special_char(line[end - 1])))
+		{
+			if (!create_lexar_list(line, lexar_list, &start, &end))
+				return (0);
+		}
 	}
 	if (line[start] && !create_lexar_list(line, lexar_list, &start, &end))
 		return (0);
@@ -75,8 +85,18 @@ static int	create_lexar_list(char *line, t_list **lexar_list, int *start, int *e
 	if (!content || !remove_quotes(&content))
 		return (0);
 	ft_lstadd_back(lexar_list, create_element(&content));
-	
+	while (line[*end] && is_invisible(line[*end]))
+		(*end)++;
+	*start = *end;
 	return (78);
+}
+
+/* Check if the char is a type of Invisible Char */
+int	is_invisible(int c)
+{
+	if (c == '\v' || c == '\f' || c == '\r' || c == '\t' || c == '\n' || c == ' ')
+		return (1);
+	return (0);
 }
 
 /*	Removing the Quotes */
@@ -165,6 +185,23 @@ static void	finding_last_quote(char *line, int *end)
 		(*end)++;
 }
 
+/*	Checking if in Line there is a In File Char or Here Doc Char	*/
+static void	is_file_sign(char *line, int *end)
+{
+	if ((line[*end] == '>' && line[*end + 1] == '>') || (line[*end] == '<' && line[*end +  1] == '<'))
+		*end += 2;
+	else
+		*end += 1;
+}
+
+/*	Checking if there is a $, |, In file or Outfile Character in the Line	*/
+int		is_special_char(int c)
+{
+	if (c == '<' || c == '>' || c == '$' || c == '|')
+		return (1);
+	return (0);
+}
+
 /* Printing the Elements from a Linked List */
 void	print_list(t_list **stack)
 {
@@ -185,18 +222,6 @@ void	print_list(t_list **stack)
 		printf("%s\n", temp_p->line);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -328,17 +353,6 @@ void	print_list(t_list **stack)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*				PARSER				*/
 			
 // // Pseudo Code:
@@ -430,17 +444,6 @@ void	print_list(t_list **stack)
 // }
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*				ENV List			*/
 
 /* Creating the ENV Linked List with the Arguments from the ENV */
@@ -472,7 +475,10 @@ t_env	*create_env_element(char **value)
 	if (!element)
 		return (NULL);
 	element->bash_variable = value[0];
-	element->bash_v_content = value[1];
+	if (value[1] == NULL)
+		element->bash_v_content = NULL;
+	else
+		element->bash_v_content = value[1];
 	element->next = NULL;
 	return (element);
 }
