@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 14:14:47 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/07/05 13:58:55 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,19 @@ int	main(int argc, char **argv, char **envp)
 	
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
       perror("getcwd() error");
-	(void)argc;
+	(void)argc; //Saskia: what's happening here?
 	(void)argv;
 	(void)envp;
-	while (7)
+	while (7) //Saskia: Why while(7)?
 	{
-		line = readline(cwd);
+		line = readline(cwd); //Saskia: shouldn't we display a prompt beforehand?
 		//typing enter without args should just prompt cwd
 		//needs to be fixed: input can also contain '  \n' etc
 		if (line == "\n")
 			continue ;
-		args = ft_split(line, ' ');
-		
+		//Saskia: line has to be saved for the history, incl. index --> array, maybe write it to a history file before terminating the shell
+		args = ft_split(line, ' '); //Saskia: First splitting by '' or by ""? Also, maybe out this in a separate parsing function?
+		//Saskia: here it should call a function to carry out the commands, so the executer, right?
 	}
 	return (0);
 }

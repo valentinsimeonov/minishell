@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 14:04:15 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:52:44 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,21 @@ typedef struct s_variables
 	int			arguments;
 }			t_variables;
 
+/* Saskia: Suggested structs */
+typedef struct s_shell //contains all variables necessary for our project, to be extended
+{
+	char	**env; // handover all env variables between functions
+	char	**path; // handover a char containing all possible paths, necessary for execution
+	int	nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
+	t_list	*sections; //list or array of section structs -> requires t_list to have a void pointer!!!
+}				t_shell;
 
+typedef struct s_section
+{
+	char	*raw;//containing the raw string of the section (optional)
+	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections)
+	int		fd[2];//fds for input and output; initialized to STDIN & STDOUT, only changed by me if there are redirections
+}				t_section;
 
 
 /* Temporary Palce for Function Prototypes (Will sort out Later) */
