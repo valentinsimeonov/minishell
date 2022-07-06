@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/05 15:52:44 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:16:01 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ typedef struct s_shell //contains all variables necessary for our project, to be
 typedef struct s_section
 {
 	char	*raw;//containing the raw string of the section (optional)
-	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections)
+	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections; keep outer quotes for now)
 	int		fd[2];//fds for input and output; initialized to STDIN & STDOUT, only changed by me if there are redirections
+	char	**cmd;//containig the command and all its arguments, initialized by me
 }				t_section;
 
 
