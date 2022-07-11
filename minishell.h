@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/06 12:16:01 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/11 15:24:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_shell //contains all variables necessary for our project, to be
 {
 	char	**env; // handover all env variables between functions
 	char	**path; // handover a char containing all possible paths, necessary for execution
-	int	nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
+	int		nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
 	t_list	*sections; //list or array of section structs -> requires t_list to have a void pointer!!!
 }				t_shell;
 
