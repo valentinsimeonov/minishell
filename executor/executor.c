@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/06 12:22:30 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:55:03 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,11 @@ int	open_infile(char *file, t_section *sec, t_shell *shell)
 	//if it is a here_doc, we make the rest of the string the delimiter and call here_doc with it
 	if (ft_strncmp(file, "<<", 2) == 0)
 	{	
-		filename = ft_strtrim(file, "< ");
-		if (ft_strncmp(filename, '"', 1) == 0 || ft_strncmp(filename, "'", 1) == 0)
-			trim_quotes(filename);//tbd
+		filename = trim_redirect(file, '<');//tbd
 		sec->fd[0] = here_doc(filename);
 	}
 	else
+		filename = trim_redirect(file, '<');//tbd
 		//open file
 }
 
