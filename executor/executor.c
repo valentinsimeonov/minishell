@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/13 21:19:34 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/13 21:21:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	infile(char *file, t_section *sec, t_shell *shell)
 		sec->fd[0] = open_infile(filename);
 	}
 	if (flag_prv_file == -1)
-		//close fd again, don't use it for input??
+		//close fd again, don't use it for input?? Set fd[0] back to STDIN?
 	return (0);
 }
 
