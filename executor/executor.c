@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/12 14:55:03 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/13 21:19:34 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	exec_prep(t_section *sec, t_shell *shell)
 	while (sec->split[i])
 	{
 		if (ft_strncmp(sec->split[i], "<", 1) == 0)
-			open_infile(sec->split[i], sec, shell);//tbd
+			infile(sec->split[i], sec, shell);//tbd
 		else if (ft_strncmp(sec->split[i], ">", 1) == 0)
-			open_outfile(sec->split[i], sec, shell);//tbd
+			outfile(sec->split[i], sec, shell);//tbd
 		else
 			count++;
 		i++;
@@ -71,13 +71,13 @@ int	exec_prep(t_section *sec, t_shell *shell)
 	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 }
 
-int	open_infile(char *file, t_section *sec, t_shell *shell)
+int	infile(char *file, t_section *sec, t_shell *shell)
 {
 	int		flag_prv_file;
 	char	*filename;
 	
 	flag_prv_file = 0;
-	//if previous file invalid, we open the new file but we don't carry use any for input
+	//if previous file invalid, we open the new file but we don't use it for input
 	if (sec->fd[0] < 0)
 		flag_prv_file = -1;
 	//if there is a previous infile, we close that one before we open a new one
@@ -90,11 +90,16 @@ int	open_infile(char *file, t_section *sec, t_shell *shell)
 		sec->fd[0] = here_doc(filename);
 	}
 	else
+	{
 		filename = trim_redirect(file, '<');//tbd
-		//open file
+		sec->fd[0] = open_infile(filename);
+	}
+	if (flag_prv_file == -1)
+		//close fd again, don't use it for input??
+	return (0);
 }
 
-int	here_doc(char *lim)//do I need shell variables??
+int	here_doc(char *lim)//do I need shell variables for error??
 {
 	char	*tmp;
 	int		fd[2];
@@ -117,4 +122,26 @@ int	here_doc(char *lim)//do I need shell variables??
 		free(tmp);
 	close(fd[1]);//TO-DO: tmp doc statt pipe
 	return (fd[0]);
+}
+
+int	open_infile(char *filename)//do I need shell variables for error?
+{
+	int	fd;
+
+	fd = -1;
+	if (filename || ft_memcmp(filename, "", 1) == 0)
+		//error handling - check if we parse empty arguments?
+	else
+	{
+		if (!access(filename, F_OK))
+		{
+			if (!access(filename, R_OK))
+				fd = open(filename, O_RDONLY);
+			else
+				//error handling: no read permission
+		}
+		else
+			//error handling: no such file or directory
+	}
+	return (fd);
 }
