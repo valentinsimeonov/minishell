@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/06/07 19:07:48 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/19 09:21:26 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,21 @@
 # include <sys/stat.h>  /// For lstats
 // # include <sys/types.h> /// TODO V - Can't remember what I did here
 
-/* 1 Module Lexar */
-# include "1_module_lexar/lexar.h"
-/* 2 Module Builtins */
-# include "2_module_builtins/builtins.h"
+
+/* 1 Module ENV Builder */
+# include "1_module_env_builder/env_builder.h"
+/* 2 Module Lexar */
+# include "2_module_parser/parser.h"
 /* Libft Library */
 # include "libft/libft.h"
 
 
-
 typedef struct s_parser
 {
-	char	*command;
-	char	*arg;
-	char	*input_file;	     //   - Input File < In File
-	char 	*input_heredoc;      //	  - Input File << Here Doc
-	char	*output_truncate;    //	  - Outputs Truncate
-	char	*output_append;	     //   - Outputs Append
-	char	*err_file;           //   - Error File (Second > )
+	t_list	**commands;
+	int		input_fd;
+	int		output_fd;
+	char	**paths;
 }			t_parser;
 
 typedef struct s_env
@@ -49,41 +46,73 @@ typedef struct s_env
 	char			*bash_variable;
 	char			*bash_v_content;
 	struct s_env	*next;
-}	t_env;
+}					t_env;
 
-typedef struct s_all 
+
+/* Environment data */
+typedef struct s_envp_data
 {
-	t_parser to_parser_list;
-	t_env	to_env_list;
-}	t_all;
+	t_list	**envp_cp;
+	t_list	**envp_empty;
+	t_list	*pwd_list;
+	t_list	*old_pwd_list;
+	char	*pwd;
+	char	*old_pwd;
+	int		exit_status;
+}				t_envp_data;
+
+typedef struct s_data
+{
+	t_parser	to_parser_list;
+	t_env		to_env_list;
+	t_envp_data	to_envp_data;
+}				t_data;
+
+// /* Saskia: Suggested structs */
+// typedef struct s_shell //contains all variables necessary for our project, to be extended
+// {
+// 	char	**env; // handover all env variables between functions
+// 	char	**path; // handover a char containing all possible paths, necessary for execution
+// 	int		nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
+// 	t_list	*sections; //list or array of section structs -> requires t_list to have a void pointer!!!
+// }				t_shell;
+
+// typedef struct s_section
+// {
+// 	char	*raw;//containing the raw string of the section (optional) 
+// 	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections)
+// 	int		fd[2];//fds for input and output; initialized to STDIN & STDOUT, only changed by me if there are redirections
+// 	char	**cmd;//containig the command and all its arguments, initialized by me
+// }				t_section;
+
+
+
+/* Example:
+< colors.txt sort | uniq -c | sort -r | head -3 > favcolors.txt
+section[0]:
+split = {"< colors.txt", "sort"}
+section[1]:
+split = {"uniq", "-c"}
+section[2]:
+split = {"sort", "-r"}
+section[3]:
+split = {"head", "-3", "> favcolors.txt"} */
+
+
 
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
-	/* 1 Module Lexar */
-int		lexar(t_list **lexar_list, char *line);
-static int	create_lexar_list(char *line, t_list **lexar_list, int *start, int *end);   
-int		size_of_array(char **array);
-static void	finding_last_quote(char *line, int *end);
-
-static int	remove_quotes(char **str);
-char	*remove_char(char *str, int index);
-int		is_invisible(int c);
-int		is_special_char(int c);
-static void	is_file_sign(char *line, int *end);
-
-
-	/*  Module Parser */
+/*  Module Parser */
 void	is_d_quotes_closed(t_list *lexar_list);
 
-
-	/* Linked Lists Utils */
+/* Linked Lists Utils */
 t_list	*create_element(char **value);
 void	print_list(t_list **stack);
 void	free_list(t_list **list);
 void	delete_list(t_list **list);
 
-	/*		ENV List	*/
+/*		ENV List	*/
 // t_env		create_env_list(char	**envp);
 void	create_env_list(char	**envp);
 t_env	*create_env_element(char **value);

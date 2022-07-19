@@ -13,6 +13,17 @@
 		- Outputs Truncate
 		- Outputs Append
 		- Error File (Second > )
+		typedef struct      s_list
+{
+    struct s_list   *next;
+  	char          *infile;
+	char          *outfile;
+	char		**command;
+
+}                   t_list;
+$>
+
+
 
 	- Command Table List
 

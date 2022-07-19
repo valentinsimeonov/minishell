@@ -6,13 +6,13 @@
 #    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/31 10:09:16 by vsimeono         ###   ########.fr        #
+#    Updated: 2022/07/19 16:03:52 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c
+SRC = minishell.c 1_module_env_builder/env_builder.c 2_module_parser/parser.c 2_module_parser/constructor.c 2_module_parser/env_handler.c 2_module_parser/command_splitter.c 
 
 INCLUDE = minishell.h
 
@@ -47,10 +47,14 @@ endif
 clean:
 	$(RM) *.o
 	$(RM) libft/*.o
+	$(RM) 1_module_env_builder/*.o
+	$(RM) 2_module_parser/*.o
 
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) libft/libft.a
+	$(RM) 1_module_env_builder/*.o
+	$(RM) 2_module_parser/*.o
 
 re: fclean all
 
