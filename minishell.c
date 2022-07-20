@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/19 15:31:13 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:08:41 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	
 	char	*line;
 	t_list	*lexar_list;
 	t_data	*data;
-	// t_parser *parser;
 
 	lexar_list = NULL;
+	/* Creating the ENV List */
 	data = env_builder(envp);
+	create_env_list(envp);
 	(void)argc;
 	(void)argv;
-	// (void)envp;
+
+	//* Checking for Signals **/
+	signal_check(data);
 	
 	// /* Creating the ENV List */
 	// create_env_list(envp);
 
-	/* Creating the LEXAR */
 	int		i;
 	i = 0;
 	while (i < 3)
@@ -39,13 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		constructor(data, &line);
-		printf("First Line\n");
-		print_list(&lexar_list);
-		// printf("%s", parser.commands);
-		// printf("%p", data->to_parser_list.commands.line);
 		i++;
 	}
-	// printf("%s", data->to_parser_list.commands[1]->line);
-	// print_list(&lexar_list); 
 	return (0);
 }

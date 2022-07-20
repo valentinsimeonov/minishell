@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/19 09:21:26 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:19:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,19 @@
 # include <readline/readline.h>  /// For Readline
 # include <readline/history.h>  /// For History
 # include <sys/stat.h>  /// For lstats
-// # include <sys/types.h> /// TODO V - Can't remember what I did here
-
-
+/* Libft Library */
+# include "libft/libft.h"
 /* 1 Module ENV Builder */
 # include "1_module_env_builder/env_builder.h"
 /* 2 Module Lexar */
 # include "2_module_parser/parser.h"
-/* Libft Library */
-# include "libft/libft.h"
+/* 5 Module Signals */
+#include "5_module_signals/signals.h"
 
 
-typedef struct s_parser
-{
-	t_list	**commands;
-	int		input_fd;
-	int		output_fd;
-	char	**paths;
-}			t_parser;
 
+
+/*      ENV Builder Standalone   */
 typedef struct s_env
 {
 	char			*bash_variable;
@@ -48,8 +42,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-
-/* Environment data */
+/*      ENV Builder For Parser   */
 typedef struct s_envp_data
 {
 	t_list	**envp_cp;
@@ -61,6 +54,16 @@ typedef struct s_envp_data
 	int		exit_status;
 }				t_envp_data;
 
+/*     Parsed Command List      */
+typedef struct s_parser
+{
+	t_list	**commands;
+	int		input_fd;
+	int		output_fd;
+	char	**paths;
+}			t_parser;
+
+/* Main Struct Containing all other Structs */
 typedef struct s_data
 {
 	t_parser	to_parser_list;
@@ -99,7 +102,8 @@ section[3]:
 split = {"head", "-3", "> favcolors.txt"} */
 
 
-
+// /* Global Variable */
+// extern int	g_pid;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 
@@ -118,6 +122,9 @@ void	create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
 void	print_env_list(t_env **stack);
+
+/* Module Signals */
+void	signal_check(t_data *data);
 
 
 #endif
