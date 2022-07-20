@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/12 14:52:04 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:13:41 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,14 @@ typedef struct s_variables
 	int			arguments;
 }			t_variables;
 
-/* Saskia: Suggested structs */
-typedef struct s_shell //contains all variables necessary for our project, to be extended
+typedef struct s_parser
 {
-	char	**env; // handover all env variables between functions
-	char	**path; // handover a char containing all possible paths, necessary for execution
-	int		nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
-	t_list	*sections; //list or array of section structs -> requires t_list to have a void pointer!!!
-}				t_shell;
-
-typedef struct s_section
-{
-	char	*raw;//containing the raw string of the section (optional)
-	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections)
-	int		fd[2];//fds for input and output; initialized to STDIN & STDOUT, only changed by me if there are redirections
-	char	**cmd;//containig the command and all its arguments, initialized by me
-}				t_section;
-/* Example:
-< colors.txt sort | uniq -c | sort -r | head -3 > favcolors.txt
-section[0]:
-split = {"< colors.txt", "sort"}
-section[1]:
-split = {"uniq", "-c"}
-section[2]:
-split = {"sort", "-r"}
-section[3]:
-split = {"head", "-3", "> favcolors.txt"} */
+	t_list	**sections;//array of lists for each section, each list element is one part of the section
+	int		input_fd;
+	int		output_fd;
+	char	**paths;
+	char	**command;//string array to be handed over to execve. to be filled by Saskia
+}				t_parser;
 
 /* Temporary Palce for Function Prototypes (Will sort out Later) */
 void	create_lexar(t_list *lexar_list, char **array);
