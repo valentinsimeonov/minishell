@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:52:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/19 16:57:48 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:04:51 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	outfile(char *file, t_section *sec, t_shell *shell)
 		close(sec->fd[1]);
 	sec->fd[1] = -1;
 	//remove > and space in front of the file name
-	filename = trim_redirect(file, '>');//TBD
+	filename = trim_redirect(file, '>');
 	//check if file exists, but isn't writeable
 	if (!access(filename, F_OK) && access(filename, W_OK) < 0)
 		//error Permission denied

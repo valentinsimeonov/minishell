@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/19 16:55:36 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:04:53 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,14 @@ int	infile(char *file, t_section *sec, t_shell *shell)
 	//if there is a previous infile, we close that one before we open a new one
 	else if (sec->fd[0] > 2)
 		close(sec->fd[0]);
+	//remove < and space in front of the file name
+	filename = trim_redirect(file, '<');
 	//if it is a heredoc, we make the rest of the string the delimiter and call here_doc with it
 	if (ft_strncmp(file, "<<", 2) == 0)
-	{	
-		filename = trim_redirect(file, '<');//tbd
 		sec->fd[0] = here_doc(filename);
-	}
 	//else, we try to open the respective file
 	else
-	{
-		filename = trim_redirect(file, '<');//tbd
 		sec->fd[0] = open_infile(filename);
-	}
 	//if the previous file was invilid but this one wasn't, we close this file again and set the fd back to -1 to signal the same to following files
 	if (flag_prv_file == -1 && sec->fd[0] != -1)
 	{

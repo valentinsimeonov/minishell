@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/19 14:23:06 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:57:33 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ int	executor(t_shell *shell)
 		shell->sections = shell->sections->next;
 	}
 	return (0);
+}
+
+int	exec_section(t_section *sec, t_shell *shell)
+{
+	if (exec_prep(sec, shell) != 0)
+		//return (1); / error handling
+	if (dup2(sec->fd[0], 0) < 0)
+		//return (1); / error handling
+	if (dup2(sec->fd[1], 1))
+		//return (1); / error handling
+	//Thoughts: Pipen nicht notwendig wenn keine weitere Section; was ist wenn outfile innerhalb der Section, wie umgehen mit der letzten Section??
+	//forks
+	//checks the command -> check for built-ins, else search in PATH for binary
+	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 }
 
 int	exec_prep(t_section *sec, t_shell *shell)
@@ -45,7 +59,7 @@ int	exec_prep(t_section *sec, t_shell *shell)
 		if (ft_strncmp(sec->split[i], "<", 1) == 0)
 			infile(sec->split[i], sec, shell);
 		else if (ft_strncmp(sec->split[i], ">", 1) == 0)
-			outfile(sec->split[i], sec, shell);//tbd
+			outfile(sec->split[i], sec, shell);
 		else
 			count++;
 		i++;
@@ -66,7 +80,5 @@ int	exec_prep(t_section *sec, t_shell *shell)
 		}
 		i++;
 	}
-	//forks
-	//checks the command -> check for built-ins, else search in PATH for binary
-	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
+	return (0);
 }
