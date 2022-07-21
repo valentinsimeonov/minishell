@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/20 18:08:33 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:28:23 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,64 @@ int	executor(t_parser *parser)
 	int		i;
 
 	i = 0;
-	while (parser->sections[i])
+	while (parser->sections[i] && parser->sections[i + 1])
 	{
-		cur_sec = parser->sections[i++]; //requires libft to have a void pointer!!!
-		//WIP
+		cur_sec = parser->sections[i++];
+		if (exec_section(cur_sec, parser) != 0)
+			return (0);//error handling tbd
 	}
+	exec_last_section();//TBD
+	//free whole list / all variables in parser??
 	return (0);
 }
 
 int	exec_section(t_list *sec, t_parser *parser)
 {
+	pid_t	pid;
+	int		pipe_fd[2];
+
 	//initializing fds to STDIN & STDOUT in case there is no infile / outfile
 	parser->input_fd = STDIN_FILENO;
-	parser->output_fd = STDOUT_FILENO;
+	parser->output_fd = STDIN_FILENO;
 	//prepare the command string array and open in-/outfiles
 	if (exec_prep(sec, parser) != 0)
 		return (0);// error handling TBD
-	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
-		return (0);// error handling TBD
-	if (dup2(parser->output_fd, STDOUT_FILENO))
-		return (0);// error handling TBD
-	//Thoughts: Pipen nicht notwendig wenn keine weitere Section; was ist wenn outfile innerhalb der Section, wie umgehen mit der letzten Section??
-	//forks
-	//checks the command -> check for built-ins, else search in PATH for binary
+	//if there is an infile, duplicate that one into STDIN
+	if (parser->input_fd > 2)
+	{
+		if (dup2(parser->input_fd, STDIN_FILENO) < 0)
+			return (0);// error handling TBD
+		close(parser->input_fd);
+	}
+	//Create a pipe
+	if (pipe(pipe_fd) < 0)
+		return (0);//error handling TBD
+	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//fork to create a child process for executing a binary
+	pid = fork();
+	if (pid < 0)
+		return (0);//error handling TBD
+	//condition only executed by child process, executes the binary and then dies
+	if (pid == 0)
+	{
+		if(dup2(pipe_fd[1], STDOUT_FILENO) < 0)
+			return (0);//error handling TBD
+		close(pipe_fd[1]);
+		if (execve(parser->command[0], parser->command, parser->envp))//NEED ENVP!!!!
+			return (0);//error handling TBD
+	}
+	waitpid(pid, NULL, 0);
+	if (parser->output_fd > 2)
+	{
+		if (dup2(pipe_fd[0], parser->output_fd) < 0)
+			return (0);//error handling TBD
+	}
+	else
+	{
+		if (dup2(pipe_fd[0], STDIN_FILENO) < 0)
+			return (0);//error handling TBD	
+	}
+	return (1);
 	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 }
 
@@ -75,24 +110,5 @@ int	exec_prep(t_list *sec, t_parser *parser)
 	if (parser->input_fd < 0 || parser->output_fd < 0)
 		return (0);//error handling TBD; only display message of the first invalid infile and outfile
 	create_command_array(count, parser, sec); //error handling??
-	return (1);
-}
-
-int	create_command_array(int count, t_parser *parser, t_list *sec)
-{
-	int	i;
-	
-	i = 0;
-	parser->command = ft_calloc(count + 1, sizeof(char *));//remember to free after execution
-	if (!parser->command)
-		return(0);//error handling TBD
-	while (sec)
-	{
-		if (is_infile(sec->line) == 1 || is_outfile(sec->line) == 1)
-			sec = sec->next;
-		else
-			parser->command[i] = sec->line;
-		sec = sec->next;
-	}
 	return (1);
 }
