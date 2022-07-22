@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 19:47:23 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/19 13:50:12 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/23 00:53:00 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct s_list
 {
-	char			*line;
+	void			*line;
 	struct s_list	*next;
 }				t_list;
 

@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_builder_for_parser.c                           :+:      :+:    :+:   */
+/*   env_builder_for_parser1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 10:54:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 13:06:13 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/23 01:04:02 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_builder.h"
 
-/* Creates the ENV List */
-t_list	**enviroment_list_con(char **envp)
+/* Initialises All Data */
+t_data	*env_builder(char **envp)
 {
-	t_list	**envp_cp;
-	char	*env_vars_tmp;
-	int		i;
+	t_data	*data;
 
-	envp_cp = ft_calloc(1, sizeof(t_list *));
-	*envp_cp = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		env_vars_tmp = ft_strdup(envp[i]);
-		ft_lstadd_back(envp_cp, ft_lstnew(env_vars_tmp));
-		i++;
-	}
-	return (envp_cp);
+	data = ft_calloc(1, sizeof(t_data));
+	data->to_envp_data = initialise_envp(envp);
+	data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));
+	return (data);
 }
 
 /* Initialises ENV Data */
@@ -56,19 +48,26 @@ t_envp_data	initialise_envp(char **envp)
 	return (envp_data);
 }
 
-/* Initialises All Data */
-t_data	*env_builder(char **envp)
+/* Creates the ENV List */
+t_list	**enviroment_list_con(char **envp)
 {
-	t_data	*data;
+	t_list	**envp_cp;
+	char	*env_vars_tmp;
+	int		i;
 
-	data = ft_calloc(1, sizeof(t_data));
-	data->to_envp_data = initialise_envp(envp);
-	data->to_parser_list.commands = ft_calloc(1, sizeof(t_list *));
-	return (data);
+	envp_cp = ft_calloc(1, sizeof(t_list *));
+	*envp_cp = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		env_vars_tmp = ft_strdup(envp[i]);
+		ft_lstadd_back(envp_cp, ft_lstnew(env_vars_tmp));
+		i++;
+	}
+	return (envp_cp);
 }
 
-// Return the list that has content matches to_find string
-// Return NULL if couldn't find
+/* Return the List that has Content Matches to_find string */
 t_list	*find_list(t_list *list, char *to_find, int exact_str)
 {
 	while (list)
@@ -81,7 +80,7 @@ t_list	*find_list(t_list *list, char *to_find, int exact_str)
 	return (list);
 }
 
-/* Returns pointer to malloced string - system current working dirrectory */
+/* Returns pointer to Mallocked String - System Current Working Directory */
 char	*get_cwd(void)
 {
 	char	*cwd;
@@ -100,34 +99,3 @@ char	*get_cwd(void)
 	}
 	return (cwd);
 }
-
-// Return new allocated environment variable value string from name
-// Return new allocated empty string if couldn't find
-// Return NULL if error
-char	*get_env_value(t_list *envp, char *env)
-{
-	char	*tmp;
-	t_list	*list;
-	int		value_start;
-	int		to_free;
-
-	to_free = 0;
-	if (env[ft_strlen(env)] != '=')
-	{
-		tmp = ft_strjoin(env, "=");
-		if (!tmp)
-			return (NULL);
-		env = tmp;
-		to_free = 1;
-	}
-	value_start = ft_strlen(env);
-	list = find_list(envp, env, 0);
-	if (to_free)
-		free(env);
-	if (!list)
-		return (ft_strdup(""));
-	return (ft_substr(list->line,
-			value_start, ft_strlen(list->line)));
-}
-
-

@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 13:19:32 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/23 00:54:21 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
 
-
+void	print_list_test(t_data *stack);
 
 
 /*      ENV Builder Standalone   */
@@ -57,10 +57,11 @@ typedef struct s_envp_data
 /*     Parsed Command List      */
 typedef struct s_parser
 {
-	t_list	**commands;
+	t_list	**sections;   ///section
 	int		input_fd;
 	int		output_fd;
 	char	**paths;
+	// char	**command;
 }			t_parser;
 
 /* Main Struct Containing all other Structs */
@@ -70,6 +71,13 @@ typedef struct s_data
 	t_env		to_env_list;
 	t_envp_data	to_envp_data;
 }				t_data;
+
+// typedef struct s_list
+// {
+// 	char			*line;
+// 	struct s_list	*next;
+// }				t_list;
+
 
 // /* Saskia: Suggested structs */
 // typedef struct s_shell //contains all variables necessary for our project, to be extended
@@ -111,7 +119,7 @@ split = {"head", "-3", "> favcolors.txt"} */
 void	is_d_quotes_closed(t_list *lexar_list);
 
 /* Linked Lists Utils */
-t_list	*create_element(char **value);
+t_list	*create_element(char *value);
 void	print_list(t_list **stack);
 void	free_list(t_list **list);
 void	delete_list(t_list **list);

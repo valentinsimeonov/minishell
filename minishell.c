@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 13:08:41 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/23 00:59:26 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
-	t_list	*lexar_list;
-	t_data	*data;
-
-	lexar_list = NULL;
+	char		*line;
+	// t_list	*lexar_list;
+	t_data		*data;
+	// t_parser	*test;
+	// lexar_list = NULL;
 	/* Creating the ENV List */
 	data = env_builder(envp);
 	create_env_list(envp);
@@ -27,9 +27,6 @@ int	main(int argc, char **argv, char **envp)
 
 	//* Checking for Signals **/
 	signal_check(data);
-	
-	// /* Creating the ENV List */
-	// create_env_list(envp);
 
 	int		i;
 	i = 0;
@@ -39,7 +36,13 @@ int	main(int argc, char **argv, char **envp)
 		if (line == NULL)
 			break ;
 		add_history(line);
-		constructor(data, &line);
+		parser(data, &line);
+		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[0]->line)));
+		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[1]->line)));
+
+		// printf("%s\n", data->to_parser_list);
+		// printf("%p\n", data->to_parser_list);
+		// print_list_test(data);
 		i++;
 	}
 	return (0);

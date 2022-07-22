@@ -6,16 +6,14 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:06:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 13:09:23 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/20 14:05:45 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_builder.h"
 
-/*				ENV List			*/
-
 /* Creating the ENV Linked List with the Arguments from the ENV */
-void		create_env_list(char	**envp)
+void	create_env_list(char **envp)
 {
 	t_env	*env_list;
 	char	**array;
@@ -31,7 +29,6 @@ void		create_env_list(char	**envp)
 		ft_lstadd_back_env_element(&env_list, create_env_element(array));
 		i++;
 	}
-	// print_env_list(&env_list);
 }
 
 /* Creating One Element with Two Variables to Place in a Linked List */
@@ -70,8 +67,8 @@ void	ft_lstadd_back_env_element(t_env **env_list, t_env *new)
 /* Printing the Elements from a Linked List */
 void	print_env_list(t_env **env_list)
 {
-	t_env *temp;
-	
+	t_env	*temp;
+
 	temp = *env_list;
 	if (*env_list == NULL)
 		printf("List is Empty\n");
