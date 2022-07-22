@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 11:55:47 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:44:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	executor(t_parser *parser) //+env list
 			parser->output_fd = STDIN_FILENO;
 		else
 			parser->output_fd = STDOUT_FILENO;
-		if (exec_prep(sec, parser) != 0)
+		if (exec_prep(cur_sec, parser) != 0)
 			return (0);// error handling TBD
 		exec_section(cur_sec, parser);
 	}
@@ -60,7 +60,7 @@ int	executor(t_parser *parser) //+env list
  * @param flag_last [int] 1 if sec is the last section of the input. Else 0.
  * @return [int] 1 at success, 0 at failure.
 */
-int	exec_section(t_list *sec, t_parser *parser, int flag_last) //+env list
+int	exec_section(t_list *sec, t_parser *parser) //+env list
 {
 	pid_t	pid;
 	int		pipe_fd[2];

@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 11:46:52 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:35:23 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	is_outfile(char *line);
 int	outfile(char *file, t_list *sec, t_parser *parser, char *filemode);
 
 int	create_command_array(int count, t_parser *parser, t_list *sec);
+int	add_path(t_parser *parser);
 
 int	free_str_array(char **str);
 int	free_lst_array(t_list **lists);
