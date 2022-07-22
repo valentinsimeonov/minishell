@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 16:13:41 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:48:52 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct s_variables
 	// int			j;
 	int			arguments;
 }			t_variables;
+
+typedef struct s_env
+{
+	char			*bash_variable;
+	char			*bash_v_content;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_parser
 {

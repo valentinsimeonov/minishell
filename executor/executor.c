@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 14:44:31 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:44:46 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
  * Then calls the preparation function exec_prep() and the execution function
  * exec_section() for every section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
+ * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	executor(t_parser *parser) //+env list
+int	executor(t_parser *parser, t_env *env)
 {
 	t_list	**sections;
 	t_list	*cur_sec;
@@ -40,16 +41,13 @@ int	executor(t_parser *parser) //+env list
 			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) != 0)
 			return (0);// error handling TBD
-		exec_section(cur_sec, parser);
+		exec_section(cur_sec, parser, env);
 	}
 	free_lst_array(parser->sections);
 	return (1);
 }
 
 /**
- * Initializes file descriptors: input to STDIN, output to either STDOUT (for the
- * last command section) or STDIN (for all command sections in front of pipes).
- * Creates the command char** and opens potential in-/outfile with exec_prep().
  * Duplicates the input fd into STDIN to read the command input from there.
  * Creates a pipe and forks. TBD: checks for built-ins
  * In the child, duplicates the pipe's write-end into STDOUT, so the output is
@@ -57,13 +55,14 @@ int	executor(t_parser *parser) //+env list
  * Duplicates the pipe's read end into the output fd.
  * @param sec [t_list *] List containing each word of the current input section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
- * @param flag_last [int] 1 if sec is the last section of the input. Else 0.
+ * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	exec_section(t_list *sec, t_parser *parser) //+env list
+int	exec_section(t_list *sec, t_parser *parser, t_env *env)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
+	char	**env;
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
@@ -78,8 +77,9 @@ int	exec_section(t_list *sec, t_parser *parser) //+env list
 		if (dup2(pipe_fd[1], STDOUT_FILENO) < 0)
 			return (0);//error handling TBD
 		close(pipe_fd[1]);
-		if (execve(parser->command[0], parser->command, parser->envp) < 0) //NEED ENVP!!!!
-			return (0);//error handling TBD
+		execve(parser->command[0], parser->command, reassemble_env(env));
+		//error handling: command not found
+		return (0);//error handling TBD
 	}
 	waitpid(pid, NULL, 0);
 	if (dup2(pipe_fd[0], parser->output_fd) < 0)
@@ -95,7 +95,7 @@ int	exec_section(t_list *sec, t_parser *parser) //+env list
 /**
  * Checks all list elements of the current section. When it identifies in- or 
  * outfiles (signalized by <, <<, >> or >), it opens the respective file.
- * Counts the number non-file elements (ergo commands & commands) and calls a 
+ * Counts the number non-file elements (ergo commands & options) and calls a 
  * function to create a string array containing those.
  * @param sec [t_list *] List containing each word of the current input section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.

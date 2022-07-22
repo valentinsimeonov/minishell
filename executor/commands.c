@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 15:14:53 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:31:59 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
  * Takes all list elements that are not in- or outfiles and copies them in a
  * string array to be handed over to execve().
  * Finally, looks if an executable for the command exists and adds its path
- * to the first string of the command array. If there is no executable, it check
+ * to the first string of the command array. If there is no executable, it
+ * leaves the first string as is, in case it is a binary outside of PATH.
+ * @param count [int] Number of strings to be allocated.
+ * @param parser [t_parser *] Struct containing parsed input & relevant values.
+ * @param sec [t_list *] List containing each word of the current input section.
+ * @return [int] 1 at success, 0 at failure.
 */
 int	create_command_array(int count, t_parser *parser, t_list *sec)
 {
@@ -45,6 +50,13 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 	return (1);
 }
 
+/**
+ * Checks if there is an executable for the command (first string in the command
+ * array) in PATH. If not, it leaves the string as is, in case it is a binary with
+ * a specified path.
+ * @param parser [t_parser *] Struct containing parsed input & relevant values.
+ * @return [int] 1 at success, 0 at failure.
+*/
 int	add_path(t_parser *parser)//OPEN: PATH HAS TO BE ADJUSTED AFTER EVERY COMMAND INPUT -> VALENTIN
 {
 	int		i;
@@ -62,6 +74,5 @@ int	add_path(t_parser *parser)//OPEN: PATH HAS TO BE ADJUSTED AFTER EVERY COMMAN
 		}
 		free(ex_path);
 	}
-	//error handling TBD: command not found
-	return (0);
+	return (1);
 }
