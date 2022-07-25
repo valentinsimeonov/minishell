@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 14:56:25 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:14:58 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	executor(t_parser *parser, t_env *env)
 			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) != 0)
 			return (0);// error handling TBD
-		exec_section(cur_sec, parser, env);
+		exec_section(parser, env);
 	}
 	free_lst_array(parser->sections);
 	return (1);
@@ -91,12 +91,11 @@ int	exec_prep(t_list *sec, t_parser *parser)
  * In the child, duplicates the pipe's write-end into STDOUT, so the output is
  * written to pipe.
  * Duplicates the pipe's read end into the output fd.
- * @param sec [t_list *] List containing each word of the current input section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
  * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	exec_section(t_list *sec, t_parser *parser, t_env *env)
+int	exec_section(t_parser *parser, t_env *env)
 {
 	pid_t	pid;
 	int		pipe_fd[2];

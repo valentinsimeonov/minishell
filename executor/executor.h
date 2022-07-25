@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 14:57:14 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:15:14 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int		executor(t_parser *parser, t_env *env);
 int		exec_prep(t_list *sec, t_parser *parser);
-int		exec_section(t_list *sec, t_parser *parser, t_env *env);
+int		exec_section(t_parser *parser, t_env *env);
 
 int		is_infile(char *line);
 int		infile(char *file, t_list *sec, t_parser *parser, char *filemode);

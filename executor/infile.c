@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 14:58:10 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:32:46 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	here_doc(char *lim)//do I need shell variables for error??
 		return(fd);//error handling heredoc TBD
 	while (1)
 	{
-		tmp = readline("> ");//needs -lreadline flag for compiling
+		tmp = readline("> ");//needs -lreadline flag for compiling / TBD ob das zur history added??
 		if (!tmp || ft_memcmp(tmp, lim, ft_strlen(tmp)) == 0)
 			break ;
 		ft_putstr_fd(tmp, fd);
