@@ -6,12 +6,17 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:50:27 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 17:50:24 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:09:00 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
+/**
+ * Takes a string array as parameter and frees every string and finally the array.
+ * @param str [char **] String array to be freed.
+ * @return [int] 1 at success, 0 at failure.
+*/
 int	free_str_array(char **str)
 {
 	int	i;
@@ -25,6 +30,11 @@ int	free_str_array(char **str)
 	return (1);
 }
 
+/**
+ * Takes an array of lists and frees every list element as well as the list itself.
+ * @param lists [t_list **] Array of lists.
+ * @return [int] 1 at success, 0 at failure.
+*/
 int	free_lst_array(t_list **lists)
 {
 	int	i;
@@ -41,6 +51,12 @@ int	free_lst_array(t_list **lists)
 	return (1);
 }
 
+/**
+ * Takes a list containing the environmental variables and reassembles it into
+ * a string array, containing each variable as one string.
+ * @param [t_env *] List containing each environmental variable as an element.
+ * @return [char **] String array containing the environmental variables.
+*/
 char	**reassemble_env(t_env *env)
 {
 	t_env	*tmp;
