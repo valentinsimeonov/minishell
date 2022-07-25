@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/22 18:31:59 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:55:35 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 
 /**
  * Checks if there is an executable for the command (first string in the command
- * array) in PATH. If not, it leaves the string as is, in case it is a binary with
- * a specified path.
+ * array) in PATH. If not, it leaves the string as is, in case it is a binary 
+ * with a specified path.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
  * @return [int] 1 at success, 0 at failure.
 */
