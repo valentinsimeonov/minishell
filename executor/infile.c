@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 18:32:46 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:53:13 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_infile(char *line)
  * @param filemode [char *] String specifying if "file" is heredoc or filename.
  * @return [int] [int] 1 at success, 0 at failure.
 */
-int	infile(char *file, t_list *sec, t_parser *parser, char *filemode)
+int	infile(char *file, t_parser *parser, char *filemode)
 {
 	int		flag_prv_file;
 

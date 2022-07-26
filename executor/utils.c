@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:50:27 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 15:00:17 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:54:52 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	free_lst_array(t_list **lists)
 	i = 0;
 	while (lists[i])
 	{
-		ft_lstclear(lists[i], free);
+		ft_lstclear(&lists[i], free);
 		free(lists[i++]);
 	}
 	free(lists);

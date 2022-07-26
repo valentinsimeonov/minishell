@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 19:14:58 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:07:34 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@
  * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	executor(t_parser *parser, t_env *env)
+int	executor(t_data *data)
 {
 	t_list	**sections;
 	t_list	*cur_sec;
 	int		i;
+	t_parser	*parser;
+	t_env		*env;
 
 	i = 0;
+	parser = &data->to_parser_list;
+	env = &data->to_env_list;
 	sections = parser->sections;
 	while (sections[i])
 	{
@@ -67,12 +71,12 @@ int	exec_prep(t_list *sec, t_parser *parser)
 	{
 		if (is_infile(head->line) == 1 && head->next)
 		{
-			infile(head->next->line, sec, parser, head->line);
+			infile((char *)head->next->line, parser, (char *)head->line);
 			head = head->next;
 		}
 		else if (is_outfile(head->line) == 1 && head->next)
 		{
-			outfile(head->next->line, sec, parser, head->line);
+			outfile((char *)head->next->line, parser, (char *)head->line);
 			head = head->next;
 		}
 		else
@@ -97,10 +101,9 @@ int	exec_prep(t_list *sec, t_parser *parser)
 */
 int	exec_section(t_parser *parser, t_env *env)
 {
-	pid_t	pid;
-	int		pipe_fd[2];
-	char	**env;
-
+	pid_t		pid;
+	int			pipe_fd[2];
+	
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
 	if (parser->input_fd > 2)//one-line function which tests?
