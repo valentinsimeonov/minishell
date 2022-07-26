@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 15:07:34 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:59:05 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@
 */
 int	executor(t_data *data)
 {
-	t_list	**sections;
-	t_list	*cur_sec;
-	int		i;
+	t_list		**sections;
+	t_list		*cur_sec;
+	int			i;
 	t_parser	*parser;
 	t_env		*env;
 
+	print_all_input(data);
 	i = 0;
-	parser = &data->to_parser_list;
-	env = &data->to_env_list;
+	parser = &(data->to_parser_list);
+	env = &(data->to_env_list);
 	sections = parser->sections;
 	while (sections[i])
 	{

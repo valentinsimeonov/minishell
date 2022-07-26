@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 14:52:15 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:53:58 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
 /* Module Executor */
-#include "executor/executor.h"
+#include "4_module_executor/executor.h"
 
 
 /*      ENV Builder Standalone   */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 15:05:45 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:24:45 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ int		add_path(t_parser *parser);
 int		free_str_array(char **str);
 int		free_lst_array(t_list **lists);
 char	**reassemble_env(t_env *env);
+
+//only for testing
+int		print_all_input(t_data *data);
 
 #endif
