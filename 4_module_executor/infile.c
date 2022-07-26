@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   infile.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 14:53:13 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:08:34 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ int	here_doc(char *lim)//do I need shell variables for error??
 		return(fd);//error handling heredoc TBD
 	while (1)
 	{
-		tmp = readline("> ");//needs -lreadline flag for compiling / TBD ob das zur history added??
-		if (!tmp || ft_memcmp(tmp, lim, ft_strlen(tmp)) == 0)
+		tmp = readline("> ");
+		if (!tmp || ft_strncmp(tmp, lim, ft_strlen(tmp) + 1) == 0)
 			break ;
 		ft_putstr_fd(tmp, fd);
+		ft_putchar_fd('\n', fd);
 		free(tmp);
 	}
 	if (tmp)

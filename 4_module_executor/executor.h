@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 16:24:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:56:12 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define EXECUTOR_H
 
 # include "../minishell.h"
+
 typedef struct s_data t_data;
 typedef struct s_parser t_parser;
 typedef struct s_env t_env;
-
 
 int		executor(t_data *data);
 int		exec_prep(t_list *sec, t_parser *parser);
