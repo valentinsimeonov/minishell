@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/05/30 14:04:55 by danisanc         ###   ########.fr        #
+#    Updated: 2022/07/26 12:38:13 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c builtins/cmds.c 
+SRC = minishell.c 1_module_env_builder/env_builder_for_parser1.c 1_module_env_builder/env_builder_for_parser2.c 1_module_env_builder/env_builder_standalone.c 2_module_parser/parser2.c 2_module_parser/parser1.c 2_module_parser/constructor.c 2_module_parser/env_handler1.c 2_module_parser/env_handler2.c 2_module_parser/final_command_builder1.c 5_module_signals/signals.c
+
+INCLUDE = minishell.h
 
 OBJ = $(SRC:.c=.o)
 
@@ -24,7 +26,7 @@ LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -lreadline
 
 LIB_LINUX = -lreadline
 
-#CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -f
 
@@ -33,7 +35,6 @@ all: $(NAME)
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
-#add $(CFLAGS) later, they are just annoying now
 $(NAME): $(OBJ)
 ifeq ($(UNAME_S), Darwin)
 	$(MAKE) -C libft
@@ -46,11 +47,17 @@ endif
 clean:
 	$(RM) *.o
 	$(RM) libft/*.o
+	$(RM) 1_module_env_builder/*.o
+	$(RM) 2_module_parser/*.o
+	$(RM) 5_module_signals/*.o
 
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) libft/libft.a
-
+	$(RM) 1_module_env_builder/*.o
+	$(RM) 2_module_parser/*.o
+	$(RM) 5_module_signals/*.o
+	
 re: fclean all
 
 .PHONY: all bonus clean fclean re
