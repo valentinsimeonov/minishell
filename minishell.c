@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/05 13:58:55 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:59:33 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
+		executor(data);
 		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[0]->line)));
 		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections->line[1])));
 

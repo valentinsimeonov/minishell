@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/22 16:48:52 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:52:15 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include "2_module_parser/parser.h"
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
-
-void	print_list_test(t_data *stack);
+/* Module Executor */
+#include "executor/executor.h"
 
 
 /*      ENV Builder Standalone   */
@@ -61,7 +61,7 @@ typedef struct s_parser
 	int		input_fd;
 	int		output_fd;
 	char	**paths;
-	// char	**command;
+	char	**command;
 }			t_parser;
 
 /* Main Struct Containing all other Structs */

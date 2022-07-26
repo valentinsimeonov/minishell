@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:52:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 14:59:20 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:53:55 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int	is_outfile(char *line)
  * @param filemode [char *] String specifying the file access mode (> or >>).
  * @return [int] [int] 1 at success, 0 at failure.
 */
-int	outfile(char *file, t_list *sec, t_parser *parser, char *filemode)
+int	outfile(char *file, t_parser *parser, char *filemode)
 {
-	int		flag_prv_file;
-
 	if (parser->output_fd < 0)
 		return (0);
 	else if (parser->output_fd > 2)
