@@ -1,19 +1,15 @@
 **Architecture:**
-
 1. Module 1:
+	- ENV List **DONE**
+
+3. Module 2:
 	- Lexar   **DONE**
-	- ENV List **NEED to DEBUG** Adding Duplicate Elements
-	- Parser
+
+	- Parser  **DONE**
 		- ordinary token recognition
 		- processing of here-documents
-
-		Need to Build a Struct that has:
-		- Input File < In File
-		- Input File << Here Doc
-		- Outputs Truncate
-		- Outputs Append
-		- Error File (Second > )
-		typedef struct      s_list
+	- Command Table List  **DONE**
+		- Need to Build a Struct that has:
 {
     struct s_list   *next;
   	char          *infile;
@@ -21,13 +17,8 @@
 	char		**command;
 
 }                   t_list;
-$>
 
-
-
-	- Command Table List
-
-2. Module 2:
+4. Module 4:
 	- Builtin Commands:
 		◦ echo with option -n
 		◦ cd with only a relative or absolute path
@@ -37,26 +28,20 @@ $>
 		◦ env with no options or arguments
 		◦ exit with no options
 
-3. Module 3:
+5. Module 5:
 	- Executor
 
-4. Module 4:
-	- Signal Handling
+6. Module 6:
+	- Signal Handling  **Work in Progress**
 		◦ ctrl-C displays a new prompt on a new line.
 		◦ ctrl-D exits the shell.
 		◦ ctrl-\ does nothing.
 
-5. Module 5:
+7. Module 7:
 	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
 
 
-
-
-
-
-
 **Compile in Linux**
-
 Run
 
 	sudo apt-get install libreadline-dev
@@ -75,7 +60,6 @@ And then
 3. Write a Shell in C Tutorial: https://brennan.io/2015/01/16/write-a-shell-in-c/
 
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
-
 
 3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
@@ -215,9 +199,13 @@ subject such as \ (backslash) or ; (semicolon).
 
 2. Work in Own Branch and Merge
 
+3. how-to-clone-a-specific-branch
+https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/
+
 
 
 **Temporary WorkSpace:**
+
 Pseude Code:
 
 if (var == PIPE)

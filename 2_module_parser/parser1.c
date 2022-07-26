@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/07/26 12:35:41 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parser.h"
 
 
 #include "parser.h"
 
-// Clean all the quote in the string
-// Return 0 if error otherwise 1
+/*	Removing the Quotes */
 static int	clean_quote(char **str)
 {
 	int		i;
@@ -33,8 +45,8 @@ static int	clean_quote(char **str)
 	return (1);
 }
 
-// Split the input from start to end, clean the quote and add it in a new list
-// Return 0 if error otherwise 1
+/*	Dividing in to Substrings and Sending the Substrings
+    to have the Quotes Removed, Creating the List */
 static int	get_clean_input(char *line, t_list **clean_input_list,
 	int *start, int *end)
 {
@@ -51,6 +63,7 @@ static int	get_clean_input(char *line, t_list **clean_input_list,
 	return (1);
 }
 
+/* Printing the Elements from a Linked List */
 void	print_list(t_list **stack)
 {
 	t_list *temp_p;
@@ -71,7 +84,7 @@ void	print_list(t_list **stack)
 	}
 }
 
-// Get the ending index of metachar in line string
+/*	Checking if in Line there is a In File Char or Here Doc Char	*/
 static void	get_metachar_end(char *line, int *end)
 {
 	if ((line[*end] == '>' && line[*end + 1] == '>')
@@ -81,7 +94,7 @@ static void	get_metachar_end(char *line, int *end)
 		*end += 1;
 }
 
-// Get the ending index of quote in line string
+/*	Finding the Last Quote	*/
 static void	get_quote_end(char *line, int *end)
 {
 	char	quote;
@@ -94,8 +107,8 @@ static void	get_quote_end(char *line, int *end)
 		(*end)++;
 }
 
-// Split the input line into separated string in linked list
-// Return 0 if error otherwise 1
+/*	Checking for Quotes, Sending the Line
+    to the List Creating Function  */
 int	lexer(char *line, t_list **clean_input)
 {
 	int		start;
@@ -124,52 +137,4 @@ int	lexer(char *line, t_list **clean_input)
 		return (0);
 	print_list(clean_input);
 	return (1);
-}
-
-// Return new allocated str without char at idx
-// Return NULL if error
-char	*str_remove_char_at(char *str, int idx)
-{
-	char	*new_str;
-	char	*start;
-
-	if (!str || idx < 0)
-		return (NULL);
-	if (idx >= (int)ft_strlen(str))
-		return (str);
-	new_str = ft_calloc(ft_strlen(str), sizeof(char));
-	if (!new_str)
-		return (NULL);
-	start = new_str;
-	while (*str)
-	{
-		if (idx == 0)
-		{
-			str++;
-			if (!*str)
-				break ;
-		}
-		*new_str = *str;
-		str++;
-		new_str++;
-		idx--;
-	}
-	return (start);
-}
-
-// Check if character is space
-int	ft_isspace(int c)
-{
-	if (c == '\v' || c == '\f' || c == '\r'
-		|| c == '\t' || c == '\n' || c == ' ')
-		return (1);
-	return (0);
-}
-
-// Only those that we need to interpret in project
-int	is_meta_char(int c)
-{
-	if (c == '>' || c == '<' || c == '|' || c == '$')
-		return (1);
-	return (0);
 }

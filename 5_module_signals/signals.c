@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:30:36 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 15:47:08 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:58:36 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	signal_check(t_data *data)
 	temp = data;
 	memset(&sa, '\0', sizeof(sa));
 	sa.sa_handler = &handler;
-	// if (sigaction(SIGINT, &sa, NULL) == -1)
-		// TODO  Insert Error Handling Function ME
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		
 	// if (sigaction(SIGQUIT, &sa, NULL) == -1)
 		// TODO  Insert Error Handling Function, ME
 }

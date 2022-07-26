@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/23 00:59:26 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:25:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parser(data, &line);
 		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[0]->line)));
-		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[1]->line)));
+		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections->line[1])));
+
+		printf("%p", ((char*)((t_list**)((t_parser)(data->to_parser_list)).sections[0]->line)));
 
 		// printf("%s\n", data->to_parser_list);
 		// printf("%p\n", data->to_parser_list);
