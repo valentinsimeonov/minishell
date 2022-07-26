@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danisanc <danisanc@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/05/30 14:14:47 by danisanc         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:25:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,38 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	cwd[256];
-	char	*line;
-	char	**args;
-	t_list	lexar_list;
-	
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-      perror("getcwd() error");
+	char		*line;
+	// t_list	*lexar_list;
+	t_data		*data;
+	// t_parser	*test;
+	// lexar_list = NULL;
+	/* Creating the ENV List */
+	data = env_builder(envp);
+	create_env_list(envp);
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	while (7)
+
+	//* Checking for Signals **/
+	signal_check(data);
+
+	int		i;
+	i = 0;
+	while (i < 3)
 	{
-		line = readline(cwd);
-		//typing enter without args should just prompt cwd
-		//needs to be fixed: input can also contain '  \n' etc
-		if (line == "\n")
-			continue ;
-		args = ft_split(line, ' ');
-		
+		line = readline("minishell:> ");
+		if (line == NULL)
+			break ;
+		add_history(line);
+		parser(data, &line);
+		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).commands[0]->line)));
+		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections->line[1])));
+
+		printf("%p", ((char*)((t_list**)((t_parser)(data->to_parser_list)).sections[0]->line)));
+
+		// printf("%s\n", data->to_parser_list);
+		// printf("%p\n", data->to_parser_list);
+		// print_list_test(data);
+		i++;
 	}
 	return (0);
 }
-
-void	create_lexar(t_list *lexar_list, char **array)
-{
-	int		i;
-
-	i = 0;
-	while (i < size_of_array(array))
-	{
-		ft_lstadd_back(&lexar_list, create_stack_value(array));
-		i++;
-	}
-}
-
-int		size_of_array(char **array)
-{
-	int		lenght;
-
-	lenght = sizeof(array) / sizeof(array);
-	return(lenght);
-}
-
-t_list	*create_stack_value(char **value)
-{
-	t_list	*element;
-
-	element = malloc(sizeof(t_list));
-	if (!element)
-		return (NULL);
-	element->line = *value;
-	element->next = NULL;
-	return (element);
-}
-
-// char x[10];
-// int elements_in_x = sizeof(x) / sizeof(x[0]);
-// char	**ft_split(char const *s, char c)

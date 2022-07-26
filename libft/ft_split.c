@@ -5,57 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/01 14:42:11 by vsimeono          #+#    #+#             */
-/*   Updated: 2021/10/02 19:57:29 by vsimeono         ###   ########.fr       */
+/*   Created: 2022/05/30 12:10:43 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/05/30 12:10:47 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_string_counter(char *s, char c)
+/*
+*returns strings that are delimited by c
+*/
+static int	countingstrings(char const *s, char c)
 {
-	int		counter;
+	size_t	i;
+	int		result;
 
-	counter = 0;
-	while (*s != '\0')
+	result = 0;
+	i = 0;
+	while (i < ft_strlen(s))
 	{
-		if (*s != c)
+		if (s[i] != c)
 		{
-			counter++;
-			while (*s != c && *s)
-				s++;
+			while (s[i + 1] != c && s[i + 1] != '\0')
+				i++;
+			result++;
 		}
-		else
-			s++;
+		i++;
 	}
-	return (counter);
+	return (result);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		start;
-	int		end;
-	char	**array;
+	char	**result;
+	size_t	start;
+	size_t	i;
+	int		j;
 
 	i = 0;
 	start = 0;
-	if (!s)
-		return (NULL);
-	array = ft_calloc(ft_string_counter((char *)s, c) + 1, sizeof(char *));
-	if (!array)
-		return (NULL);
-	while (s[start])
+	j = 0;
+	result = malloc(sizeof(char *) * (countingstrings(s, c) + 1));
+	if (!result)
+		return (0);
+	while (i < ft_strlen(s))
 	{
-		while ((s[start] == c) && s[start])
-			start++;
-		end = start;
-		while ((s[end] != c) && s[end])
-			end++;
-		if (s[start])
-			array[i] = ft_substr(s, start, end - start);
+		if (s[i] != c)
+		{
+			while (s[i + 1] != c && s[i + 1] != '\0')
+				i++;
+			result[j] = malloc(sizeof(char) * (i - start + 2));
+			ft_strlcpy(result[j++], &s[start], i - start + 2);
+		}
 		i++;
-		start = end;
+		start = i;
 	}
-	return (array);
+	result[j] = NULL;
+	return (result);
 }

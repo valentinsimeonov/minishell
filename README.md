@@ -1,5 +1,47 @@
-**Compile in Linux**
+**Architecture:**
+1. Module 1:
+	- ENV List **DONE**
 
+3. Module 2:
+	- Lexar   **DONE**
+
+	- Parser  **DONE**
+		- ordinary token recognition
+		- processing of here-documents
+	- Command Table List  **DONE**
+		- Need to Build a Struct that has:
+{
+    struct s_list   *next;
+  	char          *infile;
+	char          *outfile;
+	char		**command;
+
+}                   t_list;
+
+4. Module 4:
+	- Builtin Commands:
+		◦ echo with option -n
+		◦ cd with only a relative or absolute path
+		◦ pwd with no options
+		◦ export with no options
+		◦ unset with no options
+		◦ env with no options or arguments
+		◦ exit with no options
+
+5. Module 5:
+	- Executor
+
+6. Module 6:
+	- Signal Handling  **Work in Progress**
+		◦ ctrl-C displays a new prompt on a new line.
+		◦ ctrl-D exits the shell.
+		◦ ctrl-\ does nothing.
+
+7. Module 7:
+	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
+
+
+**Compile in Linux**
 Run
 
 	sudo apt-get install libreadline-dev
@@ -7,7 +49,7 @@ Run
 And then
 
 	make
-	
+
 
 **Research:**
 
@@ -19,9 +61,9 @@ And then
 
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
 
-5. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
+3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
 
-6. Search for the Functions Allowed to Use in this Project \n
+4. Search for the Functions Allowed to Use in this Project \n
 	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 
 				https://www.man7.org/linux/man-pages/man3/readline.3.html
 	- readline
@@ -42,28 +84,16 @@ And then
  	- malloc
  	- free
 
-	<fcntl.h>
- 	- open
 
-	<unistd.h>
+ 	- write
+ 	- access
+
+ 	- open
  	- read
  	- close
-	- write
- 	- access
-	- unlink
- 	- execve
- 	- dup
- 	- dup2
- 	- pipe
- 	- fork
-	- getcwd
-		-get the pathname of the current work directory
-		char *getcwd(char *buf, size_t size);
- 	- chdir
-		-The chdir() changes the cwd to path, which can be relative to the cwd or an absolute path name.
-		-Return Value: upon success: 0 -- else: -1
 
-	<sys/wait.h>
+
+ 	- fork
  	- wait
  	- waitpid
  	- wait3 -> not used
@@ -73,22 +103,30 @@ And then
 	<signal.h>:
  	- signal
  	- sigaction
- 	- kill
  	- sigemptyset -> not used
  	- sigaddset -> not used
+ 	- kill
 
 
  	- exit
+ 	- getcwd
+ 	- chdir
 
 	<sys/stat.h> : https://pubs.opengroup.org/onlinepubs/7908799/xsh/sysstat.h.html
  	- stat
  	- lstat
  	- fstat
 
+
+ 	- unlink
  	- stat -> not used
  	- lstat -> not used
  	- fstat -> not used
  	- unlink -> not used
+ 	- execve
+ 	- dup
+ 	- dup2
+ 	- pipe
  	- opendir -> not used
  	- readdir -> not used
  	- closedir -> not used
@@ -109,40 +147,6 @@ And then
  	- tgetst -> not used
  	- tgoto -> not used
  	- tputs -> not used
-
-
-**Architecture:**
-
-1. Module 1:
-	- Lexar
-		Tokens:
-			- ordinary token recognition
-			- processing of here-documents
-	- Parser
-	- Command Table List
-
-2. Module 2:
-	- Builtin Commands:
-		◦ echo with option -n
-		◦ cd with only a relative or absolute path
-		◦ pwd with no options
-		◦ export with no options
-		◦ unset with no options
-		◦ env with no options or arguments
-		◦ exit with no options
-
-
-3. Module 3:
-	- Executor
-
-4. Module 4:
-	- Signal Handling
-		◦ ctrl-C displays a new prompt on a new line.
-		◦ ctrl-D exits the shell.
-		◦ ctrl-\ does nothing.
-
-5. Module 5:
-	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
 
 
 **Investigate:**
@@ -178,8 +182,30 @@ subject such as \ (backslash) or ; (semicolon).
 4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
 
 
+**Git Professional WorkFlow"**
+
+1. Create 3 Branches
+	- Main Branch
+	- Daniela's Branch
+	- Valentin's Branch
+
+	Commands to Create Branch:
+		- git branch "name" = to Create the Branch
+		- git checkout "name"  = To Switch to Branch
+		- git add .  = to Add All your Files
+		- git commit -m "message"  = to Commit Files
+		- git push --set-upstream origin name  = To Push, Just the First Time !!
+		- git push
+
+2. Work in Own Branch and Merge
+
+3. how-to-clone-a-specific-branch
+https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/
+
+
 
 **Temporary WorkSpace:**
+
 Pseude Code:
 
 if (var == PIPE)
@@ -188,3 +214,12 @@ if (var == 23)
 return(something)
 
 
+Linked Lists Functions from GeektoGeek:
+https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/
+
+
+![alt text](https://github.com/garadraw/minishell/blob/Siramis/Minishell_Edge_Case_1_and_2.jpg?raw=true)
+
+![alt text](https://github.com/garadraw/minishell/blob/Siramis/Minishell_Edge_Case_3.jpg?raw=true)
+
+![alt text](https://github.com/garadraw/minishell/blob/Siramis/Minishell_Edge_Case_4.jpg?raw=true)
