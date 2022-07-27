@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:39:46 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 15:59:05 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:28:00 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	executor(t_data *data)
 	t_parser	*parser;
 	t_env		*env;
 
-	print_all_input(data);
+	//print_all_input(data);
 	i = 0;
 	parser = &(data->to_parser_list);
 	env = &(data->to_env_list);

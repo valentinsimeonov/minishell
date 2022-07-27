@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:53:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 17:29:58 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:50:25 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_env(t_env *env, t_parser *parser)
 	char	*tmp;
 	char	*tmp2;
 
+	if (parser->command[1])
+		return (0);//error handling: "env: too many arguments"
 	if (!env)
 		return (0); //error handling tbd, is that even possible??
 	while (env)
@@ -33,21 +35,36 @@ int	ft_env(t_env *env, t_parser *parser)
 	return (1);
 }
 
-int	ft_pwd(t_env *env, t_parser *parser) //use cwd function??
+int	ft_pwd(t_parser *parser)
 {
-	char	*tmp;
+	char	*buff;
 	
-	if (!env)
-		return (0); //error handling tbd, is that even possible??
-	while (env)
+	if (parser->command[1])
+		return (0);//error handling: "pwd: too many arguments"
+	buff = ft_calloc(PATH_MAX, sizeof(char));
+	if (getcwd(buff, PATH_MAX) == NULL)
+		return (0);//error handling ??
+	ft_putstr_fd(buff, parser->output_fd);
+	return (1);
+}
+
+int	ft_echo(t_parser *parser) //OPEN: print whitespaces between the string; 
+{
+	int	i;
+	int	flag_nl;
+
+	i = 1;
+	flag_nl = 1;
+	if (ft_strncmp(parser->command[i], "-n", 3) == 0)//multiple n's are also valid for the flag (-nnnnnn or -n -n)
 	{
-		tmp = env->bash_variable;
-		if (ft_strncmp(tmp, "PWD", ft_strlen(tmp) + 1) == 0)
-		{
-			ft_putstr_fd(env->bash_v_content, parser->input_fd);
-			return (1);
-		}
-		env = env->next;
+		flag_nl = 0;
+		i++;
 	}
-	return (0);//error handling tbd, PWD not found??
+	while (parser->command[i])
+	{
+		ft_putstr_fd(parser->command[i++], parser->output_fd);
+		if (flag_nl == 1)
+			ft_putchar_fd('\n', parser->output_fd);
+	}
+	return (1);
 }

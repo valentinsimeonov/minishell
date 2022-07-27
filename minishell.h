@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 15:53:58 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:54:43 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>  /// For Readline
 # include <readline/history.h>  /// For History
 # include <sys/stat.h>  /// For lstats
+# include <limits.h> //for PATH_MAX
 /* Libft Library */
 # include "libft/libft.h"
 /* 1 Module ENV Builder */
