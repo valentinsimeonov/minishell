@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/22 16:48:52 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:10:18 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@
 # include "2_module_parser/parser.h"
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
+/* Module Executor */
+#include "executor/executor.h"
 
-void	print_list_test(t_data *stack);
 
+// Temporary
+
+int	print_all_input(t_data *data);
 
 /*      ENV Builder Standalone   */
 typedef struct s_env
@@ -61,7 +65,7 @@ typedef struct s_parser
 	int		input_fd;
 	int		output_fd;
 	char	**paths;
-	// char	**command;
+	char	**command;
 }			t_parser;
 
 /* Main Struct Containing all other Structs */
@@ -126,7 +130,7 @@ void	delete_list(t_list **list);
 
 /*		ENV List	*/
 // t_env		create_env_list(char	**envp);
-void	create_env_list(char	**envp);
+t_env	*create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
 void	print_env_list(t_env **stack);

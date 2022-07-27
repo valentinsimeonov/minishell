@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 10:54:13 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 13:49:16 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:10:50 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char		*get_cwd(void);
 char		*get_env_value(t_list *envp, char *env);
 
 /*      Env Builder Standalone   */
-void		create_env_list(char	**envp);
+t_env		*create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **env_list, t_env *new);
 void	print_env_list(t_env **env_list);

@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 12:35:41 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:48:16 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_list(t_list **stack)
 		while (temp_p->next != NULL)
 		{
 			printf("%s", "In List: ");
-			printf("%s\n", temp_p->line);
+			printf("%s\n", (char *)temp_p->line);
 			temp_p = temp_p->next;
 		}
 		printf("%s", "In List: ");

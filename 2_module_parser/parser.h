@@ -21,6 +21,6 @@ int	is_meta_char(int c);
 char	*str_replace_str_at(char *str, int idx, int length, char *replacement);
 int	char_array_len(char **arr);
 int	is_str_redir(char *str);
-
+void	perror(const char *s);
 
 #endif
