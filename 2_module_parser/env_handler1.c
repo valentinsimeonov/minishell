@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 12:29:56 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:22:37 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,3 @@ int	env_resolver(t_data *data, char **input)
 	}
 	return (1);
 }
-
-
-
-

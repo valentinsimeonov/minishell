@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:07 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 14:52:15 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -33,6 +23,10 @@
 /* Module Executor */
 #include "executor/executor.h"
 
+
+// Temporary
+
+int	print_all_input(t_data *data);
 
 /*      ENV Builder Standalone   */
 typedef struct s_env
@@ -126,7 +120,7 @@ void	delete_list(t_list **list);
 
 /*		ENV List	*/
 // t_env		create_env_list(char	**envp);
-void	create_env_list(char	**envp);
+t_env	*create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
 void	print_env_list(t_env **stack);
