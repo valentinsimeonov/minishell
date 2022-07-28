@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:04 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/28 11:31:33 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -42,6 +32,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
+
 		printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 		printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
 
@@ -49,6 +40,8 @@ int	main(int argc, char **argv, char **envp)
 		// executor(data);
 		// print_all_input(data);
 		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
+
+
 		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections->line[1])));
 
 		
