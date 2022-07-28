@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   final_command_builder1.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:22:06 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/28 11:58:37 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:35:12 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
-	if (pipe_counter > 1)
-		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter - 1);
-	else if (pipe_counter == 1)
-		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter);
+	data->to_parser_list.sections = ft_calloc(pipe_counter + 1, sizeof(t_list *));
 
 	while (lexar_list)
 	{

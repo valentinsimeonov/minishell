@@ -33,8 +33,9 @@ int	executor(t_data *data)
 			parser->output_fd = STDIN_FILENO;
 		else
 			parser->output_fd = STDOUT_FILENO;
-		if (exec_prep(cur_sec, parser) != 0)
+		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
+		//print_all_input(data);//TEST
 		exec_section(parser, env);
 	}
 	free_lst_array(parser->sections);
@@ -93,11 +94,12 @@ int	exec_section(t_parser *parser, t_env *env)
 {
 	pid_t		pid;
 	int			pipe_fd[2];
-	
+
+	printf("Input fd: %d\nOutput fd: %d\n", parser->input_fd, parser->output_fd);
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
-	if (parser->input_fd > 2)//one-line function which tests?
-		close(parser->input_fd);
+	close(parser->input_fd);
+	printf("Pipe fd[0]: %d\nPipe fd[1]: %d\n", pipe_fd[0], pipe_fd[1]);
 	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	pid = fork();
 	if (pid < 0)
@@ -112,12 +114,13 @@ int	exec_section(t_parser *parser, t_env *env)
 		return (0);//error handling TBD
 	}
 	waitpid(pid, NULL, 0);
+	printf("Input fd: %d\nOutput fd: %d\n", parser->input_fd, parser->output_fd);
+	//Input can be read from pipe with getnextline, but it is not put into the output fd
+	//->maybe function for last command needed??
 	if (dup2(pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
 	close(pipe_fd[0]);
-	if (parser->output_fd > 2)//one-line function which tests?
-		close(parser->output_fd);
-	free_str_array(parser->command);
+	//free_str_array(parser->command);//something that was not allocated is freed
 	return (1);
 	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 }
