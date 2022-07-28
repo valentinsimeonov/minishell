@@ -24,6 +24,10 @@
 #include "4_module_executor/executor.h"
 
 
+// Temporary
+
+int	print_all_input(t_data *data);
+
 /*      ENV Builder Standalone   */
 typedef struct s_env
 {
@@ -116,7 +120,7 @@ void	delete_list(t_list **list);
 
 /*		ENV List	*/
 // t_env		create_env_list(char	**envp);
-void	create_env_list(char	**envp);
+t_env	*create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
 void	print_env_list(t_env **stack);
