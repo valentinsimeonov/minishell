@@ -1,5 +1,4 @@
 
-
 #include "executor.h"
 
 /**
@@ -15,15 +14,16 @@
 */
 int	executor(t_data *data)
 {
-	t_list	**sections;
-	t_list	*cur_sec;
-	int		i;
+	t_list		**sections;
+	t_list		*cur_sec;
+	int			i;
 	t_parser	*parser;
 	t_env		*env;
 
+	//print_all_input(data);
 	i = 0;
-	parser = &data->to_parser_list;
-	env = &data->to_env_list;
+	parser = &(data->to_parser_list);
+	env = &(data->to_env_list);
 	sections = parser->sections;
 	while (sections[i])
 	{

@@ -1,5 +1,4 @@
 
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -12,6 +11,7 @@
 # include <readline/readline.h>  /// For Readline
 # include <readline/history.h>  /// For History
 # include <sys/stat.h>  /// For lstats
+# include <limits.h> //for PATH_MAX
 /* Libft Library */
 # include "libft/libft.h"
 /* 1 Module ENV Builder */
@@ -21,7 +21,7 @@
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
 /* Module Executor */
-#include "executor/executor.h"
+#include "4_module_executor/executor.h"
 
 
 // Temporary
