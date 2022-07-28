@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:22:06 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/27 19:03:16 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:58:37 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,30 @@
 // 	return (1);
 // }
 
+
+// int	count_pipes_in_lexar_list(t_list *lexar_list)
+// {
+// 	t_list	*head;
+// 	int		pipe_counter;
+
+// 	while (head)
+// 	{
+// 		if (!ft_strncmp(head->line, "|", 2))
+// 			pipe_counter++;
+// 		head = head->next;
+// 	}
+// 	return (pipe_counter);
+// }
+
+
 /* Splits the Lexar List into Command List for executor */
 int	split_into_commands(t_data *data, t_list *lexar_list)
 {
 	int i = 0;
-	// char	*command;
 	int		pipe_counter = 1;
-	// char	test[] = "element";
 	t_list	*head;
-	t_list	*head1;
 
 	head = lexar_list;
-	head1 = data->to_parser_list.sections[0];
-
-	// command = NULL;
 	while (head)
 	{
 		if (!ft_strncmp(head->line, "|", 2))
@@ -73,37 +83,25 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 		head = head->next;
 	}
 	if (pipe_counter > 1)
-	{
 		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter - 1);
-
-	}
 	else if (pipe_counter == 1)
 		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter);
 
-	
 	while (lexar_list)
 	{
 		if (is_str_redir(lexar_list->line))
 			ft_lstadd_back(&data->to_parser_list.sections[i], ft_lstnew(lexar_list->line));
 		else if (!ft_strncmp(lexar_list->line, "|", 2))
-		{
 			i++;
-			// printf("In Pipe Condition\n");
-		}
 		else if (!is_str_redir(lexar_list->line))
 		{
 			ft_lstadd_back(&data->to_parser_list.sections[i], ft_lstnew(lexar_list->line));
-			// printf("Last If Condition in While: %p\n", (void *)data->to_parser_list.sections[i++]);
 		}
-		// if (command)
-		// {
-		// 	printf("In Command 2D While00: %s\n", command[0]);
-		// 	printf("In Command 2D While01: %s\n", command[1]);
-		// }
 		lexar_list = lexar_list->next;
 	}
 	printf("Final Command Builder = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
-
+	// t_list	*head1;
+	// head1 = data->to_parser_list.sections[0];
 	// while (head1)
 	// {
 	// 	printf("In Command List at Sections Index 0: %s\n", ((char*)((t_list*)(head1->line))));
