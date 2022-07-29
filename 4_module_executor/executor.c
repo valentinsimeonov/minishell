@@ -34,17 +34,19 @@ int	executor(t_data *data)
 			parser->output_fd = STDIN_FILENO;
 		else
 			parser->output_fd = parser->store_stdout;
+		dprintf(2, "fds before exec_prep:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
+		dprintf(2, "fds after exec_prep:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
 		if (sections[i])
 			exec_section(parser, env);
 		else
 			exec_last_section(parser, env);
 	}
-	//ft_putstr_fd("TEST\n", 2);
+	dprintf(2, "fds after execution:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
 	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
 		return (0);//error handling tbd
-	ft_putstr_fd("TEST\n", 2);
+	dprintf(2, "fds after dup2:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
 	free_lst_array(parser->sections);
 	return (1);
 }
@@ -161,7 +163,6 @@ int	exec_last_section(t_parser *parser, t_env *env)
 	}
 	waitpid(pid, NULL, 0);
 	free_str_array(parser->command);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
+	close(parser->output_fd);
 	return (1);
 }
