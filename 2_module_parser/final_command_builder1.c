@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:22:06 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/28 16:35:12 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:46:12 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 		}
 		lexar_list = lexar_list->next;
 	}
-	printf("Final Command Builder = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
+	//printf("Final Command Builder = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 	// t_list	*head1;
 	// head1 = data->to_parser_list.sections[0];
 	// while (head1)

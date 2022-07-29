@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/26 16:56:12 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:25:10 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_env t_env;
 int		executor(t_data *data);
 int		exec_prep(t_list *sec, t_parser *parser);
 int		exec_section(t_parser *parser, t_env *env);
+int		exec_last_section(t_parser *parser, t_env *env);
 
 int		is_infile(char *line);
 int		infile(char *file, t_parser *parser, char *filemode);

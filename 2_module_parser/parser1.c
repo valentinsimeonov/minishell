@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 19:48:16 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:50:46 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,6 @@ int	lexer(char *line, t_list **clean_input)
 	}
 	if (line[start] && !get_clean_input(line, clean_input, &start, &end))
 		return (0);
-	print_list(clean_input);
+	//print_list(clean_input);
 	return (1);
 }

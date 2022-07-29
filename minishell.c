@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 
 	int		i;
 	i = 0;
-	while (i < 3)
+	while (i < 10)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)

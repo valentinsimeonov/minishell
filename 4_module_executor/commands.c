@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/25 14:55:35 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:23:21 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 			parser->command[i] = ft_strjoin("/", sec->line);
 		}
 		else
-			parser->command[i] = sec->line;
+			parser->command[i] = ft_strdup(sec->line);
 		sec = sec->next;
 		i++;
 	}

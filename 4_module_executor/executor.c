@@ -20,11 +20,12 @@ int	executor(t_data *data)
 	t_parser	*parser;
 	t_env		*env;
 
-	//print_all_input(data);
 	i = 0;
 	parser = &(data->to_parser_list);
 	env = &(data->to_env_list);
 	sections = parser->sections;
+	parser->store_stdin = dup(STDIN_FILENO);
+	parser->store_stdout = dup(STDOUT_FILENO);
 	while (sections[i])
 	{
 		cur_sec = sections[i++];
@@ -32,12 +33,18 @@ int	executor(t_data *data)
 		if (sections[i])
 			parser->output_fd = STDIN_FILENO;
 		else
-			parser->output_fd = STDOUT_FILENO;
+			parser->output_fd = parser->store_stdout;
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
-		//print_all_input(data);//TEST
-		exec_section(parser, env);
+		if (sections[i])
+			exec_section(parser, env);
+		else
+			exec_last_section(parser, env);
 	}
+	//ft_putstr_fd("TEST\n", 2);
+	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
+		return (0);//error handling tbd
+	ft_putstr_fd("TEST\n", 2);
 	free_lst_array(parser->sections);
 	return (1);
 }
@@ -95,11 +102,10 @@ int	exec_section(t_parser *parser, t_env *env)
 	pid_t		pid;
 	int			pipe_fd[2];
 
-	printf("Input fd: %d\nOutput fd: %d\n", parser->input_fd, parser->output_fd);
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
-	close(parser->input_fd);
-	printf("Pipe fd[0]: %d\nPipe fd[1]: %d\n", pipe_fd[0], pipe_fd[1]);
+	if (parser->input_fd != STDIN_FILENO)
+		close(parser->input_fd);
 	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	pid = fork();
 	if (pid < 0)
@@ -114,13 +120,48 @@ int	exec_section(t_parser *parser, t_env *env)
 		return (0);//error handling TBD
 	}
 	waitpid(pid, NULL, 0);
-	printf("Input fd: %d\nOutput fd: %d\n", parser->input_fd, parser->output_fd);
-	//Input can be read from pipe with getnextline, but it is not put into the output fd
-	//->maybe function for last command needed??
 	if (dup2(pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
 	close(pipe_fd[0]);
-	//free_str_array(parser->command);//something that was not allocated is freed
+	close(pipe_fd[1]);
+	free_str_array(parser->command);
 	return (1);
 	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
+}
+
+/**
+ * Duplicates the input fd into STDIN to read the command input from there.
+ * Creates a pipe and forks. TBD: checks for built-ins
+ * In the child, duplicates the pipe's write-end into STDOUT, so the output is
+ * written to pipe.
+ * Duplicates the pipe's read end into the output fd.
+ * @param parser [t_parser *] Struct containing parsed input & relevant values.
+ * @param env [t_env *] List of environment variables.
+ * @return [int] 1 at success, 0 at failure.
+*/
+int	exec_last_section(t_parser *parser, t_env *env)
+{
+	pid_t		pid;
+
+	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
+		return (0);// error handling TBD
+	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
+		return (0);// error handling TBD
+	close(parser->input_fd);
+	close(parser->output_fd);
+	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	pid = fork();
+	if (pid < 0)
+		return (0);//error handling TBD
+	if (pid == 0)
+	{
+		execve(parser->command[0], parser->command, reassemble_env(env));
+		//error handling: command not found
+		return (0);//error handling TBD
+	}
+	waitpid(pid, NULL, 0);
+	free_str_array(parser->command);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	return (1);
 }
