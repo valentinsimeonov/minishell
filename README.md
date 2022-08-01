@@ -42,9 +42,9 @@ typedef struct s_parser
 		- Ctrl + D = EOF
 
 	In Parent Process:
-		- Ctrl + C = displays a new prompt on a new line
-		- Ctrl + \ = does nothing
-		- Ctrl + D = exits the shell
+		- Ctrl + C = Displays a New Prompt on a New Line
+		- Ctrl + \ = Does Nothing
+		- Ctrl + D = Exits the Shell
 	In Child Process:
 		- Ctrl + C = Exits the Child and Goes to Parent
 		- Ctrl + \ = Exits the Child and Goes to Parent
