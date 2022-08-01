@@ -28,7 +28,7 @@ int	executor(t_data *data)
 	parser->store_stdout = dup(STDOUT_FILENO);
 	while (sections[i])
 	{
-		cur_sec = sections[i++];
+		cur_sec = sections[i];
 		parser->input_fd = STDIN_FILENO;
 		if (sections[i])
 			parser->output_fd = STDIN_FILENO;
@@ -147,6 +147,7 @@ int	exec_last_section(t_parser *parser, t_env *env)
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
+	dprintf(2, "what's in STDIN right now: %s", get_next_line(parser->input_fd));
 	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
 		return (0);// error handling TBD
 	close(parser->input_fd);
