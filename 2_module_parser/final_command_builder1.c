@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:22:06 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/28 11:58:37 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:44:51 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,70 +23,40 @@
 // 	return (0);
 // }
 
-// /* Adds one a String to Back of 2D Char Array */
-// static int	array_addback(char ***array, char *str)
-// {
-// 	char	**tmp;
 
-// 	if (!*array)
-// 	{
-// 		*array = ft_calloc(2, sizeof(char *));
-// 		if (!*array)
-// 			return (0);
-// 		(*array)[0] = ft_strdup(str);
-// 		if (!(*array)[0])
-// 			return (0);
-// 	}
-// 	else
-// 	{
-// 		tmp = ft_calloc(char_array_len(*array) + 2, sizeof(char *));
-// 		if (!tmp)
-// 			return (0);
-// 		ft_memmove(tmp, *array, char_array_len(*array) * sizeof(char *));
-// 		tmp[char_array_len(*array)] = ft_strdup(str);
-// 		if (!tmp[char_array_len(*array)])
-// 			return (0);
-// 		// free(*array);
-// 		*array = tmp;
-// 	}
-// 	return (1);
-// }
-
-
-// int	count_pipes_in_lexar_list(t_list *lexar_list)
-// {
-// 	t_list	*head;
-// 	int		pipe_counter;
-
-// 	while (head)
-// 	{
-// 		if (!ft_strncmp(head->line, "|", 2))
-// 			pipe_counter++;
-// 		head = head->next;
-// 	}
-// 	return (pipe_counter);
-// }
-
-
-/* Splits the Lexar List into Command List for executor */
-int	split_into_commands(t_data *data, t_list *lexar_list)
+int	count_pipes_in_lexar_list(t_list *lexar_list)
 {
-	int i = 0;
-	int		pipe_counter = 1;
 	t_list	*head;
-
+	int		pipe_counter;
+	
 	head = lexar_list;
+	pipe_counter = 1;
 	while (head)
 	{
 		if (!ft_strncmp(head->line, "|", 2))
 			pipe_counter++;
 		head = head->next;
 	}
-	if (pipe_counter > 1)
-		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter - 1);
-	else if (pipe_counter == 1)
-		data->to_parser_list.sections = malloc(sizeof(t_list *) * pipe_counter);
+	return (pipe_counter);
+}
 
+
+/* Splits the Lexar List into Command List for executor */
+int	split_into_commands(t_data *data, t_list *lexar_list)
+{
+	int i = 0;
+	int		pipe_counter;
+	t_list	*head;
+
+	head = lexar_list;
+	pipe_counter = count_pipes_in_lexar_list(head);
+	// while (head)
+	// {
+	// 	if (!ft_strncmp(head->line, "|", 2))
+	// 		pipe_counter++;
+	// 	head = head->next;
+	// }
+	data->to_parser_list.sections = ft_calloc(pipe_counter + 1, sizeof(t_list *));
 	while (lexar_list)
 	{
 		if (is_str_redir(lexar_list->line))

@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:30:34 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/20 10:10:34 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:35:15 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_data t_data;
 // /* Global Variable */
 // extern int	g_pid;
 
-void	handler(int	signum);
-void	signal_check(t_data *data);
+void	signal_handler(int	signum);
+// void	signal_check(t_data *data);
 
 #endif
