@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:50:27 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 11:59:32 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:54:41 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ int	store_std_fds(t_parser *parser)
 int	restore_std_fds(t_parser *parser)
 {
 	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
+	{
+		close(parser->store_stdin);
+		close(parser->store_stdout);
 		return (0);//error handling tbd
+	}
+	close(parser->store_stdin);
+	close(parser->store_stdout);
 	return (1);
 }
