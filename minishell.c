@@ -2,27 +2,28 @@
 
 #include "minishell.h"
 
+int global_exit_status = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_env 		*env_list;
-	
-	// t_list	*lexar_list;
 	t_data		*data;
-	// t_parser	*test;
-	// lexar_list = NULL;
+
 	/* Creating the ENV List */
-	data = env_builder(envp);
-	env_list = create_env_list(envp);
-	print_env_list(&env_list);
+	data = env_builder(envp);   
+	// data = main_data_initialiser(envp);
+	env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
+	print_env_list(&env_list);        //// Same as Above
+
 	(void)argc;
 	(void)argv;
 
-	//* Checking for Signals **/
-	signal_check(data);
-
+	/* Checking for Signals */
+	// signal_check(data);
+	signal(SIGINT, signal_handler_parent);
+	signal(SIGQUIT, SIG_IGN);
 	
-
 	int		i;
 	i = 0;
 	while (i < 3)
@@ -33,26 +34,15 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parser(data, &line);
 
-		printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
-		printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
+		/* Just for Testing Purposes */
+		if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)))
+			printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 
-		// print_all_input(data);
-		// executor(data);
-		// print_all_input(data);
-		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
+		if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)))
+				printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
+		print_all_input(data);
 
-
-		// printf("%s", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections->line[1])));
-
-		
-		// void *pline = ((t_list**)((t_parser)(data->to_parser_list)).sections[0]->line);
-		// printf("%p \t%s \n", pline, (char *)pline);
-
-		// printf("%s", ((char*)((data->to_parser_list)).sections[0]->line));
-
-		
-		// printf("%s\n", data->to_parser_list);
-		// printf("%p\n", data->to_parser_list);
+		executor(data);
 		// print_list_test(data);
 		i++;
 	}

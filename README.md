@@ -2,7 +2,7 @@
 1. Module 1:
 	- ENV List **DONE**
 
-3. Module 2:
+2. Module 2:
 	- Lexar   **DONE**
 
 	- Parser  **DONE**
@@ -10,15 +10,18 @@
 		- processing of here-documents
 	- Command Table List  **DONE**
 		- Need to Build a Struct that has:
+
+/*     Parsed Command List      */
+typedef struct s_parser
 {
-    struct s_list   *next;
-  	char          *infile;
-	char          *outfile;
-	char		**command;
+	t_list	**sections;
+	int		input_fd;
+	int		output_fd;
+	char	**paths;
+	char	**command;
+}			t_parser;
 
-}                   t_list;
-
-4. Module 4:
+3. Module 3:
 	- Builtin Commands:
 		◦ echo with option -n
 		◦ cd with only a relative or absolute path
@@ -28,26 +31,34 @@
 		◦ env with no options or arguments
 		◦ exit with no options
 
-5. Module 5:
+4. Module 4:
 	- Executor
 
-6. Module 6:
+5. Module 5:
 	- Signal Handling  **Work in Progress**
-		◦ ctrl-C displays a new prompt on a new line.
-		◦ ctrl-D exits the shell.
-		◦ ctrl-\ does nothing.
+	Signal Translation:
+		- Ctrl + C = SIGINT
+		- Ctrl + \ = SIGQUIT
+		- Ctrl + D = EOF
 
-7. Module 7:
+	In Parent Process:
+		- Ctrl + C = Displays a New Prompt on a New Line
+		- Ctrl + \ = Does Nothing
+		- Ctrl + D = Exits the Shell
+	In Child Process:
+		- Ctrl + C = Exits the Child and Goes to Parent
+		- Ctrl + \ = Exits the Child and Goes to Parent
+		- Ctrl + D = Exits the Child and Goes to Parent
+
+6. Module 6:
 	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
 
 
 **Compile in Linux**
 Run
-
 	sudo apt-get install libreadline-dev
 	
 And then
-
 	make
 
 
@@ -171,22 +182,22 @@ subject such as \ (backslash) or ; (semicolon).
 
 **TO DO:**
 
-1. Test out the Shell in order to Learn about Character Behaviour
+1. Test out the Shell in order to Learn about Character Behaviour  **DONE**
 
-2. Find out from Daniel how to Push to the Same Repo
+2. Find out from Daniel how to Push to the Same Repo  **DONE**
 	- Best Solution that will Help us in a Normal Flow in a Compay as well is to Branch, Pull and then Merge
 	- Workaround would be to Git Add only one File at a Time and we Would have to Work on Separate Files (I guess it's a Waste of Time and we Don't Learn Anything)
 
-3. Check out the Repos that have Completed Strictly what is Demanded
+3. Check out the Repos that have Completed Strictly what is Demanded  **DONE**
 
-4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix
+4. Install the Latest Version of Readline() on the Schools Imacs and Using it rather than the Old One: https://github.com/c8p2d01/minishell_42_WOB_fix **DONE**
 
 
 **Git Professional WorkFlow"**
 
 1. Create 3 Branches
 	- Main Branch
-	- Daniela's Branch
+	- Saskia's Branch
 	- Valentin's Branch
 
 	Commands to Create Branch:

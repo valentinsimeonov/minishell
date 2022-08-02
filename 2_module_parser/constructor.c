@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 15:13:02 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/28 11:22:06 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:10:15 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ static int	free_parser(t_list **lexar_list, char **line)
 	if (*line)
 		free(*line);
 	ft_lstclear(lexar_list, free);
-	// if (clean_all)
-	// {
-	// 	// ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
-	// 	// free_array(data->to_parser_list.paths);
-	// 	// data->to_parser_list.paths = NULL;
-	// }
 	return (0);
 }
 
@@ -58,7 +52,8 @@ static char	**get_paths_array(t_list *envp)
 	return (paths);
 }
 
-/* Sending Input in order to Construct: The ENV 2D Char Array, the Parser, The Command List, and Freeing the Parser */
+/* Sending Input in order to Construct: The ENV 2D Char Array, /
+the Parser, The Command List, and Freeing the Parser */
 int	parser(t_data *data, char **line)
 {
 	char	*tmp;
@@ -96,35 +91,4 @@ void	free_array(char **arr)
 		i++;
 	}
 	free(arr);
-}
-
-// Return new allocated str without char at idx
-// Return NULL if error
-char	*str_remove_char_at1(char *str, int idx)
-{
-	char	*new_str;
-	char	*start;
-
-	if (!str || idx < 0)
-		return (NULL);
-	if (idx >= (int)ft_strlen(str))
-		return (str);
-	new_str = ft_calloc(ft_strlen(str), sizeof(char));
-	if (!new_str)
-		return (NULL);
-	start = new_str;
-	while (*str)
-	{
-		if (idx == 0)
-		{
-			str++;
-			if (!*str)
-				break ;
-		}
-		*new_str = *str;
-		str++;
-		new_str++;
-		idx--;
-	}
-	return (start);
 }

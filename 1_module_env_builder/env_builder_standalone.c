@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:06:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/27 19:10:21 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:04:16 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_env	*create_env_list(char **envp)
 		ft_lstadd_back_env_element(&env_list, create_env_element(array));
 		i++;
 	}
-	// print_env_list(&env_list);
 	return (env_list);
 }
 

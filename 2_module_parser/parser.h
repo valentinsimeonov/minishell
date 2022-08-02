@@ -22,5 +22,6 @@ char	*str_replace_str_at(char *str, int idx, int length, char *replacement);
 int	char_array_len(char **arr);
 int	is_str_redir(char *str);
 void	perror(const char *s);
+int	count_pipes_in_lexar_list(t_list *lexar_list);
 
 #endif

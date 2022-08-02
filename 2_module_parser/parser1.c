@@ -6,12 +6,9 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 11:04:53 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 19:48:16 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:20:00 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "parser.h"
-
 
 #include "parser.h"
 
@@ -47,7 +44,7 @@ static int	clean_quote(char **str)
 
 /*	Dividing in to Substrings and Sending the Substrings
     to have the Quotes Removed, Creating the List */
-static int	get_clean_input(char *line, t_list **clean_input_list,
+static int	get_clean_input(char *line, t_list **lexar_list,
 	int *start, int *end)
 {
 	char	*content;
@@ -55,33 +52,11 @@ static int	get_clean_input(char *line, t_list **clean_input_list,
 	content = ft_substr(line, *start, *end - *start);
 	if (!content || !clean_quote(&content))
 		return (0);
-	ft_lstadd_back(clean_input_list, ft_lstnew(content));
+	ft_lstadd_back(lexar_list, ft_lstnew(content));
 	while (line[*end] && ft_isspace(line[*end]))
 		(*end)++;
 	*start = *end;
-	// print_list(clean_input_list);
 	return (1);
-}
-
-/* Printing the Elements from a Linked List */
-void	print_list(t_list **stack)
-{
-	t_list *temp_p;
-	
-	temp_p = *stack;
-	if (*stack == NULL)
-		printf("List is Empty\n");
-	if (*stack != NULL)
-	{	
-		while (temp_p->next != NULL)
-		{
-			printf("%s", "In List: ");
-			printf("%s\n", (char *)temp_p->line);
-			temp_p = temp_p->next;
-		}
-		printf("%s", "In List: ");
-		printf("%s\n", temp_p->line);
-	}
 }
 
 /*	Checking if in Line there is a In File Char or Here Doc Char	*/
@@ -109,7 +84,7 @@ static void	get_quote_end(char *line, int *end)
 
 /*	Checking for Quotes, Sending the Line
     to the List Creating Function  */
-int	lexer(char *line, t_list **clean_input)
+int	lexer(char *line, t_list **lexar_list)
 {
 	int		start;
 	int		end;
@@ -129,12 +104,11 @@ int	lexer(char *line, t_list **clean_input)
 		if (line[start] && (ft_isspace(line[end]) || is_meta_char(line[end])
 				|| is_meta_char(line[end - 1])))
 		{
-			if (!get_clean_input(line, clean_input, &start, &end))
+			if (!get_clean_input(line, lexar_list, &start, &end))
 				return (0);
 		}
 	}
-	if (line[start] && !get_clean_input(line, clean_input, &start, &end))
+	if (line[start] && !get_clean_input(line, lexar_list, &start, &end))
 		return (0);
-	print_list(clean_input);
 	return (1);
 }

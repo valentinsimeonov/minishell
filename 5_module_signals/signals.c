@@ -6,37 +6,47 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:30:36 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 14:51:12 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:34:27 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
 
-void	handler(int	signum)
+/*   Check README.md for Signal Translation and Architecture  */
+
+void	signal_handler_parent(int	signum)
 {
-	if (signum == SIGINT)
+	/* SIGINT == Ctrl + c */
+	if (signum == SIGINT /* && PID == 0  Child Process */)
 	{
 		ft_putstr_fd("\b\b\n", 1);
-		// rl_replace_line("", 0); /// Only works on Linux
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signum == SIGINT)
-		ft_putstr_fd("\n", 1);
-	else if (signum == SIGQUIT)
-		ft_putstr_fd("\b\b\n", 1);
+	global_exit_status = 1;
 }
 
-void	signal_check(t_data *data)
+void	signal_handler_child(int	signum)
 {
-	struct sigaction	sa;
-
-	t_data	*temp;
-	temp = data;
-	memset(&sa, '\0', sizeof(sa));
-	sa.sa_handler = &handler;
-	// if (sigaction(SIGINT, &sa, NULL) == -1)
-		
-	// if (sigaction(SIGQUIT, &sa, NULL) == -1)
-		// TODO  Insert Error Handling Function, ME
+	/* SIGINT == Ctrl + c */
+	if (signum == SIGINT /* && PID == 0  Child Process */)
+	{
+		ft_putstr_fd("\b\b\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	global_exit_status = 1;
 }
+
+/* Still Need to Add this in the Function which Creates the Child */
+/*
+    signal(SIGINT, SIG_IGN);
+	waitpid(vars->pid, &vars->tmp, 0);
+	free(vars->path); //// This Should Probably not be Added
+	signal(SIGINT, signal_handler_child);
+	global_exit_status = WEXITSTATUS(vars->tmp);
+*/
+/* We need to Put a Signal Handler Function in The Function that Creates the Parent,
+however we need to Put one in the Child Process as well */
