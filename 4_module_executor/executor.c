@@ -19,7 +19,7 @@ int	executor(t_data *data)
 
 	i = 0;
 	parser = &(data->to_parser_list);
-	while (parer->sections[i])
+	while (parser->sections[i])
 	{
 		cur_sec = parser->sections[i++];
 		store_std_fds(parser);
