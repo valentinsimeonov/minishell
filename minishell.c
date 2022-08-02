@@ -7,6 +7,7 @@ int global_exit_status = 0;
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
+
 	t_env 		*env_list;
 	t_data		*data;
 
@@ -26,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	int		i;
 	i = 0;
-	while (i < 3)
+	while (i < 10)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)
@@ -86,8 +87,8 @@ int	print_all_input(t_data *data)
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);
 	printf("\nCOMMANDS:\n");
-	// i = 0;
-	// while (parser->command[i])
-	// 	printf("%s\n", parser->command[i++]);
+	i = 0;
+	while (parser->command[i])
+	 	printf("%s\n", parser->command[i++]);
 	return (1);
 }

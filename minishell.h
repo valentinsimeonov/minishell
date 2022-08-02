@@ -53,6 +53,8 @@ typedef struct s_parser
 	t_list	**sections;
 	int		input_fd;
 	int		output_fd;
+	int		store_stdin;
+	int		store_stdout;
 	char	**paths;
 	char	**command;
 }			t_parser;

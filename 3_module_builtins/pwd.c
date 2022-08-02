@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 16:54:12 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 15:53:11 by smischni         ###   ########.fr       */
+/*   Created: 2022/08/02 15:48:05 by smischni          #+#    #+#             */
+/*   Updated: 2022/08/02 15:48:24 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "../minishell.h"
-
-typedef struct s_parser t_parser;
-typedef struct s_env t_env;
-
-int	check_builtins(t_parser *parser, t_env *env);
-
-int	ft_echo(t_parser *parser);
-
-int	ft_env(t_env *env, t_parser *parser);
-
-int	ft_pwd(t_parser *parser);
-
-#endif
+int	ft_pwd(t_parser *parser)
+{
+	char	*buff;
+	
+	if (parser->command[1])
+		return (0);//error handling: "pwd: too many arguments"
+	buff = ft_calloc(PATH_MAX, sizeof(char));
+	if (getcwd(buff, PATH_MAX) == NULL)
+		return (0);//error handling ??
+	ft_putstr_fd(buff, parser->output_fd);
+	free(buff);
+	return (1);
+}

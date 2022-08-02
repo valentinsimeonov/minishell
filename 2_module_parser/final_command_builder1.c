@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   final_command_builder1.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/17 17:22:06 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/01 18:16:20 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "parser.h"
 
@@ -25,6 +15,7 @@ int	count_pipes_in_lexar_list(t_list *lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
+
 	return (pipe_counter);
 }
 
@@ -34,6 +25,7 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 	int		i;
 	int		pipe_counter;
 	t_list	*head;
+
 
 	i = 0;
 	head = lexar_list;
