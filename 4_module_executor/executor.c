@@ -88,7 +88,7 @@ int	exec_prep(t_list *sec, t_parser *parser)
  * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	exec_section(t_parser *parser, t_env *env)//maybe needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
+int	exec_section(t_parser *parser, t_env *env)
 {
 	pid_t		pid;
 	int			pipe_fd[2];
