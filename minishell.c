@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 
 	/* Checking for Signals */
 	// signal_check(data);
-	signal(SIGINT, signal_handler);
+	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 	
 	int		i;
