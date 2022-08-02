@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/29 17:36:59 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:20:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	infile(char *file, t_parser *parser, char *filemode)
 	flag_prv_file = 0;
 	if (parser->input_fd < 0)
 		flag_prv_file = -1;
-	else if (parser->input_fd > 2 && parser->input_fd != parser->store_stdin)
+	else if (parser->input_fd > 2)//had a condition to close shit
 		close(parser->input_fd);
 	if (ft_strncmp(filemode, "<<", 3) == 0)
 		parser->input_fd = here_doc(file);

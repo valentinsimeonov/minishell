@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/29 14:25:10 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:55:42 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		add_path(t_parser *parser);
 int		free_str_array(char **str);
 int		free_lst_array(t_list **lists);
 char	**reassemble_env(t_env *env);
+int		store_std_fds(t_parser *parser);
+int		restore_std_fds(t_parser *parser);
 
 //only for testing
 int		print_all_input(t_data *data);

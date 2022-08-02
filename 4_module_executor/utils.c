@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 10:50:27 by smischni          #+#    #+#             */
-/*   Updated: 2022/07/28 12:20:32 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:59:32 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param str [char **] String array to be freed.
  * @return [int] 1 at success, 0 at failure.
 */
-int	free_str_array(char **str)
+int	free_str_array(char **str) //put in overall error handling/free file
 {
 	int	i;
 
@@ -35,7 +35,7 @@ int	free_str_array(char **str)
  * @param lists [t_list **] Array of lists.
  * @return [int] 1 at success, 0 at failure.
 */
-int	free_lst_array(t_list **lists)
+int	free_lst_array(t_list **lists)  //put in overall error handling/free file
 {
 	int	i;
 
@@ -48,6 +48,13 @@ int	free_lst_array(t_list **lists)
 		free(lists[i++]);
 	}
 	free(lists);
+	return (1);
+}
+
+int	close_pipe_fd(int fd[2])
+{
+	close(fd[0]);
+	close(fd[1]);
 	return (1);
 }
 
@@ -81,4 +88,20 @@ char	**reassemble_env(t_env *env)
 		env = env->next;
 	}
 	return (envp);
+}
+
+int	store_std_fds(t_parser *parser)
+{
+	parser->store_stdin = dup(STDIN_FILENO);
+	parser->store_stdout = dup(STDOUT_FILENO);
+	if (parser->store_stdin < 0 || parser->store_stdout < 0)
+		return (0);//error handling tbd
+	return (1);
+}
+
+int	restore_std_fds(t_parser *parser)
+{
+	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
+		return (0);//error handling tbd
+	return (1);
 }

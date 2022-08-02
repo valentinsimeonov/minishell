@@ -1,4 +1,3 @@
-
 #include "executor.h"
 
 /**
@@ -14,39 +13,29 @@
 */
 int	executor(t_data *data)
 {
-	t_list		**sections;
 	t_list		*cur_sec;
 	int			i;
 	t_parser	*parser;
-	t_env		*env;
 
 	i = 0;
 	parser = &(data->to_parser_list);
-	env = &(data->to_env_list);
-	sections = parser->sections;
-	parser->store_stdin = dup(STDIN_FILENO);
-	parser->store_stdout = dup(STDOUT_FILENO);
-	while (sections[i])
+	while (parer->sections[i])
 	{
-		cur_sec = sections[i];
+		cur_sec = parser->sections[i++];
+		store_std_fds(parser);
 		parser->input_fd = STDIN_FILENO;
-		if (sections[i])
+		if (parser->sections[i])
 			parser->output_fd = STDIN_FILENO;
 		else
-			parser->output_fd = parser->store_stdout;
-		dprintf(2, "fds before exec_prep:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
+			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
-		dprintf(2, "fds after exec_prep:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
-		if (sections[i])
-			exec_section(parser, env);
+		if (parser->sections[i])
+			exec_section(parser, &(data->to_env_list));
 		else
-			exec_last_section(parser, env);
+			exec_last_section(parser, &(data->to_env_list));
 	}
-	dprintf(2, "fds after execution:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
-	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
-		return (0);//error handling tbd
-	dprintf(2, "fds after dup2:\nstore_stdin: %d\nstore_stdout: %d\ninput_fd: %d\noutput_fd: %d\n", parser->store_stdin, parser->store_stdout, parser->input_fd, parser->output_fd);
+	restore_std_fds(parser);
 	free_lst_array(parser->sections);
 	return (1);
 }
@@ -99,14 +88,14 @@ int	exec_prep(t_list *sec, t_parser *parser)
  * @param env [t_env *] List of environment variables.
  * @return [int] 1 at success, 0 at failure.
 */
-int	exec_section(t_parser *parser, t_env *env)
+int	exec_section(t_parser *parser, t_env *env)//maybe needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 {
 	pid_t		pid;
 	int			pipe_fd[2];
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
-	if (parser->input_fd != STDIN_FILENO)
+	if (parser->input_fd > 2)
 		close(parser->input_fd);
 	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	pid = fork();
@@ -124,11 +113,9 @@ int	exec_section(t_parser *parser, t_env *env)
 	waitpid(pid, NULL, 0);
 	if (dup2(pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	close_pipe_fd(pipe_fd);
 	free_str_array(parser->command);
 	return (1);
-	//needs identifiers if child or parent i.e. for changing the env variables (ask Clemens)
 }
 
 /**
@@ -147,11 +134,12 @@ int	exec_last_section(t_parser *parser, t_env *env)
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
-	dprintf(2, "what's in STDIN right now: %s", get_next_line(parser->input_fd));
 	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
 		return (0);// error handling TBD
-	close(parser->input_fd);
-	close(parser->output_fd);
+	if (parser->input_fd > 2)
+		close(parser->input_fd);
+	if (parser->output_fd > 2)	
+		close(parser->output_fd);
 	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	pid = fork();
 	if (pid < 0)

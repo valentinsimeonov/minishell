@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (i < 10)
 	{
-		ft_putstr_fd("Neuer Durchlauf:\n", 2);
 		line = readline("minishell:> ");
 		if (line == NULL)
 			break ;
