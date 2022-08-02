@@ -6,13 +6,14 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:20:40 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/07/26 12:30:02 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:12:21 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-/* Return New Allocated String, Old Substring Length with new Substring at Index */
+/* Return New Allocated String, Old Substring Length with / 
+   new Substring at Index */
 char	*str_replace_str_at(char *str, int idx, int length, char *replacement)
 {
 	char	*new_str;

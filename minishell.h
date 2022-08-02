@@ -8,8 +8,8 @@
 # include <fcntl.h> /// For Open 
 # include <signal.h>  /// For Signals
 # include <sys/wait.h>  /// For Wait
-# include <readline/readline.h>  /// For Readline
-# include <readline/history.h>  /// For History
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
 # include <sys/stat.h>  /// For lstats
 # include <limits.h> //for PATH_MAX
 /* Libft Library */
@@ -24,9 +24,8 @@
 #include "4_module_executor/executor.h"
 
 
-// Temporary
-
-int	print_all_input(t_data *data);
+/*		Global Variable 		 */
+extern int global_exit_status;
 
 /*      ENV Builder Standalone   */
 typedef struct s_env
@@ -51,7 +50,7 @@ typedef struct s_envp_data
 /*     Parsed Command List      */
 typedef struct s_parser
 {
-	t_list	**sections;   ///section
+	t_list	**sections;
 	int		input_fd;
 	int		output_fd;
 	int		store_stdin;

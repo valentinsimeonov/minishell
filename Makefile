@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/07/26 15:53:23 by smischni         ###   ########.fr        #
+#    Updated: 2022/08/02 16:35:40 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CC = gcc
 
 UNAME_S := $(shell uname -s)
 
-LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -lreadline
+LIB_MAC =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
 
 LIB_LINUX = -lreadline
 
