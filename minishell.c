@@ -8,15 +8,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 
-	t_env 		*env_list;
+	// t_env 		*env_list;
 	t_data		*data;
 
 	/* Creating the ENV List */
 	data = env_builder(envp);   
 	// data = main_data_initialiser(envp);
-	env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
-	print_env_list(&env_list);        //// Same as Above
-
+	data->to_env_list = *create_env_list(envp); /// Variable is Here Just for Testing Purposes
+	// print_env_list(&env_list);               /// Same as Above
 	(void)argc;
 	(void)argv;
 
@@ -24,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	// signal_check(data);
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
-	
+	// signal(SIGINT, SIG_DFL);
 	int		i;
 	i = 0;
 	while (i < 10)
@@ -34,15 +33,13 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
-
 		/* Just for Testing Purposes */
-		if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)))
-			printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
+		// if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)))
+		// 	printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 
-		if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)))
-				printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
+		// if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)))
+		// 		printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
 		print_all_input(data);
-
 		executor(data);
 		// print_list_test(data);
 		i++;
@@ -87,8 +84,8 @@ int	print_all_input(t_data *data)
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);
 	printf("\nCOMMANDS:\n");
-	i = 0;
-	while (parser->command[i])
-	 	printf("%s\n", parser->command[i++]);
+	// i = 0;
+	// while (parser->command[i])
+	//  	printf("%s\n", parser->command[i++]);
 	return (1);
 }

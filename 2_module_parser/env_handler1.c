@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/01 18:12:02 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:13:13 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*resolving_env(t_envp_data envp_data, char *env_name)
 		return (get_env_value(*envp_data.envp_cp, env_name));
 }
 
-/* Allocating a New String from a Value that will Replace the /
+/* Allocating a New String from a Value that will Replace the \
    ENV Variable, Returns NULL if Error */
 static char	*replace_str_env(t_data *data, char *input, int idx)
 {
@@ -80,7 +80,7 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 	idx++;
 	if (input[idx] && input[idx] == '?')
 	{
-		exit_status = ft_itoa(data->to_envp_data.exit_status);
+		exit_status = ft_itoa(global_exit_status);
 		ret = str_replace_str_at(input, idx - 1, 2, exit_status);
 		free(exit_status);
 		return (ret);
@@ -89,7 +89,7 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 		return (replace_str_env(data, input, idx));
 }
 
-/* Checks All ENV Variables in the String and Resolves them, /
+/* Checks All ENV Variables in the String and Resolves them, \
    Returns 0 if Error */
 int	env_resolver(t_data *data, char **input)
 {

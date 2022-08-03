@@ -10,7 +10,7 @@
 # include <sys/wait.h>  /// For Wait
 # include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
 # include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
-# include <sys/stat.h>  /// For lstats
+# include <sys/stat.h>  /// For Using WEXITSTATUS
 # include <limits.h> //for PATH_MAX
 /* Libft Library */
 # include "libft/libft.h"
@@ -38,7 +38,7 @@ typedef struct s_env
 /*      ENV Builder For Parser   */
 typedef struct s_envp_data
 {
-	t_list	**envp_cp;
+	t_list	**envp_cp;  /// Storea env_vars_tmp as Elemetns
 	t_list	**envp_empty;
 	t_list	*pwd_list;
 	t_list	*old_pwd_list;
@@ -66,47 +66,6 @@ typedef struct s_data
 	t_env		to_env_list;
 	t_envp_data	to_envp_data;
 }				t_data;
-
-// typedef struct s_list
-// {
-// 	char			*line;
-// 	struct s_list	*next;
-// }				t_list;
-
-
-// /* Saskia: Suggested structs */
-// typedef struct s_shell //contains all variables necessary for our project, to be extended
-// {
-// 	char	**env; // handover all env variables between functions
-// 	char	**path; // handover a char containing all possible paths, necessary for execution
-// 	int		nbr_sections; // number of sections separated by pipes (if 1, no piping necessary)
-// 	t_list	*sections; //list or array of section structs -> requires t_list to have a void pointer!!!
-// }				t_shell;
-
-// typedef struct s_section
-// {
-// 	char	*raw;//containing the raw string of the section (optional) 
-// 	char	**split;//containing the string of the section parsed by spaces (except stuff that is in quotes and not after redirections)
-// 	int		fd[2];//fds for input and output; initialized to STDIN & STDOUT, only changed by me if there are redirections
-// 	char	**cmd;//containig the command and all its arguments, initialized by me
-// }				t_section;
-
-
-
-/* Example:
-< colors.txt sort | uniq -c | sort -r | head -3 > favcolors.txt
-section[0]:
-split = {"< colors.txt", "sort"}
-section[1]:
-split = {"uniq", "-c"}
-section[2]:
-split = {"sort", "-r"}
-section[3]:
-split = {"head", "-3", "> favcolors.txt"} */
-
-
-// /* Global Variable */
-// extern int	g_pid;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 

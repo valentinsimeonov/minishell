@@ -92,6 +92,8 @@ int	exec_section(t_parser *parser, t_env *env)
 {
 	pid_t		pid;
 	int			pipe_fd[2];
+	int			test = 1;
+
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
 		return (0);// error handling TBD
@@ -103,14 +105,27 @@ int	exec_section(t_parser *parser, t_env *env)
 		return (0);//error handling TBD
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (dup2(pipe_fd[1], STDOUT_FILENO) < 0)
 			return (0);//error handling TBD
 		close_pipe_fd(pipe_fd);
 		execve(parser->command[0], parser->command, reassemble_env(env));
 		//error handling: command not found
-		return (0);//error handling TBD
+		// if (WIFSIGNALED(test))
+		// 	return (128 + WTERMSIG(test));
+		// return (WEXITSTATUS(test));
+		exit(127); //error handling TBD
 	}
-	waitpid(pid, NULL, 0);
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &test, 0);
+	printf("First Pipe Function: %d", test);
+
+	signal(SIGINT, signal_handler_parent);
+	// if (WIFSIGNALED(test))
+	// 	global_exit_status = 128 + WTERMSIG(test);
+	global_exit_status = 128 + WTERMSIG(test);
+	printf("First Pipe Function: %d", global_exit_status);
+
 	if (dup2(pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
 	close_pipe_fd(pipe_fd);
@@ -133,6 +148,7 @@ int	exec_section(t_parser *parser, t_env *env)
 int	exec_last_section(t_parser *parser, t_env *env)
 {
 	pid_t		pid;
+	int			test = 1;
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
@@ -148,11 +164,21 @@ int	exec_last_section(t_parser *parser, t_env *env)
 		return (0);//error handling TBD
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		execve(parser->command[0], parser->command, reassemble_env(env));
 		//error handling: command not found
-		return (0);//error handling TBD
+		exit(127);//error handling TBD
 	}
-	waitpid(pid, NULL, 0);
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &test, 0);
+	printf("Second Pipe Function: %d", test);
+
+	signal(SIGINT, signal_handler_parent);
+	// if (WIFSIGNALED(test))
+	// 	global_exit_status = 128 + WTERMSIG(test);
+	// return (WEXITSTATUS(test));
+	global_exit_status = 128 + WTERMSIG(test);
+	printf("Second Pipe Function: %d", global_exit_status);
 	free_str_array(parser->command);
 	return (1);
 }

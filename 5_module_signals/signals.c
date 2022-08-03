@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:30:36 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/02 16:34:27 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:32:41 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,9 @@
 
 /*   Check README.md for Signal Translation and Architecture  */
 
-void	signal_handler_parent(int	signum)
+void	signal_handler_parent(int signum)
 {
-	/* SIGINT == Ctrl + c */
-	if (signum == SIGINT /* && PID == 0  Child Process */)
-	{
-		ft_putstr_fd("\b\b\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	global_exit_status = 1;
-}
-
-void	signal_handler_child(int	signum)
-{
-	/* SIGINT == Ctrl + c */
-	if (signum == SIGINT /* && PID == 0  Child Process */)
+	if (signum == SIGINT)
 	{
 		ft_putstr_fd("\b\b\n", 1);
 		rl_replace_line("", 0);
