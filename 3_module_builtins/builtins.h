@@ -21,6 +21,7 @@ typedef struct s_env t_env;
 int	check_builtins(t_parser *parser, t_env *env);
 
 int	ft_echo(t_parser *parser);
+int	echo_valid_flag(char *str);
 
 int	ft_env(t_env *env, t_parser *parser);
 

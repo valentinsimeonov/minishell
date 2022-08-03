@@ -6,13 +6,11 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:29:14 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 15:46:35 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:12:05 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-int	echo_valid_flag(char *str);
 
 int	ft_echo(t_parser *parser)
 {
