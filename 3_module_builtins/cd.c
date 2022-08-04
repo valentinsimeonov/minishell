@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:34 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 18:27:40 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 11:44:32 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd(t_env *env, t_parser *parser)//maybe to export first?? -> use for addi
 	
 	if (!parser->command[1])
 	{
-		tmp = get_env(env, "HOME")
+		tmp = get_env(env, "HOME");
 		if (chdir(tmp->bash_v_content) < 0)
 			return (0);//error handling, no such file or directory
 	}
