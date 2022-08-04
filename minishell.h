@@ -55,6 +55,7 @@ typedef struct s_parser
 	int		output_fd;
 	int		store_stdin;
 	int		store_stdout;
+	int		pipe_fd[2];
 	char	**paths;
 	char	**command;
 }			t_parser;
