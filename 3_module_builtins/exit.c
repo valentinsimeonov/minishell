@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 15:48:05 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 19:46:21 by smischni         ###   ########.fr       */
+/*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
+/*   Updated: 2022/08/04 18:42:42 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_pwd(t_parser *parser)
+int	ft_exit(t_env *env, t_parser *parser, int flag_pipe)
 {
-	char	*buff;
-	int		output_fd;
-
-	if (parser->pipe_fd[1] != -1)
-		output_fd = parser->pipe_fd[1];
-	else
-		output_fd = parser->output_fd;
-	if (parser->command[1])
-		return (0);//error handling: "pwd: too many arguments"
-	buff = ft_calloc(PATH_MAX, sizeof(char));
-	if (getcwd(buff, PATH_MAX) == NULL)
-		return (0);//error handling ??
-	ft_putstr_fd(buff, output_fd);
-	ft_putchar_fd('\n', output_fd);
-	free(buff);
+	if (flag_pipe == 1)
+		return (1);
+	free_str_array(parser->command);
+	free_lst_array(parser->sections);
+	close(parser->input_fd);
+	close(parser->output_fd);
+	close(parser->store_stdin);
+	close(parser->store_stdout);
+	//parser itself?
+	//free env list
+	free(env->bash_variable);///PLATZHALTER -> UNUSED PARAMETER
+	exit(EXIT_SUCCESS);
 	return (1);
 }

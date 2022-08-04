@@ -19,7 +19,7 @@ int	executor(t_data *data)
 
 	i = 0;
 	parser = &(data->to_parser_list);
-	store_std_fds(parser);
+	store_fds(parser);
 	while (parser->sections[i])
 	{
 		cur_sec = parser->sections[i++];
@@ -91,31 +91,30 @@ int	exec_prep(t_list *sec, t_parser *parser)
 int	exec_section(t_parser *parser, t_env *env)
 {
 	pid_t		pid;
-	int			pipe_fd[2];
 
-	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(pipe_fd) < 0)
+	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(parser->pipe_fd) < 0)
 		return (0);// error handling TBD
 	if (parser->input_fd > 2)
 		close(parser->input_fd);
-	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	pid = fork();
-	if (pid < 0)
-		return (0);//error handling TBD
-	if (pid == 0)
+	if (check_builtins(parser, env) == 0)
 	{
-		if (dup2(pipe_fd[1], STDOUT_FILENO) < 0)
+		pid = fork();
+		if (pid < 0)
 			return (0);//error handling TBD
-		close_pipe_fd(pipe_fd);
-		execve(parser->command[0], parser->command, reassemble_env(env));
-		//error handling: command not found
-		return (0);//error handling TBD
+		if (pid == 0)
+		{
+			if (dup2(parser->pipe_fd[1], STDOUT_FILENO) < 0)
+				return (0);//error handling TBD
+			close_pipe_fd(parser->pipe_fd);
+			execve(parser->command[0], parser->command, reassemble_env(env));
+			//error handling: command not found
+			return (0);//error handling TBD
+		}
+		waitpid(pid, NULL, 0);
 	}
-	waitpid(pid, NULL, 0);
-	if (dup2(pipe_fd[0], parser->output_fd) < 0)
+	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
-	close_pipe_fd(pipe_fd);
-	if (parser->output_fd > 2)
-		close(parser->output_fd);
+	close_pipe_fd(parser->pipe_fd);
 	free_str_array(parser->command);
 	return (1);
 }
@@ -136,23 +135,25 @@ int	exec_last_section(t_parser *parser, t_env *env)
 
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
-	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
-		return (0);// error handling TBD
 	if (parser->input_fd > 2)
 		close(parser->input_fd);
+	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
+		return (0);// error handling TBD
+	if (check_builtins(parser, env) == 0)
+	{
+		pid = fork();
+		if (pid < 0)
+			return (0);//error handling TBD
+		if (pid == 0)
+		{
+			execve(parser->command[0], parser->command, reassemble_env(env));
+			//error handling: command not found
+			return (0);//error handling TBD
+		}
+		waitpid(pid, NULL, 0);
+	}
 	if (parser->output_fd > 2)	
 		close(parser->output_fd);
-	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	pid = fork();
-	if (pid < 0)
-		return (0);//error handling TBD
-	if (pid == 0)
-	{
-		execve(parser->command[0], parser->command, reassemble_env(env));
-		//error handling: command not found
-		return (0);//error handling TBD
-	}
-	waitpid(pid, NULL, 0);
 	free_str_array(parser->command);
 	return (1);
 }
