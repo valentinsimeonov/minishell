@@ -3,16 +3,40 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
+#    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/08/02 16:35:40 by vsimeono         ###   ########.fr        #
+#    Updated: 2022/08/04 16:33:02 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c 1_module_env_builder/env_builder_for_parser1.c 1_module_env_builder/env_builder_for_parser2.c 1_module_env_builder/env_builder_standalone.c 2_module_parser/parser2.c 2_module_parser/parser1.c 2_module_parser/constructor.c 2_module_parser/env_handler1.c 2_module_parser/env_handler2.c 2_module_parser/final_command_builder1.c 5_module_signals/signals.c 4_module_executor/executor.c 4_module_executor/commands.c 4_module_executor/infile.c 4_module_executor/outfile.c 4_module_executor/utils.c
+SRC = 	minishell.c \
+		1_module_env_builder/env_builder_for_parser1.c \
+		1_module_env_builder/env_builder_for_parser2.c \
+		1_module_env_builder/env_builder_standalone.c \
+		2_module_parser/parser2.c \
+		2_module_parser/parser1.c \
+		2_module_parser/constructor.c \
+		2_module_parser/env_handler1.c \
+		2_module_parser/env_handler2.c \
+		2_module_parser/final_command_builder1.c \
+		3_module_builtins/cd.c \
+		3_module_builtins/check_builtins.c \
+		3_module_builtins/echo.c \
+		3_module_builtins/env.c \
+		3_module_builtins/exit.c \
+		3_module_builtins/export.c \
+		3_module_builtins/export_utils.c \
+		3_module_builtins/pwd.c \
+		3_module_builtins/unset.c \
+		4_module_executor/executor.c \
+		4_module_executor/commands.c \
+		4_module_executor/infile.c \
+		4_module_executor/outfile.c \
+		4_module_executor/utils.c \
+		5_module_signals/signals.c
 
 INCLUDE = minishell.h
 
@@ -49,6 +73,7 @@ clean:
 	$(RM) libft/*.o
 	$(RM) 1_module_env_builder/*.o
 	$(RM) 2_module_parser/*.o
+	$(RM) 3_module_builtins/*.o
 	$(RM) 4_module_executor/*.o
 	$(RM) 5_module_signals/*.o
 
@@ -57,6 +82,7 @@ fclean: clean
 	$(RM) libft/libft.a
 	$(RM) 1_module_env_builder/*.o
 	$(RM) 2_module_parser/*.o
+	$(RM) 3_module_builtins/*.o
 	$(RM) 4_module_executor/*.o
 	$(RM) 5_module_signals/*.o
 	

@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:34 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 15:57:17 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:24:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_cd(t_env *env, t_parser *parser, int flag_pipe)
 		if (chdir(parser->command[1]) < 0)
 			return (0);//error handling, no such file or directory
 	}
-	cd_update_env(env, parser);
+	cd_update_env(env);
 	return (1);
 }
 
-int	cd_update_env(t_env *env, t_parser *parser)
+int	cd_update_env(t_env *env)
 {
 	t_env	*tmp;
 	t_env	*pwd;

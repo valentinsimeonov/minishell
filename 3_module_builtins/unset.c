@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:04:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 16:06:05 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:25:48 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_unset(t_env *env, t_parser *parser, int flag_pipe)
 {
-	t_env	*previous;
-	t_env	*searched;
-	t_env	*following;
 	int		i;
 
 	i = 1;

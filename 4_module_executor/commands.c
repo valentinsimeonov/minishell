@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 11:38:20 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:54:22 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 	{
 		if ((is_infile(sec->line) || is_outfile(sec->line)) && sec->next)
 			sec = sec->next;
-		else if (i == 0)
-		{
-			//check if builtin -> if yes: builtin flag + behaviours as in else; if not: strjoin with "/"
+		else if (i == 0 && is_builtin(sec->line) == 0)
 			parser->command[i++] = ft_strjoin("/", sec->line);
-		}
 		else
 			parser->command[i++] = ft_strdup(sec->line);
 		sec = sec->next;
 	}
-	//condition: nur if builtin flag == 0
-	add_path(parser);
+	if (is_builtin(parser->command[0]) == 0)
+		add_path(parser);
 	return (1);
 }
 

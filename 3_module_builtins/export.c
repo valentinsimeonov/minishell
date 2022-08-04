@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:16:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 16:00:33 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:25:27 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int	export_add_variable(t_env *env, char **values)
 		tmp->bash_v_content = values[1];
 	}	
 	else
-		ft_lstadd_back_env_element(env, create_env_element(values));
+		ft_lstadd_back_env_element(&env, create_env_element(values));
 	return (1);
 }

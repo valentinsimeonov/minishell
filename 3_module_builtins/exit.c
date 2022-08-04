@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 15:59:17 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:56:22 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_exit(t_env *env, t_parser *parser, int flag_pipe)
 	close(parser->output_fd);
 	//free parser?
 	//free env list
-	//free t_data??
+	free(env->bash_variable);///PLATZHALTER -> UNUSED PARAMETER
 	exit(EXIT_SUCCESS);
 	return (1);
 }
