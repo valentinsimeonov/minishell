@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:16:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 16:25:27 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 19:10:27 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	ft_export(t_env *env, t_parser *parser, char **input, int flag_pipe)
 	int		i;
 
 	i = 1;
-	if (flag_pipe == 1)
-		return (1);
 	if (!input[i])
 		export_print(env, parser);
+	if (flag_pipe == 1)
+		return (1);
 	else
 	{
 		while (input[i])

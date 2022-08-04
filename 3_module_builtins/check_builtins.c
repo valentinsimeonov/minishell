@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 16:54:55 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:55:24 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	check_builtins(t_parser *parser, t_env *env)
 	len = ft_strlen(parser->command[0]);
 	if (parser->sections[1])
 		flag_pipe = 1;
-	dprintf(2, "commands[0] = %s\n", parser->command[0]);
 	if (ft_strncmp(parser->command[0], "cd", len) == 0)
 		ft_cd(env, parser, flag_pipe);
 	else if (ft_strncmp(parser->command[0], "echo", len) == 0)
@@ -38,6 +37,7 @@ int	check_builtins(t_parser *parser, t_env *env)
 		ft_unset(env, parser, flag_pipe);
 	else
 		return (0);
+	close(parser->pipe_fd[1]);//check if this breaks minishell, since I am not checking if it is open -> maybe in executor is enough?
 	return (1);
 }
 
