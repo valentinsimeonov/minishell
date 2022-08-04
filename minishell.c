@@ -20,10 +20,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	/* Checking for Signals */
-	// signal_check(data);
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGINT, SIG_DFL);
+	
 	int		i;
 	i = 0;
 	while (i < 10)
@@ -41,9 +40,15 @@ int	main(int argc, char **argv, char **envp)
 		// 		printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));
 		print_all_input(data);
 		executor(data);
+		if (data->to_parser_list.sections)
+			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
+		if (data->to_parser_list.paths)
+			free_array(data->to_parser_list.paths);
+		// free_minishell(data);
 		// print_list_test(data);
 		i++;
 	}
+	free_minishell(data);
 	return (0);
 }
 

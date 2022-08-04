@@ -6,13 +6,13 @@
 #    By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/08/02 17:04:59 by vsimeono         ###   ########.fr        #
+#    Updated: 2022/08/04 19:27:47 by vsimeono         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c 1_module_env_builder/env_builder_for_parser1.c 1_module_env_builder/env_builder_for_parser2.c 1_module_env_builder/env_builder_standalone.c 2_module_parser/parser2.c 2_module_parser/parser1.c 2_module_parser/constructor.c 2_module_parser/env_handler1.c 2_module_parser/env_handler2.c 2_module_parser/final_command_builder1.c 5_module_signals/signals.c 4_module_executor/executor.c 4_module_executor/commands.c 4_module_executor/infile.c 4_module_executor/outfile.c 4_module_executor/utils.c
+SRC = minishell.c free.c 1_module_env_builder/env_builder_for_parser1.c 1_module_env_builder/env_builder_for_parser2.c 1_module_env_builder/env_builder_standalone.c 2_module_parser/parser2.c 2_module_parser/parser1.c 2_module_parser/constructor.c 2_module_parser/env_handler1.c 2_module_parser/env_handler2.c 2_module_parser/final_command_builder1.c 5_module_signals/signals.c 4_module_executor/executor.c 4_module_executor/commands.c 4_module_executor/infile.c 4_module_executor/outfile.c 4_module_executor/utils.c
 
 INCLUDE = minishell.h
 

@@ -3,19 +3,27 @@
 #include "parser.h"
 
 /* Cleans the Command List, If All Clean then Cleans Commands as well */
-static int	free_parser(t_list **lexar_list, char **line)
+// static int	free_parser(t_list **lexar_list, char **line)
+static int	free_parser(t_data *data, t_list **lexar_list, char **line,
+	int clean_all)
 {
 	if (*line)
 		free(*line);
 	ft_lstclear(lexar_list, free);
+	if (clean_all)
+	{
+		ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
+		free_array(data->to_parser_list.paths);
+		data->to_parser_list.paths = NULL;
+	}
 	return (0);
 }
 
 /* Detecting and Handling Errors in the Parser */
-static int	parser_error(t_list **lexar_list, char **line,
+static int	parser_error(t_data *data, t_list **lexar_list, char **line,
 	char *err)
 {
-	free_parser(lexar_list, line);
+	free_parser(data, lexar_list, line, 1);
 	if (err)
 		ft_putendl_fd(err, 2);
 	else
@@ -55,14 +63,16 @@ int	parser(t_data *data, char **line)
 	free(*line);
 	*line = tmp;
 	if (!*line || !env_resolver(data, line))
-		return (parser_error(&lexar_list, line, NULL));
+		return (parser_error(data, &lexar_list, line, NULL));
 	if (!lexer(*line, &lexar_list))
-		return (parser_error(&lexar_list, line, NULL));
+		return (parser_error(data, &lexar_list, line, NULL));
 	if (!split_into_commands(data, lexar_list))
-		return (free_parser(&lexar_list, line));
+		return (free_parser(data, &lexar_list, line, 1));
 	//printf("Constructor = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
-	// ft_lstclear(&lexar_list, free);
-	// free_parser(data, &lexar_list, line, 0);
+	if (lexar_list)
+		ft_lstclear(&lexar_list, free);
+	if (lexar_list)
+		free_parser(data, &lexar_list, line, 0);
 	//printf("Constructor after Free = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 	return (1);
 }

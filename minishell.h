@@ -68,6 +68,10 @@ typedef struct s_data
 }				t_data;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
+void	free_minishell(t_data *data);
+
+
+
 
 /*  Module Parser */
 void	is_d_quotes_closed(t_list *lexar_list);
