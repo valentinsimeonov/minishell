@@ -8,8 +8,8 @@
 # include <fcntl.h> /// For Open 
 # include <signal.h>  /// For Signals
 # include <sys/wait.h>  /// For Wait
-# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
-# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
+# include </Users/smischni/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
+# include </Users/smischni/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
 # include <sys/stat.h>  /// For Using WEXITSTATUS
 # include <limits.h> //for PATH_MAX
 /* Libft Library */
@@ -18,11 +18,12 @@
 # include "1_module_env_builder/env_builder.h"
 /* 2 Module Lexar */
 # include "2_module_parser/parser.h"
+/* 3 Module Builtins */
+# include "3_module_builtins/builtins.h"
+/* 4 Module Executor */
+#include "4_module_executor/executor.h"
 /* 5 Module Signals */
 #include "5_module_signals/signals.h"
-/* Module Executor */
-#include "4_module_executor/executor.h"
-
 
 /*		Global Variable 		 */
 extern int global_exit_status;

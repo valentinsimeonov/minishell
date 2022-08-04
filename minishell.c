@@ -31,10 +31,10 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parser(data, &line);
 		executor(data);
-		if (data->to_parser_list.sections)
+		/*if (data->to_parser_list.sections)
 			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
 		if (data->to_parser_list.paths)
-			free_array(data->to_parser_list.paths);
+			free_array(data->to_parser_list.paths);*/
 		// free_minishell(data);
 		// print_list_test(data);
 		i++;
