@@ -13,13 +13,11 @@ int	main(int argc, char **argv, char **envp)
 	data = env_builder(envp);   
 	// data = main_data_initialiser(envp);
 	data->to_env_list = *create_env_list(envp); /// Variable is Here Just for Testing Purposes
-	//print_env_list(&env_list);        //// Same as Above
 
 	(void)argc;
 	(void)argv;
 
 	/* Checking for Signals */
-	// signal_check(data);
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 	
@@ -32,19 +30,16 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
-
-		/* Just for Testing Purposes */
-		/*if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)))
-			printf("Main = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
-
-		if (((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)))
-				printf("Main = In Command List at Sections Index 1: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[1]->line)));*/
-		//print_all_input(data);
-
 		executor(data);
+		if (data->to_parser_list.sections)
+			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
+		if (data->to_parser_list.paths)
+			free_array(data->to_parser_list.paths);
+		// free_minishell(data);
 		// print_list_test(data);
 		i++;
 	}
+	free_minishell(data);
 	return (0);
 }
 
@@ -85,8 +80,8 @@ int	print_all_input(t_data *data)
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);
 	printf("\nCOMMANDS:\n");
-	i = 0;
-	while (parser->command[i])
-	 	printf("%s\n", parser->command[i++]);
+	// i = 0;
+	// while (parser->command[i])
+	//  	printf("%s\n", parser->command[i++]);
 	return (1);
 }

@@ -36,19 +36,21 @@ typedef struct s_parser
 
 5. Module 5:
 	- Signal Handling  **Work in Progress**
-	Signal Translation:
+	Signal Translation: **DONE**
 		- Ctrl + C = SIGINT
 		- Ctrl + \ = SIGQUIT
 		- Ctrl + D = EOF
 
-	In Parent Process:
+	In Parent Process: **DONE**
 		- Ctrl + C = Displays a New Prompt on a New Line
 		- Ctrl + \ = Does Nothing
 		- Ctrl + D = Exits the Shell
-	In Child Process:
+	In Child Process: **DONE**
 		- Ctrl + C = Exits the Child and Goes to Parent
 		- Ctrl + \ = Exits the Child and Goes to Parent
-		- Ctrl + D = Exits the Child and Goes to Parent
+		- Ctrl + D = Exits the Shell
+
+	Ability to Send the Program's Termination Code to the Parent in order for the PArent to Redisplay it if the "echo $?" Command is Launched  **Work in Progress**
 
 6. Module 6:
 	- Terminate: After the Commands are Executed, the Shell executes any Shutdown Commands, Frees up any Memory, and Terminates.
@@ -73,6 +75,8 @@ And then
 4. Mini-Guide for Minishell: https://harm-smits.github.io/42docs/projects/minishell
 
 3. Eval Sheet: https://github.com/3Brainz/school21-checklists/blob/master/ng_3_minishell.pdf
+
+4. Macros for Signals Handling https://www.ibm.com/docs/en/ztpf/2019?topic=zca-wtermsig-determine-which-signal-caused-child-process-exit
 
 4. Search for the Functions Allowed to Use in this Project \n
 	ReadLine(): https://web.mit.edu/gnu/doc/html/rlman_2.html 

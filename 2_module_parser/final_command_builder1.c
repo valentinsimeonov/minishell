@@ -45,8 +45,12 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 			ft_lstnew(lexar_list->line));
 		}
 		lexar_list = lexar_list->next;
+
 	}
-	//printf("Final Command Builder = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
+
+	if (lexar_list)
+		ft_lstclear(&lexar_list, free);
+
 	return (1);
 }
 

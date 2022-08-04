@@ -1,18 +1,9 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/29 14:19:05 by danisanc          #+#    #+#              #
-#    Updated: 2022/08/04 16:33:02 by smischni         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+
 
 NAME = minishell
 
 SRC = 	minishell.c \
+    free.c \
 		1_module_env_builder/env_builder_for_parser1.c \
 		1_module_env_builder/env_builder_for_parser2.c \
 		1_module_env_builder/env_builder_standalone.c \
