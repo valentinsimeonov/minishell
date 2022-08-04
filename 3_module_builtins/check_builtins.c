@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 15:34:47 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:02:57 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int	check_builtins(t_parser *parser, t_env *env)
 	flag_pipe = 0;
 	if (parser->sections[1])
 		flag_pipe = 1;
-	if (ft_strncmp(parser->command[0], "cd", 3) == 0 && flag_pipe == 0)
-		ft_cd(env, parser);
+	if (ft_strncmp(parser->command[0], "cd", 3) == 0)
+		ft_cd(env, parser, flag_pipe);
 	else if (ft_strncmp(parser->command[0], "echo", 5) == 0)
 		ft_echo(parser);
 	else if (ft_strncmp(parser->command[0], "env", 4) == 0)
 		ft_env(env, parser);
-	else if (ft_strncmp(parser->command[0], "exit", 5) == 0 && flag_pipe == 0)
-		ft_exit(env, parser);
-	else if (ft_strncmp(parser->command[0], "export", 7) == 0 && flag_pipe == 0)
-		ft_export(env, parser, parser->command);
+	else if (ft_strncmp(parser->command[0], "exit", 5) == 0)
+		ft_exit(env, parser, flag_pipe);
+	else if (ft_strncmp(parser->command[0], "export", 7) == 0)
+		ft_export(env, parser, parser->command, flag_pipe);
 	else if (ft_strncmp(parser->command[0], "pwd", 4) == 0)
 		ft_pwd(parser);
-	else if (ft_strncmp(parser->command[0], "unset", 6) == 0 && flag_pipe == 0)
-		ft_unset(env, parser);
+	else if (ft_strncmp(parser->command[0], "unset", 6) == 0)
+		ft_unset(env, parser, flag_pipe);
 	else
 		return (0);
 	return (1);

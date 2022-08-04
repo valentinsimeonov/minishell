@@ -97,22 +97,24 @@ int	exec_section(t_parser *parser, t_env *env)
 		return (0);// error handling TBD
 	if (parser->input_fd > 2)
 		close(parser->input_fd);
-	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	pid = fork();
-	if (pid < 0)
-		return (0);//error handling TBD
-	if (pid == 0)
+	if (check_builtins(parser, env) == 0)
 	{
-		if (dup2(pipe_fd[1], STDOUT_FILENO) < 0)
+		pid = fork();
+		if (pid < 0)
 			return (0);//error handling TBD
-		close_pipe_fd(pipe_fd);
-		execve(parser->command[0], parser->command, reassemble_env(env));
-		//error handling: command not found
-		return (0);//error handling TBD
+		if (pid == 0)
+		{
+			if (dup2(pipe_fd[1], STDOUT_FILENO) < 0)
+				return (0);//error handling TBD
+			close_pipe_fd(pipe_fd);
+			execve(parser->command[0], parser->command, reassemble_env(env));
+			//error handling: command not found
+			return (0);//error handling TBD
+		}
+		waitpid(pid, NULL, 0);
+		if (dup2(pipe_fd[0], parser->output_fd) < 0)
+			return (0);//error handling TBD
 	}
-	waitpid(pid, NULL, 0);
-	if (dup2(pipe_fd[0], parser->output_fd) < 0)
-		return (0);//error handling TBD
 	close_pipe_fd(pipe_fd);
 	if (parser->output_fd > 2)
 		close(parser->output_fd);
@@ -142,17 +144,19 @@ int	exec_last_section(t_parser *parser, t_env *env)
 		close(parser->input_fd);
 	if (parser->output_fd > 2)	
 		close(parser->output_fd);
-	//OPEN: CHECK FOR BUILT-INS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	pid = fork();
-	if (pid < 0)
-		return (0);//error handling TBD
-	if (pid == 0)
+	if (check_builtins(parser, env) == 0)
 	{
-		execve(parser->command[0], parser->command, reassemble_env(env));
-		//error handling: command not found
-		return (0);//error handling TBD
+		pid = fork();
+		if (pid < 0)
+			return (0);//error handling TBD
+		if (pid == 0)
+		{
+			execve(parser->command[0], parser->command, reassemble_env(env));
+			//error handling: command not found
+			return (0);//error handling TBD
+		}
+		waitpid(pid, NULL, 0);
 	}
-	waitpid(pid, NULL, 0);
 	free_str_array(parser->command);
 	return (1);
 }

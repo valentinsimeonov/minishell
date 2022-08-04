@@ -6,16 +6,18 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:34 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 13:49:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:57:17 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_cd(t_env *env, t_parser *parser)
+int	ft_cd(t_env *env, t_parser *parser, int flag_pipe)
 {
 	t_env	*tmp;
 
+	if (flag_pipe == 1)
+		return (1);
 	if (!parser->command[1])
 	{
 		tmp = get_env(env, "HOME");
