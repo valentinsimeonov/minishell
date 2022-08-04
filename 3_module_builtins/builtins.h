@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:54:12 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 12:34:34 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 13:50:49 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ typedef struct s_parser t_parser;
 typedef struct s_env t_env;
 
 int		check_builtins(t_parser *parser, t_env *env);
+t_env 	*get_env(t_env *env, char *v_name);
+
+int		ft_cd(t_env *env, t_parser *parser);
+int		cd_update_env(t_env *env, t_parser *parser);
 
 int		ft_echo(t_parser *parser);
 int		echo_valid_flag(char *str);

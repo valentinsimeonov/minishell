@@ -6,16 +6,16 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:34 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 11:44:32 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/04 13:49:45 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_cd(t_env *env, t_parser *parser)//maybe to export first?? -> use for adding to env list
+int	ft_cd(t_env *env, t_parser *parser)
 {
 	t_env	*tmp;
-	
+
 	if (!parser->command[1])
 	{
 		tmp = get_env(env, "HOME");
@@ -27,17 +27,30 @@ int	ft_cd(t_env *env, t_parser *parser)//maybe to export first?? -> use for addi
 		if (chdir(parser->command[1]) < 0)
 			return (0);//error handling, no such file or directory
 	}
+	cd_update_env(env, parser);
+	return (1);
+}
+
+int	cd_update_env(t_env *env, t_parser *parser)
+{
+	t_env	*tmp;
+	t_env	*pwd;
+	char	*values[2];
+
+	values[0] = ft_strdup("OLDPWD");
+	values[1] = NULL;
 	tmp = get_env(env, "OLDPWD");
+	pwd = get_env(env, "PWD");
 	if (!tmp)
-		//add to env list -> ASK VALENTIN IF THERE IS A FUNCTION
-	else
 	{
-		free(tmp->bash_v_content);
-		tmp->bash_v_content = get_env(env, "PWD")->bash_v_content;
+		ft_lstadd_back_env_element(&env, create_env_element(values));
+		tmp = get_env(env, "OLDPWD");
 	}
-	tmp = get_env(env, "PWD");
-	tmp->bash_v_content = ft_calloc(PATH_MAX, sizeof(char));
-	if (!getcwd(tmp->bash_v_content, PATH_MAX))
-		return (0);//error handling tbd
+	if (tmp->bash_v_content)
+		free(tmp->bash_v_content);
+	tmp->bash_v_content = pwd->bash_v_content;
+	pwd->bash_v_content = ft_calloc(PATH_MAX, sizeof(char));
+	if (getcwd(pwd->bash_v_content, PATH_MAX) == NULL)
+		return (0);//error handling ??
 	return (1);
 }
