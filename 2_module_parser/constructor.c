@@ -32,21 +32,23 @@ static int	parser_error(t_data *data, t_list **lexar_list, char **line,
 }
 
 /* Placing the Bash Variable PATH from the ENV into a 2D Char Array */
-static char	**get_paths_array(t_list *envp)
+static char	**get_paths_array(t_env **to_env_list)
 {
 	char	*path;
 	char	**paths;
 
-	path = get_env_value(envp, "PATH");
+	path = get_env_value(to_env_list, "PATH");
 	if (!path)
 		return (NULL);
 	else if (!ft_strlen(path))
 	{
-		free(path);
+		if (path)
+			free(path);
 		return (NULL);
 	}
 	paths = ft_split(path, ':');
-	free(path);
+	// if (path)
+	// 	free(path);
 	return (paths);
 }
 
@@ -58,7 +60,7 @@ int	parser(t_data *data, char **line)
 	t_list	*lexar_list;
 
 	lexar_list = NULL;
-	data->to_parser_list.paths = get_paths_array(*data->to_envp_data.envp_cp);
+	data->to_parser_list.paths = get_paths_array(&data->to_env_list);
 	tmp = ft_strtrim(*line, " \v\t\f\r\n");
 	free(*line);
 	*line = tmp;

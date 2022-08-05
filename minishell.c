@@ -12,7 +12,8 @@ int	main(int argc, char **argv, char **envp)
 	/* Creating the ENV List */
 	data = env_builder(envp);   
 	// data = main_data_initialiser(envp);
-	data->to_env_list = *create_env_list(envp); /// Variable is Here Just for Testing Purposes
+	data->to_env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
+	// create_env_list(envp); /// Variable is Here Just for Testing Purposes
 
 	(void)argc;
 	(void)argv;
@@ -20,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	/* Checking for Signals */
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
-	
+
 	int		i;
 	i = 0;
 	while (i < 10)
@@ -30,6 +31,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
+		// print_all_input(data);
+		printf("End of Parser, Start of Executor\n");
 		executor(data);
 		/*if (data->to_parser_list.sections)
 			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
@@ -39,10 +42,19 @@ int	main(int argc, char **argv, char **envp)
 		// print_list_test(data);
 		i++;
 	}
-	free_minishell(data);
+	// free_minishell(data);
 	return (0);
 }
 
+/* Initialises All Data */
+t_data	*env_builder(char **envp)
+{
+	t_data	*data;
+	(void)envp;
+	data = ft_calloc(1, sizeof(t_data));
+	data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));
+	return (data);
+}
 
 //temporary function to check input
 int	print_all_input(t_data *data)
@@ -54,7 +66,7 @@ int	print_all_input(t_data *data)
 	int			j;
 	
 	i = 0;
-	env = &(data->to_env_list);
+	env = (data->to_env_list);
 	printf("\nCHECK T_DATA CONTENT:\n");
 	printf("\nENV:\n");
 	while (env)
@@ -79,7 +91,7 @@ int	print_all_input(t_data *data)
 	i = 0;
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);
-	printf("\nCOMMANDS:\n");
+	// printf("\nCOMMANDS:\n");
 	// i = 0;
 	// while (parser->command[i])
 	//  	printf("%s\n", parser->command[i++]);

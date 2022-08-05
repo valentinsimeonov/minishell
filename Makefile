@@ -3,9 +3,7 @@
 NAME = minishell
 
 SRC = 	minishell.c \
-    free.c \
-		1_module_env_builder/env_builder_for_parser1.c \
-		1_module_env_builder/env_builder_for_parser2.c \
+		free.c \
 		1_module_env_builder/env_builder_standalone.c \
 		2_module_parser/parser2.c \
 		2_module_parser/parser1.c \

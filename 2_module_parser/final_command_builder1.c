@@ -15,7 +15,6 @@ int	count_pipes_in_lexar_list(t_list *lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
-
 	return (pipe_counter);
 }
 
@@ -25,7 +24,6 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 	int		i;
 	int		pipe_counter;
 	t_list	*head;
-
 
 	i = 0;
 	head = lexar_list;
@@ -45,12 +43,9 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 			ft_lstnew(lexar_list->line));
 		}
 		lexar_list = lexar_list->next;
-
 	}
-
 	if (lexar_list)
 		ft_lstclear(&lexar_list, free);
-
 	return (1);
 }
 

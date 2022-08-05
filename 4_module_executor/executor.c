@@ -31,9 +31,9 @@ int	executor(t_data *data)
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
 		if (parser->sections[i])
-			exec_section(parser, &(data->to_env_list));
+			exec_section(parser, (data->to_env_list));
 		else
-			exec_last_section(parser, &(data->to_env_list));
+			exec_last_section(parser, (data->to_env_list));
 	}
 	restore_std_fds(parser);
 	free_lst_array(parser->sections);
