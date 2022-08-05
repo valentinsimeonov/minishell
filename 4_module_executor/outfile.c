@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:52:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 10:21:22 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/05 11:43:22 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int	outfile(char *file, t_parser *parser, char *filemode)
 		if (parser->output_fd < 0)
 			return (0);//error handling TBD
 	}
+	dprintf(2, "Outfile is opened: fd = %d\n", parser->output_fd);
 	return (1);
 }
