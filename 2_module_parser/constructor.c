@@ -43,12 +43,18 @@ static char	**get_paths_array(t_env **to_env_list)
 	else if (!ft_strlen(path))
 	{
 		if (path)
+		{
+			path = NULL;
 			free(path);
+		}
 		return (NULL);
 	}
 	paths = ft_split(path, ':');
-	// if (path)
-	// 	free(path);
+	if (path)
+	{
+		path = NULL;
+		free(path);
+	} //// Problematic Freeing Here
 	return (paths);
 }
 

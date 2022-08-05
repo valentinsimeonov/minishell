@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:20:40 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 19:42:17 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:52:13 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char	*str_replace_str_at(char *str, int idx, int length, char *replacement)
 		return (NULL);
 	new_str = ft_strjoin(tmp, &str[idx + length]);
 	if (tmp)
+	{
 		free(tmp);
+		tmp = NULL;
+	}
 	if (!new_str)
 		return (NULL);
 	return (new_str);

@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 19:41:40 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/05 21:38:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,20 @@ static char	*replace_str_env(t_data *data, char *input, int idx)
 
 	/* Getting the Bash Variable Value */
 	env_value = resolving_env(&data->to_env_list, new_str);
-
-	// if (new_str)
-	// 	free(new_str);
+	if (new_str)
+	{
+		free(new_str);
+		new_str = NULL;
+	}
 	if (!env_value)
 		return (NULL);
 	new_str = str_replace_str_at(input, idx - length - 1, length + 1,
 			env_value);
-	// if (env_value)
-	// 	free(env_value);
+	if (env_value)
+	{
+		env_value = NULL;
+		free(env_value);
+	}
 	return (new_str);
 }
 

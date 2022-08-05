@@ -11,9 +11,7 @@ int	main(int argc, char **argv, char **envp)
 
 	/* Creating the ENV List */
 	data = env_builder(envp);   
-	// data = main_data_initialiser(envp);
 	data->to_env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
-	// create_env_list(envp); /// Variable is Here Just for Testing Purposes
 
 	(void)argc;
 	(void)argv;
@@ -24,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 
 	int		i;
 	i = 0;
-	while (i < 10)
+	while (i < 3)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)
@@ -42,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		// print_list_test(data);
 		i++;
 	}
-	// free_minishell(data);
+	free_minishell(data);
 	return (0);
 }
 
