@@ -8,7 +8,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	t_env		*env;
 
 	parser = &data->to_parser_list;
-	env = &data->to_env_list;
+	env = data->to_env_list;
 	if (flag_pipe == 1)
 		return (1);
 	free_str_array(parser->command);

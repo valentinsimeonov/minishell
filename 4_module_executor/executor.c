@@ -98,7 +98,7 @@ int	exec_section(t_data *data)
 
 	status = 1;
 	parser = &data->to_parser_list;
-	env = &data->to_env_list;
+	env = data->to_env_list;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(parser->pipe_fd) < 0)
 		return (0);// error handling TBD
 	if (check_builtins(data) == 0)
@@ -151,7 +151,7 @@ int	exec_last_section(t_data *data)
 	t_env		*env;
 
 	parser = &data->to_parser_list;
-	env = &data->to_env_list;
+	env = data->to_env_list;
 	status = 1;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
