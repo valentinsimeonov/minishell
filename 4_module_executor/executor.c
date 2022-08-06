@@ -63,11 +63,13 @@ int	exec_prep(t_list *sec, t_parser *parser)
 		if (is_infile(head->line) == 1 && head->next)
 		{
 			infile((char *)head->next->line, parser, (char *)head->line);
+			dprintf(2, "Infile is opened: %s\n", (char *)head->next->line);
 			head = head->next;
 		}
 		else if (is_outfile(head->line) == 1 && head->next)
 		{
 			outfile((char *)head->next->line, parser, (char *)head->line);
+			dprintf(2, "Outfile is opened: %s\n", (char *)head->next->line);
 			head = head->next;
 		}
 		else
@@ -102,6 +104,7 @@ int	exec_section(t_data *data)
 	env = &data->to_env_list;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(parser->pipe_fd) < 0)
 		return (0);// error handling TBD
+	dprintf(2, "We get here\n");
 	if (check_builtins(data) == 0)
 	{
 		pid = fork();
@@ -123,17 +126,13 @@ int	exec_section(t_data *data)
 		signal(SIGINT, signal_handler_parent);
 		global_exit_status = 128 + WTERMSIG(status);
 	}
-	dprintf(2, "What's output_fd? It's %d\n", parser->output_fd);
 	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
+	close_pipe_fd(parser->pipe_fd);
 	if (parser->output_fd > 2)
-	{
-		dprintf(2, "Outfile is closed\n");
 		close(parser->output_fd);
-	}
 	if (parser->input_fd > 2)
 		close(parser->input_fd);
-	close_pipe_fd(parser->pipe_fd);
 	free_str_array(parser->command);
 	return (1);
 }
