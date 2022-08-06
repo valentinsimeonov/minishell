@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_builder_standalone.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 13:06:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 21:39:01 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "env_builder.h"
 
@@ -18,10 +8,8 @@ t_env	*create_env_list(char **envp)
 	t_env	*env_list;
 	char	**array;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	env_list = NULL;
 	while (envp[i] != NULL)
 	{
