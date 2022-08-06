@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 21:38:32 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:38:00 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,11 @@ int	env_resolver(t_data *data, char **input)
 	int		i;
 	char	quote;
 	char	*tmp;
+	int		j;
 
 	quote = 0;
 	i = 0;
+	j = 0;
 	while ((*input)[i])
 	{
 		if ((!quote /* || quote == "" */) && (*input)[i] == '$')
@@ -131,5 +133,23 @@ int	env_resolver(t_data *data, char **input)
 			quote = 0;
 		i++;
 	}
+	if (*input)
+		free(*input);
 	return (1);
 }
+
+// /* Free 2D Char Array */
+// void	free_array(char **arr)
+// {
+// 	int	i;
+
+// 	if (!arr)
+// 		return ;
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		free(arr[i]);
+// 		i++;
+// 	}
+// 	free(arr);
+// }

@@ -38,9 +38,14 @@ int	main(int argc, char **argv, char **envp)
 			free_array(data->to_parser_list.paths);*/
 		// free_minishell(data);
 		// print_list_test(data);
+		// free(lexar_list);
 		i++;
 	}
-	free_minishell(data);
+	// if (data->to_parser_list.sections)
+	// 		ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
+	// if (data->to_env_list)
+	// ft_lstclear_env(&data->to_env_list, free);
+	// free(data);
 	return (0);
 }
 
@@ -53,6 +58,42 @@ t_data	*env_builder(char **envp)
 	data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));
 	return (data);
 }
+
+
+		// free_minishell(data);
+
+
+void	ft_lstclear_env(t_env **lst, void (*del)(void *))
+{
+	t_env	*list;
+	t_env	*temp;
+
+	list = *lst;
+	if (list != NULL)
+	{
+		while (list != NULL)
+		{
+			temp = list->next;
+			ft_lstdelone_env(list, del);
+			list = temp;
+		}
+	}
+	*lst = NULL;
+}
+
+void	ft_lstdelone_env(t_env *lst, void (*del)(void *))
+{
+	if (lst != NULL && del != NULL)
+	{
+		del(lst->bash_variable);
+		del(lst->bash_v_content);
+		free(lst);
+	}
+}
+
+
+
+
 
 //temporary function to check input
 int	print_all_input(t_data *data)
