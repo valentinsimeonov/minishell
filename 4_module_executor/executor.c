@@ -31,6 +31,7 @@ int	executor(t_data *data)
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
 		if (parser->sections[i])
+
 			exec_section(data);
 		else
 			exec_last_section(data);

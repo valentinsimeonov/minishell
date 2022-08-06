@@ -8,8 +8,8 @@
 # include <fcntl.h> /// For Open 
 # include <signal.h>  /// For Signals
 # include <sys/wait.h>  /// For Wait
-# include </Users/smischni/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
-# include </Users/smischni/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
 # include <sys/stat.h>  /// For Using WEXITSTATUS
 # include <limits.h> //for PATH_MAX
 /* Libft Library */
@@ -36,18 +36,6 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-/*      ENV Builder For Parser   */
-typedef struct s_envp_data
-{
-	t_list	**envp_cp;  /// Storea env_vars_tmp as Elemetns
-	t_list	**envp_empty;
-	t_list	*pwd_list;
-	t_list	*old_pwd_list;
-	char	*pwd;
-	char	*old_pwd;
-	int		exit_status;
-}				t_envp_data;
-
 /*     Parsed Command List      */
 typedef struct s_parser
 {
@@ -65,14 +53,17 @@ typedef struct s_parser
 typedef struct s_data
 {
 	t_parser	to_parser_list;
-	t_env		to_env_list;
-	t_envp_data	to_envp_data;
+	t_env		*to_env_list;
 }				t_data;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
 void	free_minishell(t_data *data);
+void	ft_lstclear_env(t_env **lst, void (*del)(void *));
+void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 
 
+/* Main */
+t_data	*env_builder(char **envp);
 
 
 /*  Module Parser */

@@ -21,7 +21,8 @@ static int	clean_quote(char **str)
 			else if (quote && (*str)[i] == quote)
 				quote = 0;
 			tmp = str_remove_char_at1(*str, i);
-			free(*str);
+			if (*str)
+				free(*str);
 			if (!tmp)
 				return (0);
 			*str = tmp;

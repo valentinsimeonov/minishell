@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_builder_standalone.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 13:06:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 14:23:35 by smischni         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "env_builder.h"
 
@@ -26,7 +16,11 @@ t_env	*create_env_list(char **envp)
 		array = ft_split(envp[i], '=');
 		ft_lstadd_back_env_element(&env_list, create_env_element(array));
 		i++;
-		free(array);
+		if (array)
+		{
+			free(array);
+			array = NULL;
+		}
 	}
 	return (env_list);
 }
