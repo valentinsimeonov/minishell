@@ -100,12 +100,10 @@ int	exec_section(t_data *data)
 	status = 1;
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
-	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(parser->pipe_fd) < 0)
-		return (0);// error handling TBD
-	if (parser->input_fd > 2)
-		close(parser->input_fd);
-	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)
-		return (0);//error handling TBD
+	if (pipe(parser->pipe_fd) < 0)
+		return (0);//error handling tbd
+	if (parser->input_fd > 2 && dup2(parser->input_fd, STDIN_FILENO) < 0)
+		return (0);//error handling tbd
 	if (check_builtins(data) == 0)
 	{
 		pid = fork();
@@ -114,7 +112,9 @@ int	exec_section(t_data *data)
 		if (pid == 0)
 		{
 			signal(SIGQUIT, SIG_DFL);
-			if (dup2(parser->pipe_fd[1], STDOUT_FILENO) < 0)
+			if (parser->output_fd > 2 && dup2(parser->output_fd, STDOUT_FILENO) < 0)
+				return (0);//error handling TBD
+			if (parser->output_fd < 3 && dup2(parser->pipe_fd[1], STDOUT_FILENO) < 0)
 				return (0);//error handling TBD
 			close_pipe_fd(parser->pipe_fd);
 			execve(parser->command[0], parser->command, reassemble_env(env));
@@ -126,8 +126,11 @@ int	exec_section(t_data *data)
 		signal(SIGINT, signal_handler_parent);
 		global_exit_status = 128 + WTERMSIG(status);
 	}
+	if (parser->output_fd < 3 && dup2(parser->pipe_fd[0], parser->output_fd) < 0)
+		return (0);//error handling TBD
 	close_pipe_fd(parser->pipe_fd);
-	close(parser->output_fd);
+	if (parser->output_fd > 2)
+		close(parser->output_fd);
 	free_str_array(parser->command);
 	return (1);
 }

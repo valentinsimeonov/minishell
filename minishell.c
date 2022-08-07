@@ -98,21 +98,21 @@ void	ft_lstdelone_env(t_env *lst, void (*del)(void *))
 //temporary function to check input
 int	print_all_input(t_data *data)
 {
-	t_env		*env;
+	//t_env		*env;
 	t_parser	*parser;
 	t_list		*cur_sec;
 	int			i;
 	int			j;
 	
 	i = 0;
-	env = (data->to_env_list);
+	/*env = (data->to_env_list);
 	printf("\nCHECK T_DATA CONTENT:\n");
 	printf("\nENV:\n");
 	while (env)
 	{
 		printf("%s=%s\n", env->bash_variable, env->bash_v_content);
 		env = env->next;
-	}
+	}*/
 	parser = &(data->to_parser_list);
 	printf("\nSECTIONS:\n");
 	while (parser->sections[i])
@@ -126,10 +126,10 @@ int	print_all_input(t_data *data)
 		}
 		i++;
 	}
-	printf("\nPATH:\n");
+	/*printf("\nPATH:\n");
 	i = 0;
 	while (parser->paths[i])
-		printf("%s\n", parser->paths[i++]);
+		printf("%s\n", parser->paths[i++]);*/
 	// printf("\nCOMMANDS:\n");
 	// i = 0;
 	// while (parser->command[i])
