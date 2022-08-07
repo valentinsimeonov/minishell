@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 
 	int		i;
 	i = 0;
-	while (i < 3)
+	while (i < 2)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)
@@ -32,15 +32,25 @@ int	main(int argc, char **argv, char **envp)
 		// print_all_input(data);
 		printf("End of Parser, Start of Executor\n");
 		executor(data);
-		/*if (data->to_parser_list.sections)
-			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
-		if (data->to_parser_list.paths)
-			free_array(data->to_parser_list.paths);*/
-		// free_minishell(data);
-		// print_list_test(data);
+
+		// if (lexar_list)
+		// 	ft_lstclear(&lexar_list, free); //// After it Leaves the Parser it "error for object 0x100205290: pointer being freed was not allocated" in the Executor
+
+		// if (data->to_parser_list.sections)
+		// 	ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);  ////Working last night
+
+		// // data->to_parser_list = NULL;  //// Added in the Morning
+		// if (data->to_parser_list.paths)
+
+		// 	free_array(data->to_parser_list.paths); ////Working last night
+
+
 		i++;
 	}
-	free_minishell(data);
+	if (data->to_env_list)
+		ft_lstclear_env(&data->to_env_list, free);
+	free(data);
+	// free_minishell(data);
 	return (0);
 }
 
