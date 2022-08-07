@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:52:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/06 20:31:35 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:21:22 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	outfile(char *file, t_parser *parser, char *filemode)
 	else
 	{
 		if (ft_strncmp(filemode, ">>", 3) == 0)
-			parser->output_fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0666);//RDWR statt WRTONLY
+			parser->output_fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		else
-			parser->output_fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);//RDWR statt WRTONLY
+			parser->output_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (parser->output_fd < 0)
 			return (0);//error handling TBD
 	}
