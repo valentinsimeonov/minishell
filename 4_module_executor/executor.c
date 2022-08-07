@@ -18,6 +18,7 @@ int	executor(t_data *data)
 	t_parser	*parser;
 
 	i = 0;
+	//print_all_input(data);//TEST INPUT
 	parser = &(data->to_parser_list);
 	store_fds(parser);
 	while (parser->sections[i])
@@ -30,8 +31,8 @@ int	executor(t_data *data)
 			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
+		//dprintf(2, "input_fd: %d\noutput_fd: %d\n", parser->input_fd, parser->output_fd);
 		if (parser->sections[i])
-
 			exec_section(data);
 		else
 			exec_last_section(data);
@@ -101,6 +102,10 @@ int	exec_section(t_data *data)
 	env = data->to_env_list;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0 || pipe(parser->pipe_fd) < 0)
 		return (0);// error handling TBD
+	if (parser->input_fd > 2)
+		close(parser->input_fd);
+	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)
+		return (0);//error handling TBD
 	if (check_builtins(data) == 0)
 	{
 		pid = fork();
@@ -114,21 +119,15 @@ int	exec_section(t_data *data)
 			close_pipe_fd(parser->pipe_fd);
 			execve(parser->command[0], parser->command, reassemble_env(env));
 			//error handling: command not found
-			exit(127); //error handling TBD
+			return (0);//error handling TBD
 		}
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		// printf("First Pipe Function: %d", test);
+		waitpid(pid, NULL, 0);
 		signal(SIGINT, signal_handler_parent);
 		global_exit_status = 128 + WTERMSIG(status);
 	}
-	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)
-		return (0);//error handling TBD
 	close_pipe_fd(parser->pipe_fd);
-	if (parser->output_fd > 2)
-		close(parser->output_fd);
-	if (parser->input_fd > 2)
-		close(parser->input_fd);
+	close(parser->output_fd);
 	free_str_array(parser->command);
 	return (1);
 }

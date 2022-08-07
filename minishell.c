@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 
 	int		i;
 	i = 0;
-	while (i < 3)
+	while (i < 10)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parser(data, &line);
 		// print_all_input(data);
-		printf("End of Parser, Start of Executor\n");
+		//printf("End of Parser, Start of Executor\n");
 		executor(data);
 		/*if (data->to_parser_list.sections)
 			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);

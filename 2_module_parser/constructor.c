@@ -79,8 +79,8 @@ int	parser(t_data *data, char **line)
 	//printf("Constructor = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 	// if (*line)
 	// 	free(*line);
-	if (lexar_list)
-		ft_lstclear(&lexar_list, free); //// After it Leaves the Parser it "error for object 0x100205290: pointer being freed was not allocated" in the Executor
+	//if (lexar_list)
+	//	ft_lstclear(&lexar_list, free); //// After it Leaves the Parser it "error for object 0x100205290: pointer being freed was not allocated" in the Executor
 
 	// if (lexar_list)
 	// free_parser(data, &lexar_list, line, 0);
