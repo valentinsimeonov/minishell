@@ -8,9 +8,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_data		*data;
+	// t_list		*lexar_list;
+	// lexar_list = NULL;
 
 	/* Creating the ENV List */
-	data = env_builder(envp);   
+	data = env_builder(envp);
 	data->to_env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
 
 	(void)argc;
@@ -32,20 +34,23 @@ int	main(int argc, char **argv, char **envp)
 		// print_all_input(data);
 		//printf("End of Parser, Start of Executor\n");
 		executor(data);
-		/*if (data->to_parser_list.sections)
-			ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
-		if (data->to_parser_list.paths)
-			free_array(data->to_parser_list.paths);*/
-		// free_minishell(data);
-		// print_list_test(data);
-		// free(lexar_list);
+
+		// if (lexar_list)
+		// 	ft_lstclear(&lexar_list, free); //// After it Leaves the Parser it "error for object 0x100205290: pointer being freed was not allocated" in the Executor
+
+		// if (data->to_parser_list.sections)
+		// 	ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);  ////Working last night
+
+		// // data->to_parser_list = NULL;  //// Added in the Morning
+		// if (data->to_parser_list.paths)
+
+		// 	free_array(data->to_parser_list.paths); ////Working last night
+
 		i++;
 	}
-	// if (data->to_parser_list.sections)
-	// 		ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);
-	// if (data->to_env_list)
-	// ft_lstclear_env(&data->to_env_list, free);
-	// free(data);
+	if (data->to_env_list)
+		ft_lstclear_env(&data->to_env_list, free);
+	free(data);
 	return (0);
 }
 
@@ -59,42 +64,6 @@ t_data	*env_builder(char **envp)
 	return (data);
 }
 
-
-		// free_minishell(data);
-
-
-void	ft_lstclear_env(t_env **lst, void (*del)(void *))
-{
-	t_env	*list;
-	t_env	*temp;
-
-	list = *lst;
-	if (list != NULL)
-	{
-		while (list != NULL)
-		{
-			temp = list->next;
-			ft_lstdelone_env(list, del);
-			list = temp;
-		}
-	}
-	*lst = NULL;
-}
-
-void	ft_lstdelone_env(t_env *lst, void (*del)(void *))
-{
-	if (lst != NULL && del != NULL)
-	{
-		del(lst->bash_variable);
-		del(lst->bash_v_content);
-		free(lst);
-	}
-}
-
-
-
-
-
 //temporary function to check input
 int	print_all_input(t_data *data)
 {
@@ -103,7 +72,7 @@ int	print_all_input(t_data *data)
 	t_list		*cur_sec;
 	int			i;
 	int			j;
-	
+
 	i = 0;
 	/*env = (data->to_env_list);
 	printf("\nCHECK T_DATA CONTENT:\n");
