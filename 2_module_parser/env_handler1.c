@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/06 20:53:04 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/05 21:38:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,23 +131,5 @@ int	env_resolver(t_data *data, char **input)
 			quote = 0;
 		i++;
 	}
-	if (*input)
-		free(*input);
 	return (1);
 }
-
-// /* Free 2D Char Array */
-// void	free_array(char **arr)
-// {
-// 	int	i;
-
-// 	if (!arr)
-// 		return ;
-// 	i = 0;
-// 	while (arr[i])
-// 	{
-// 		free(arr[i]);
-// 		i++;
-// 	}
-// 	free(arr);
-// }

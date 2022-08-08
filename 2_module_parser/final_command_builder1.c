@@ -2,12 +2,12 @@
 
 #include "parser.h"
 
-int	count_pipes_in_lexar_list(t_list **lexar_list)
+int	count_pipes_in_lexar_list(t_list *lexar_list)
 {
 	t_list	*head;
 	int		pipe_counter;
 
-	head = *lexar_list;
+	head = lexar_list;
 	pipe_counter = 1;
 	while (head)
 	{
@@ -15,43 +15,37 @@ int	count_pipes_in_lexar_list(t_list **lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
-	if (head)
-		ft_lstclear(&head, free);
 	return (pipe_counter);
 }
 
 /* Splits the Lexar List into Command List for executor */
-int	split_into_commands(t_data *data, t_list **lexar_list)
+int	split_into_commands(t_data *data, t_list *lexar_list)
 {
 	int		i;
 	int		pipe_counter;
 	t_list	*head;
-	t_list	*head2;
-
 
 	i = 0;
-	head = *lexar_list;
-	head2 = *lexar_list;
-
-	pipe_counter = count_pipes_in_lexar_list(&head);
+	head = lexar_list;
+	pipe_counter = count_pipes_in_lexar_list(head);
 	data->to_parser_list.sections = ft_calloc(pipe_counter + 1, \
 	sizeof(t_list *));
-	while (head2)
+	while (lexar_list)
 	{
-		if (is_str_redir(head2->line))
+		if (is_str_redir(lexar_list->line))
 			ft_lstadd_back(&data->to_parser_list.sections[i], \
-			ft_lstnew(head2->line));
-		else if (!ft_strncmp(head2->line, "|", 2))
+			ft_lstnew(lexar_list->line));
+		else if (!ft_strncmp(lexar_list->line, "|", 2))
 			i++;
-		else if (!is_str_redir(head2->line))
+		else if (!is_str_redir(lexar_list->line))
 		{
 			ft_lstadd_back(&data->to_parser_list.sections[i], \
-			ft_lstnew(head2->line));
+			ft_lstnew(lexar_list->line));
 		}
-		head2 = head2->next;
+		lexar_list = lexar_list->next;
 	}
-	if (head2)
-		ft_lstclear(&head2, free);
+	// if (lexar_list)
+	// 	ft_lstclear(&lexar_list, free);
 	return (1);
 }
 

@@ -61,7 +61,6 @@ void	free_minishell(t_data *data);
 void	ft_lstclear_env(t_env **lst, void (*del)(void *));
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 
-
 /* Main */
 t_data	*env_builder(char **envp);
 
