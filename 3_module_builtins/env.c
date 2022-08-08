@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:53:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 20:42:33 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:38:21 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_env(t_env *env, t_parser *parser)
 
 	if (parser->command[1])
 		return (0);//error handling: "env: too many arguments"?
-	if (parser->pipe_fd[1] != -1)
-		output_fd = parser->pipe_fd[1];
-	else
+	if (parser->output_fd > 2 || parser->output_fd == 1)
 		output_fd = parser->output_fd;
+	else
+		output_fd = parser->pipe_fd[1];
 	while (env)
 	{
 		if (env->bash_v_content)

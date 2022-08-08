@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:32:29 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 19:48:57 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:38:13 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	export_print(t_env *env, t_parser *parser)//PROBLEM: GOES IN LOOP!
 	t_env	*smallest;
 	int		output_fd;
 
-	if (parser->pipe_fd[1] != -1)
-		output_fd = parser->pipe_fd[1];
-	else
+	if (parser->output_fd > 2 || parser->output_fd == 1)
 		output_fd = parser->output_fd;
+	else
+		output_fd = parser->pipe_fd[1];
 	values[0] = ft_strdup("");
 	values[1] = NULL;
 	start = create_env_element(values);

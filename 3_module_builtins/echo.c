@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:29:14 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 19:39:03 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:38:28 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	ft_echo(t_parser *parser)
 {
 	int	output_fd;
 
-	if (parser->pipe_fd[1] != -1)
-		output_fd = parser->pipe_fd[1];
-	else
+	if (parser->output_fd > 2 || parser->output_fd == 1)
 		output_fd = parser->output_fd;
+	else
+		output_fd = parser->pipe_fd[1];
 	if (!(parser->command[1]))
 		ft_putchar_fd('\n', output_fd);
 	else

@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 
 	int		i;
 	i = 0;
-	while (i < 2)
+	while (i < 10)
 	{
 		line = readline("minishell:> ");
 		if (line == NULL)
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parser(data, &line);
 		// print_all_input(data);
-		printf("End of Parser, Start of Executor\n");
+		//printf("End of Parser, Start of Executor\n");
 		executor(data);
 
 		// if (lexar_list)
@@ -67,21 +67,21 @@ t_data	*env_builder(char **envp)
 //temporary function to check input
 int	print_all_input(t_data *data)
 {
-	t_env		*env;
+	//t_env		*env;
 	t_parser	*parser;
 	t_list		*cur_sec;
 	int			i;
 	int			j;
 
 	i = 0;
-	env = (data->to_env_list);
+	/*env = (data->to_env_list);
 	printf("\nCHECK T_DATA CONTENT:\n");
 	printf("\nENV:\n");
 	while (env)
 	{
 		printf("%s=%s\n", env->bash_variable, env->bash_v_content);
 		env = env->next;
-	}
+	}*/
 	parser = &(data->to_parser_list);
 	printf("\nSECTIONS:\n");
 	while (parser->sections[i])
@@ -95,13 +95,13 @@ int	print_all_input(t_data *data)
 		}
 		i++;
 	}
-	printf("\nPATH:\n");
+	/*printf("\nPATH:\n");
 	i = 0;
 	while (parser->paths[i])
-		printf("%s\n", parser->paths[i++]);
-	// printf("\nCOMMANDS:\n");
-	// i = 0;
-	// while (parser->command[i])
-	//  	printf("%s\n", parser->command[i++]);
+		printf("%s\n", parser->paths[i++]);*/
+	printf("\nCOMMANDS:\n");
+	i = 0;
+	while (parser->command[i])
+	  	printf("%s\n", parser->command[i++]);
 	return (1);
 }
