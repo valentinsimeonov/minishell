@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 12:21:19 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:58:55 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@ int	ft_exit(t_data *data, int flag_pipe)
 	}
 	if (flag_pipe == 1)
 		return (1);
+		
+	printf("In the Exit function\n");
 	free_str_array(parser->command);
 	free_lst_array(parser->sections);
+	// free_str_array(parser->paths); /// V
+	// if (parser->paths)
+	// 		free_array(parser->paths);  // V
+	
+	free_array(parser->paths);
+
+	
 	close(parser->input_fd);
 	close(parser->output_fd);
 	close(parser->store_stdin);
@@ -43,6 +52,8 @@ int	ft_exit(t_data *data, int flag_pipe)
 	close_pipe_fd(parser->pipe_fd);
 	//parser itself? Anything else missing?
 	ft_lstclear_env(&env, free);
+	if (data)
+		free(data);
 	exit(exit_value);
 	return (1);
 }

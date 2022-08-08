@@ -81,6 +81,10 @@ int	parser(t_data *data, char **line)
 	// 	ft_lstclear(&lexar_list, free);
 	// if (lexar_list)
 	// 	free_parser(data, &lexar_list, line, 0);
+
+	// ft_lstclear(&lexar_list, free);
+	if (lexar_list)
+		free(lexar_list);
 	//printf("Constructor after Free = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 	return (1);
 }

@@ -41,11 +41,16 @@ int	main(int argc, char **argv, char **envp)
 		// if (data->to_parser_list.sections)
 		// 	ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);  ////Working last night
 
+		// free_lst_array(data->to_parser_list.sections);
 		// // data->to_parser_list = NULL;  //// Added in the Morning
 		// if (data->to_parser_list.paths)
 
 		// 	free_array(data->to_parser_list.paths); ////Working last night
 
+		// if (lexar_list)
+		// 	free(lexar_list);
+		if (line)
+			free(line);  ///// Most Definitely HERE
 		i++;
 	}
 	if (data->to_env_list)
@@ -60,7 +65,7 @@ t_data	*env_builder(char **envp)
 	t_data	*data;
 	(void)envp;
 	data = ft_calloc(1, sizeof(t_data));
-	data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));
+	// data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));  //// ///// Most Definitely Not Needed
 	return (data);
 }
 
