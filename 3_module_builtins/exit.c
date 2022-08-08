@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/07 21:10:47 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:21:19 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_exit(t_env *env, t_parser *parser, int flag_pipe)
+int	ft_exit(t_data *data, int flag_pipe)
 {
 	t_parser	*parser;
 	t_env		*env;

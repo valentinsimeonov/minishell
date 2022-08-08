@@ -8,7 +8,7 @@
 typedef struct s_parser	t_parser;
 typedef struct s_env	t_env;
 
-int		check_builtins(t_parser *parser, t_env *env);
+int	    check_builtins(t_data *data);
 t_env	*get_env(t_env *env, char *v_name);
 t_env	*get_env_previous(t_env *env, char *v_name);
 int		is_builtin(char	*cmd);

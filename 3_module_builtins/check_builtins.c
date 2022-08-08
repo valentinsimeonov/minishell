@@ -6,17 +6,21 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 20:55:24 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:19:23 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	check_builtins(t_parser *parser, t_env *env)
+int	check_builtins(t_data *data)
 {
 	int	flag_pipe;
 	int	len;
+	t_parser	*parser;
+	t_env		*env;
 
+	parser = &data->to_parser_list;
+	env = data->to_env_list;
 	flag_pipe = 0;
 	len = ft_strlen(parser->command[0]);
 	if (parser->sections[1])
@@ -28,7 +32,7 @@ int	check_builtins(t_parser *parser, t_env *env)
 	else if (ft_strncmp(parser->command[0], "env", len) == 0)
 		ft_env(env, parser);
 	else if (ft_strncmp(parser->command[0], "exit", len) == 0)
-		ft_exit(env, parser, flag_pipe);
+		ft_exit(data, flag_pipe);
 	else if (ft_strncmp(parser->command[0], "export", len) == 0)
 		ft_export(env, parser, parser->command, flag_pipe);
 	else if (ft_strncmp(parser->command[0], "pwd", len) == 0)
