@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 21:38:32 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/08 21:06:27 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ static char	*get_pwd(t_env **to_env_list)
 	pwd = get_env_value(to_env_list, "PWD");
 	if (!pwd)
 		return (NULL);
-	// if (!ft_strlen(pwd))
-	// {
-	// 	if (!envp_data.pwd)
-	// 		return (ft_strdup(""));
-	// 	pwd = ft_strdup(envp_data.pwd);
-	// 	if (!pwd)
-	// 		return (NULL);
-	// }
 	return (pwd);
 }
 

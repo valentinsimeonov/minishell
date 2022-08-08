@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (i < 10)
 	{
+		data->lexar_list = NULL;
 		line = readline("minishell:> ");
 		if (line == NULL)
 			break ;
@@ -53,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 			free(line);  ///// Most Definitely HERE
 		i++;
+		//free all
 	}
 	if (data->to_env_list)
 		ft_lstclear_env(&data->to_env_list, free);

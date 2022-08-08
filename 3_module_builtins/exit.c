@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 20:45:46 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/08 23:07:53 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,23 @@ int	ft_exit(t_data *data, int flag_pipe)
 	free_str_array(parser->paths); ///  This Seems to not do anything
 	// if (parser->paths)
 	// 		free_array(parser->paths);  // V
-	free(parser->paths);   /// This Causes an Invalid Read
+	// free(parser->paths);   /// This Causes an Invalid Read
 	// free_array(parser->paths);
 
-	
 	close(parser->input_fd);
 	close(parser->output_fd);
 	close(parser->store_stdin);
 	close(parser->store_stdout);
 	close_pipe_fd(parser->pipe_fd);
+	
+	// ft_lstclear(&data->lexar_list, free);   /// This Causes Invalid Read
+
+	// if (data->lexar_list)
+	// 	free(data->lexar_list);    //// Doesn't Work with exit()
+	
 	//parser itself? Anything else missing?
-	ft_lstclear_env(&env, free);
+	if (env)
+		ft_lstclear_env(&env, free);
 	if (data)
 		free(data);
 	exit(exit_value);
