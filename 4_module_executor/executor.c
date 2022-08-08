@@ -30,7 +30,7 @@ int	executor(t_data *data)
 			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
-		//print_all_input(data);//TEST INPUT
+		print_all_input(data);//TEST INPUT
 		if (parser->sections[i])
 			exec_section(data);
 		else

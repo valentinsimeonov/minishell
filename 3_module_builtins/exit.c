@@ -32,9 +32,8 @@ int	ft_exit(t_data *data, int flag_pipe)
 	close(parser->store_stdin);
 	close(parser->store_stdout);
 	close_pipe_fd(parser->pipe_fd);
-	//parser itself?
-	//ft_lstclear_env(&env, free);
-	free(env->bash_v_content);//placeholder so it compiles
+	//parser itself? Anything else missing?
+	ft_lstclear_env(&env, free);
 	exit(exit_value);
 	return (1);
 }
