@@ -18,7 +18,6 @@ int	executor(t_data *data)
 	t_parser	*parser;
 
 	i = 0;
-	//print_all_input(data);//TEST INPUT
 	parser = &(data->to_parser_list);
 	store_fds(parser);
 	while (parser->sections[i])
@@ -31,7 +30,7 @@ int	executor(t_data *data)
 			parser->output_fd = STDOUT_FILENO;
 		if (exec_prep(cur_sec, parser) == 0)
 			return (0);// error handling TBD
-		//dprintf(2, "input_fd: %d\noutput_fd: %d\n", parser->input_fd, parser->output_fd);
+		//print_all_input(data);//TEST INPUT
 		if (parser->sections[i])
 			exec_section(data);
 		else
@@ -39,6 +38,7 @@ int	executor(t_data *data)
 	}
 	restore_std_fds(parser);
 	free_lst_array(parser->sections);
+	//free path? -> @Valentin: do you recreate the path from the env list with every input?
 	return (1);
 }
 

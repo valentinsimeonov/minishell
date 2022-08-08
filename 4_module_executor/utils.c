@@ -43,10 +43,10 @@ int	free_lst_array(t_list **lists)  //put in overall error handling/free file
 
 int	close_pipe_fd(int fd[2])
 {
-	close(fd[0]);
-	close(fd[1]);
-	fd[0] = -1;
-	fd[1] = -1;
+	if (fd[0] > 2)
+		close(fd[0]);
+	if (fd[1] > 2)
+		close(fd[1]);
 	return (1);
 }
 

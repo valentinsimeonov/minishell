@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:54:12 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/05 11:21:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:20:34 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		echo_execute(t_parser *parser, int output_fd);
 int		ft_env(t_env *env, t_parser *parser);
 
 int		ft_exit(t_data *data, int flag_pipe);
+int	    exit_is_numeric_str(char *str);
+long	ft_atolong(char *str);
 
 int		ft_export(t_env *env, t_parser *parser, char **input, int flag_pipe);
 int		export_handle_input(t_env *env, char *input);
