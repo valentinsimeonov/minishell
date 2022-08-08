@@ -8,12 +8,15 @@
 typedef struct s_data	t_data;
 typedef struct s_env	t_env;
 
-int	parser(t_data *data, char **line);
+int		parser(t_data *data, char **line);
+int		split_into_commands(t_data *data, t_list *clean_input);
+int		lexer(char *line, t_list **clean_input);
+
 
 /* Parser's calls */
 int		env_resolver(t_data *data, char **input);
-int		lexer(char *line, t_list **clean_input);
-int		split_into_commands(t_data *data, t_list *clean_input);
+
+
 void	print_list(t_list **stack);
 void	free_array(char **arr);
 char	*str_remove_char_at1(char *str, int idx);

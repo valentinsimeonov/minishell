@@ -44,8 +44,8 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 		}
 		lexar_list = lexar_list->next;
 	}
-	if (lexar_list)
-		ft_lstclear(&lexar_list, free);
+	// if (lexar_list)
+	// 	ft_lstclear(&lexar_list, free);
 	return (1);
 }
 

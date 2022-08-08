@@ -117,7 +117,7 @@ int	exec_section(t_parser *parser, t_env *env)
     signal(SIGINT, SIG_IGN);
     waitpid(pid, &test, 0);
     // printf("First Pipe Function: %d", test);
-    signal(SIGINT, signal_handler_parent);
+	signal(SIGINT, signal_handler_parent);
     global_exit_status = 128 + WTERMSIG(test);
 	}
 	if (dup2(parser->pipe_fd[0], parser->output_fd) < 0)

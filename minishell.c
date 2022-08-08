@@ -8,9 +8,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_data		*data;
+	// t_list		*lexar_list;
+	// lexar_list = NULL;
 
 	/* Creating the ENV List */
-	data = env_builder(envp);   
+	data = env_builder(envp);
 	data->to_env_list = create_env_list(envp); /// Variable is Here Just for Testing Purposes
 
 	(void)argc;
@@ -44,13 +46,11 @@ int	main(int argc, char **argv, char **envp)
 
 		// 	free_array(data->to_parser_list.paths); ////Working last night
 
-
 		i++;
 	}
 	if (data->to_env_list)
 		ft_lstclear_env(&data->to_env_list, free);
 	free(data);
-	// free_minishell(data);
 	return (0);
 }
 
@@ -72,7 +72,7 @@ int	print_all_input(t_data *data)
 	t_list		*cur_sec;
 	int			i;
 	int			j;
-	
+
 	i = 0;
 	env = (data->to_env_list);
 	printf("\nCHECK T_DATA CONTENT:\n");
