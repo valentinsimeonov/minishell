@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		parser(data, &line);
-		// print_all_input(data);
+		print_all_input(data);
+		printf("End of Parser\n");
 		//printf("End of Parser, Start of Executor\n");
 		executor(data);
 
@@ -104,9 +105,9 @@ int	print_all_input(t_data *data)
 	i = 0;
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);*/
-	printf("\nCOMMANDS:\n");
-	i = 0;
-	while (parser->command[i])
-	  	printf("%s\n", parser->command[i++]);
+	// printf("\nCOMMANDS:\n");
+	// i = 0;
+	// while (parser->command[i])
+	//   	printf("%s\n", parser->command[i++]);
 	return (1);
 }

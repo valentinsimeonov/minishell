@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 16:58:55 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:45:46 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	ft_exit(t_data *data, int flag_pipe)
 	printf("In the Exit function\n");
 	free_str_array(parser->command);
 	free_lst_array(parser->sections);
-	// free_str_array(parser->paths); /// V
+	free_str_array(parser->paths); ///  This Seems to not do anything
 	// if (parser->paths)
 	// 		free_array(parser->paths);  // V
-	
-	free_array(parser->paths);
+	free(parser->paths);   /// This Causes an Invalid Read
+	// free_array(parser->paths);
 
 	
 	close(parser->input_fd);
