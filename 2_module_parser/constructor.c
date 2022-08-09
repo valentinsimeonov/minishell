@@ -45,7 +45,7 @@ static char	**get_paths_array(t_env **to_env_list)
 		if (path)
 		{
 			path = NULL;
-			free(path);
+			// free(path);
 		}
 		return (NULL);
 	}
@@ -53,7 +53,7 @@ static char	**get_paths_array(t_env **to_env_list)
 	if (path)
 	{
 		path = NULL;
-		free(path);
+		// free(path);
 	} //// Problematic Freeing Here
 	return (paths);
 }
@@ -85,11 +85,27 @@ int	parser(t_data *data, char **line)
 	// ft_lstclear(&data->lexar_list, free);
 	// ft_lstclear(&lexar_list, free);
 
+	// if (data->lexar_list)
+	// 	free(data->lexar_list);
+
+	if (data->lexar_list)
+		null_making(data->lexar_list);
+	if (data->lexar_list)
+		ft_lstclear(&data->lexar_list, free);
 	if (data->lexar_list)
 		free(data->lexar_list);
 
 	//printf("Constructor after Free = In Command List at Sections Index 0: %s\n", ((char*)((t_list*)((t_parser)(data->to_parser_list)).sections[0]->line)));
 	return (1);
+}
+
+void	null_making(t_list *lexar_list)
+{
+	while(lexar_list)
+	{
+		lexar_list->line = NULL;
+		lexar_list = lexar_list->next;
+	}
 }
 
 /* Free 2D Char Array */

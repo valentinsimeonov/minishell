@@ -16,6 +16,7 @@ int		lexer(char *line, t_list **clean_input);
 /* Parser's calls */
 int		env_resolver(t_data *data, char **input);
 
+void	null_making(t_list *lexar_list);
 
 void	print_list(t_list **stack);
 void	free_array(char **arr);
