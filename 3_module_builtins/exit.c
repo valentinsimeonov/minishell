@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 15:16:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 23:09:03 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "builtins.h"
 
@@ -37,6 +26,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 		
 	printf("In the Exit function\n");
 	free_str_array(parser->command);
+	free_str_array(parser->paths);
 	free_lst_array(parser->sections);
 	free_str_array(parser->paths); ///  This Seems to not do anything
 	// if (parser->paths)

@@ -86,8 +86,6 @@ int	store_fds(t_parser *parser)
 {
 	parser->store_stdin = dup(STDIN_FILENO);
 	parser->store_stdout = dup(STDOUT_FILENO);
-	parser->pipe_fd[0] = -1;
-	parser->pipe_fd[1] = -1;
 	if (parser->store_stdin < 0 || parser->store_stdout < 0)
 		return (0);//error handling tbd
 	return (1);
