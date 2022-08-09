@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/02 10:20:02 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:52:54 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	is_infile(char *line)
  * Then, it diffentiates between a heredoc (<<) and calling the here_doc function
  * and a filename, for which a opening function would be called.
  * @param file [char *] Name of the infile or heredoc delimiter.
- * @param sec [t_list *] List containing each word of the current input section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
  * @param filemode [char *] String specifying if "file" is heredoc or filename.
  * @return [int] [int] 1 at success, 0 at failure.
@@ -48,12 +47,12 @@ int	infile(char *file, t_parser *parser, char *filemode)
 	flag_prv_file = 0;
 	if (parser->input_fd < 0)
 		flag_prv_file = -1;
-	else if (parser->input_fd > 2)//had a condition to close shit
+	else if (parser->input_fd > 2)
 		close(parser->input_fd);
 	if (ft_strncmp(filemode, "<<", 3) == 0)
 		parser->input_fd = here_doc(file);
 	else
-		parser->input_fd = open_infile(file);
+		parser->input_fd = open_infile(parser, file);
 	if (flag_prv_file == -1 && parser->input_fd != -1)
 	{
 		close(parser->input_fd);
@@ -70,15 +69,14 @@ int	infile(char *file, t_parser *parser, char *filemode)
  * @param lim [char *] String representing the delimiter, which stops user input.
  * @return [int] Returns the fd of the open heredoc, or -1 in case of error.
 */
-int	here_doc(char *lim)//do I need shell variables for error??
+int	here_doc(char *lim)//implement CTRL+C signal during here_doc???
 {
 	char	*tmp;
 	int		fd;
 
-	fd = open("/tmp/.heredoc", O_WRONLY | O_CREAT, 0666);//should it be in another folder?
-	if (fd < 0)
-		return(fd);//error handling heredoc TBD
-	while (1)
+	tmp = NULL;
+	fd = open("/tmp/.heredoc", O_WRONLY | O_CREAT, 0666);
+	while (1 && fd >= 0)
 	{
 		tmp = readline("> ");
 		if (!tmp || ft_strncmp(tmp, lim, ft_strlen(tmp) + 1) == 0)
@@ -89,35 +87,34 @@ int	here_doc(char *lim)//do I need shell variables for error??
 	}
 	if (tmp)
 		free(tmp);
-	close(fd);
-	fd = open("/tmp/.heredoc", O_RDONLY | O_CREAT, 0666);//should it be in another folder?
+	if (fd >= 0)
+		close(fd);
+	fd = open("/tmp/.heredoc", O_RDONLY | O_CREAT, 0666);
 	if (fd < 0)
-		return(fd);//error handling heredoc TBD
+		ft_error(1, NULL, "<<: Heredoc failed");
 	else
-		unlink("/tmp/.heredoc");//should it be in another folder?
+		unlink("/tmp/.heredoc");
 	return (fd);
 }
 
 /**
  * Checks if the file specified in filename is existant and readable.
  * If so, it opens the file and returns it's fd.
- * @param [char *] String containing the infile's name.
+ * @param parser [t_parser *] Struct containing parsed input & relevant values.
+ * @param filename [char *] String containing the infile's name.
  * @return [int] Returns the fd of the open infile. In case of error, returns -1.
 */
-int	open_infile(char *filename)//do I need shell variables for error?
+int	open_infile(t_parser *parser, char *filename)
 {
 	int	fd;
 
 	fd = -1;
-	if (!access(filename, F_OK))
-	{
-		if (!access(filename, R_OK))
-			fd = open(filename, O_RDONLY);
-		else
-			return (-1);//error handling: no read permission
-	}
+	if (!access(filename, F_OK) && !access(filename, R_OK))
+		fd = open(filename, O_RDONLY);
 	else
-		return (-1);//error handling: no such file or directory
+	{	
+		if (parser->input_fd == STDIN_FILENO)
+			ft_error(1, filename, ": No such file or directory");
+	}
 	return (fd);
-	//TO-DO: only the error of the first invalid infile is displayed, implementation TBD
 }

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   outfile.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/09 16:54:57 by smischni          #+#    #+#             */
+/*   Updated: 2022/08/09 17:48:06 by smischni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "executor.h"
 
@@ -26,20 +36,19 @@ int	is_outfile(char *line)
  * Then, it checks whether the file already exists. If yes, it tries to write in
  * that file. Else, it opens a new file to write with the required access mode.
  * @param file [char *] Name of the file to be opened as outfile.
- * @param sec [t_list *] List containing each word of the current input section.
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
  * @param filemode [char *] String specifying the file access mode (> or >>).
  * @return [int] [int] 1 at success, 0 at failure.
 */
 int	outfile(char *file, t_parser *parser, char *filemode)
 {
-	if (parser->output_fd < 0)
+	if (parser->output_fd < 0 || parser->input_fd < 0)
 		return (0);
-	else if (parser->output_fd > 2)//condition removed
+	else if (parser->output_fd > 2)
 		close(parser->output_fd);
 	parser->output_fd = -1;
 	if (!access(file, F_OK) && access(file, W_OK) < 0)
-		return (0);//error handling TBD: Permission denied
+		ft_error(1, file, "OUTFILE: Permission denied");
 	else
 	{
 		if (ft_strncmp(filemode, ">>", 3) == 0)
@@ -47,7 +56,7 @@ int	outfile(char *file, t_parser *parser, char *filemode)
 		else
 			parser->output_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (parser->output_fd < 0)
-			return (0);//error handling TBD
+			ft_error(1, file, ": No such file or directory");
 	}
 	return (1);
 }

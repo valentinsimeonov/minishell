@@ -31,28 +31,11 @@ int	main(int argc, char **argv, char **envp)
 		if (line == NULL)
 			break ;
 		add_history(line);
-		parser(data, &line);
-		print_all_input(data);
-		printf("End of Parser\n");
-		//printf("End of Parser, Start of Executor\n");
-		executor(data);
-
-		// if (lexar_list)
-		// 	ft_lstclear(&lexar_list, free); //// After it Leaves the Parser it "error for object 0x100205290: pointer being freed was not allocated" in the Executor
-
-		// if (data->to_parser_list.sections)
-		// 	ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);  ////Working last night
-
-		// free_lst_array(data->to_parser_list.sections);
-		// // data->to_parser_list = NULL;  //// Added in the Morning
-		// if (data->to_parser_list.paths)
-
-		// 	free_array(data->to_parser_list.paths); ////Working last night
-
-		// if (lexar_list)
-		// 	free(lexar_list);
+		if (parser(data, &line))
+			executor(data);
+		//else: free parser
 		if (line)
-			free(line);  ///// Most Definitely HERE
+			free(line);
 		i++;
 		//free all
 	}

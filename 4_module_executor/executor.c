@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
+/*   Updated: 2022/08/09 19:41:54 by smischni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "executor.h"
 
 /**
@@ -7,8 +19,7 @@
  * sections in front of pipes).
  * Then calls the preparation function exec_prep() and the execution function
  * exec_section() for every section.
- * @param parser [t_parser *] Struct containing parsed input & relevant values.
- * @param env [t_env *] List of environment variables.
+ * @param data [t_data *] Struct containing all minishell variables.
  * @return [int] 1 at success, 0 at failure.
 */
 int	executor(t_data *data)
@@ -23,22 +34,18 @@ int	executor(t_data *data)
 	while (parser->sections[i])
 	{
 		cur_sec = parser->sections[i++];
-		parser->input_fd = STDIN_FILENO;
-		if (parser->sections[i])
-			parser->output_fd = STDIN_FILENO;
-		else
-			parser->output_fd = STDOUT_FILENO;
-		if (exec_prep(cur_sec, parser) == 0)
-			return (0);// error handling TBD
-		//print_all_input(data);//TEST INPUT
-		if (parser->sections[i])
-			exec_section(data);
-		else
-			exec_last_section(data);
+		set_fds(parser, i);
+		if (exec_prep(cur_sec, parser) == 1)
+		{
+			//print_all_input(data);//TEST!!
+			if (parser->sections[i])
+				exec_section(data);
+			else
+				exec_last_section(data);
+		}
+		free_str_array(parser->command);
 	}
-	restore_std_fds(parser);
-	free_lst_array(parser->sections);
-	//free path? -> @Valentin: do you recreate the path from the env list with every input?
+	end_execution(parser);
 	return (1);
 }
 
@@ -54,40 +61,18 @@ int	executor(t_data *data)
 int	exec_prep(t_list *sec, t_parser *parser)
 {
 	int		count;
-	t_list	*head;
 
-	count = 0;
-	head = sec;
-	while (head)
-	{
-		if (is_infile(head->line) == 1 && head->next)
-		{
-			infile((char *)head->next->line, parser, (char *)head->line);
-			head = head->next;
-		}
-		else if (is_outfile(head->line) == 1 && head->next)
-		{
-			outfile((char *)head->next->line, parser, (char *)head->line);
-			head = head->next;
-		}
-		else
-			count++;
-		head = head->next;
-	}
+	count = open_files_count_cmds(parser, sec);
 	if (parser->input_fd < 0 || parser->output_fd < 0)
-		return (0);//error handling TBD; only display message of the first invalid infile and outfile
-	create_command_array(count, parser, sec); //error handling??
+		return (0);
+	if (create_command_array(count, parser, sec) == 0)
+		return (0);
 	return (1);
 }
 
 /**
- * Duplicates the input fd into STDIN to read the command input from there.
- * Creates a pipe and forks. TBD: checks for built-ins
- * In the child, duplicates the pipe's write-end into STDOUT, so the output is
- * written to pipe.
- * Duplicates the pipe's read end into the output fd.
- * @param parser [t_parser *] Struct containing parsed input & relevant values.
- * @param env [t_env *] List of environment variables.
+ * TBD:
+ * @param data [t_data *] Struct containing all minishell variables.
  * @return [int] 1 at success, 0 at failure.
 */
 int	exec_section(t_data *data)
@@ -97,7 +82,7 @@ int	exec_section(t_data *data)
 	t_parser	*parser;
 	t_env		*env;
 
-	status = 1;
+	status = 0;
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
 	if (pipe(parser->pipe_fd) < 0)
@@ -119,8 +104,8 @@ int	exec_section(t_data *data)
 				return (0);//error handling TBD
 			close_pipe_fd(parser->pipe_fd);
 			execve(parser->command[0], parser->command, reassemble_env(env));
-			//error handling: command not found
-			return (0);//error handling TBD
+			ft_error(127, parser->command[0], ": command not found");
+			exit(0);
 		}
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
@@ -135,7 +120,6 @@ int	exec_section(t_data *data)
 	close_pipe_fd(parser->pipe_fd);
 	if (parser->output_fd > 2)
 		close(parser->output_fd);
-	free_str_array(parser->command);
 	return (1);
 }
 
@@ -158,7 +142,7 @@ int	exec_last_section(t_data *data)
 
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
-	status = 1;
+	status = 0;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
 	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
@@ -172,8 +156,8 @@ int	exec_last_section(t_data *data)
 		{
 			signal(SIGQUIT, SIG_DFL);
 			execve(parser->command[0], parser->command, reassemble_env(env));
-			//error handling: command not found
-			exit(127);//error handling TBD
+			ft_error(127, parser->command[0], ": command not found");
+			exit(0);
 		}
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
@@ -187,6 +171,13 @@ int	exec_last_section(t_data *data)
 		close(parser->input_fd);
 	if (parser->output_fd > 2)	
 		close(parser->output_fd);
-	free_str_array(parser->command);
+	return (1);
+}
+
+int	end_execution(t_parser *parser)
+{
+	restore_std_fds(parser);
+	free_lst_array(parser->sections);
+	free_str_array(parser->paths);
 	return (1);
 }

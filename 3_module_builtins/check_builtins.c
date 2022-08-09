@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 12:19:23 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:30:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	check_builtins(t_data *data)
 	env = data->to_env_list;
 	flag_pipe = 0;
 	len = ft_strlen(parser->command[0]);
+	if (len == 0)
+		return (0);
 	if (parser->sections[1])
 		flag_pipe = 1;
 	if (ft_strncmp(parser->command[0], "cd", len) == 0)

@@ -23,29 +23,15 @@ int	ft_exit(t_data *data, int flag_pipe)
 	}
 	if (flag_pipe == 1)
 		return (1);
-		
-	printf("In the Exit function\n");
 	free_str_array(parser->command);
 	free_str_array(parser->paths);
 	free_lst_array(parser->sections);
-	// free_str_array(parser->paths); ///  This Seems to not do anything
-	// if (parser->paths)
-	// 		free_array(parser->paths);  // V
-	// free(parser->paths);   /// This Causes an Invalid Read
-	// free_array(parser->paths);
-
+	ft_putstr_fd("exit\n", parser->store_stdout);
 	close(parser->input_fd);
 	close(parser->output_fd);
 	close(parser->store_stdin);
 	close(parser->store_stdout);
 	close_pipe_fd(parser->pipe_fd);
-	
-	// ft_lstclear(&data->lexar_list, free);   /// This Causes Invalid Read
-
-	// if (data->lexar_list)
-	// 	free(data->lexar_list);    //// Doesn't Work with exit()
-	
-	//parser itself? Anything else missing?
 	if (env)
 		ft_lstclear_env(&env, free);
 	if (data)

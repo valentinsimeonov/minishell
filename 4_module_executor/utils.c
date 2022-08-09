@@ -81,26 +81,3 @@ char	**reassemble_env(t_env *env)
 	}
 	return (envp);
 }
-
-int	store_fds(t_parser *parser)
-{
-	parser->store_stdin = dup(STDIN_FILENO);
-	parser->store_stdout = dup(STDOUT_FILENO);
-	if (parser->store_stdin < 0 || parser->store_stdout < 0)
-		return (0);//error handling tbd
-	return (1);
-}
-
-int	restore_std_fds(t_parser *parser)
-{
-	if (dup2(parser->store_stdin, 0) < 0 || dup2(parser->store_stdout, 1) < 0)
-	{
-		close(parser->store_stdin);
-		close(parser->store_stdout);
-		return (0);//error handling tbd
-	}
-	close(parser->store_stdin);
-	close(parser->store_stdout);
-	return (1);
-}
-

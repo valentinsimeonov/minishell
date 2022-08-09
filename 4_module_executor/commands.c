@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/08 11:32:42 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:41:28 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 	{
 		if ((is_infile(sec->line) || is_outfile(sec->line)) && sec->next)
 			sec = sec->next;
-		else if (i == 0 && is_builtin(sec->line) == 0)
-			parser->command[i++] = ft_strjoin("/", sec->line);
 		else
 			parser->command[i++] = ft_strdup(sec->line);
 		sec = sec->next;
 	}
-	if (is_builtin(parser->command[0]) == 0)
-		add_path(parser);
+	if (!is_builtin(parser->command[0]) && !is_exec(parser->command[0]))
+	{
+		if (add_path(parser) == 0)
+			return (0);
+	}
 	return (1);
 }
 
@@ -57,18 +58,38 @@ int	add_path(t_parser *parser)//OPEN: PATH HAS TO BE ADJUSTED AFTER EVERY COMMAN
 {
 	int		i;
 	char	*ex_path;
+	char	*add_slash;
 
 	i = 0;
+	if (!parser->paths)
+		return (1);
+	add_slash = ft_strjoin("/", parser->command[0]);
 	while (parser->paths[i])
 	{
-		ex_path = ft_strjoin(parser->paths[i++], parser->command[0]);
+		ex_path = ft_strjoin(parser->paths[i++], add_slash);
 		if (!access(ex_path, F_OK) && !access(ex_path, X_OK))
 		{
+			free(add_slash);
 			free(parser->command[0]);
 			parser->command[0] = ex_path;
 			return (1);
 		}
 		free(ex_path);
 	}
-	return (1);
+	free(add_slash);
+	add_slash = ft_strjoin(parser->command[0], ": command not found");
+	ft_error(127, NULL, add_slash);
+	free(add_slash);
+	return (0);
+}
+
+int	is_exec(char *cmd)
+{
+	if (ft_strncmp("./", cmd, 2) == 0)
+	{
+		if (!access(cmd, F_OK) && !access(cmd, X_OK))
+			return (1);
+		//error message if it is not executable
+	}
+	return (0);
 }
