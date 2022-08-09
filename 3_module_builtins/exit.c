@@ -28,7 +28,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	free_str_array(parser->command);
 	free_str_array(parser->paths);
 	free_lst_array(parser->sections);
-	free_str_array(parser->paths); ///  This Seems to not do anything
+	// free_str_array(parser->paths); ///  This Seems to not do anything
 	// if (parser->paths)
 	// 		free_array(parser->paths);  // V
 	// free(parser->paths);   /// This Causes an Invalid Read

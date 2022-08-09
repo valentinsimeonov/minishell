@@ -112,6 +112,7 @@ int	exec_section(t_data *data)
 		if (pid == 0)
 		{
 			signal(SIGQUIT, SIG_DFL);
+
 			if (parser->output_fd > 2 && dup2(parser->output_fd, STDOUT_FILENO) < 0)
 				return (0);//error handling TBD
 			if (parser->output_fd < 3 && dup2(parser->pipe_fd[1], STDOUT_FILENO) < 0)
@@ -122,9 +123,12 @@ int	exec_section(t_data *data)
 			return (0);//error handling TBD
 		}
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 		signal(SIGINT, signal_handler_parent);
-		global_exit_status = 128 + WTERMSIG(status);
+		if (status > 0)
+			global_exit_status = 128 + status;
+		if (status == 0)
+			global_exit_status = 0;
 	}
 	if (parser->output_fd < 3 && dup2(parser->pipe_fd[0], parser->output_fd) < 0)
 		return (0);//error handling TBD
@@ -173,10 +177,11 @@ int	exec_last_section(t_data *data)
 		}
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		// printf("Second Pipe Function: %d", test);
 		signal(SIGINT, signal_handler_parent);
-		global_exit_status = 128 + WTERMSIG(status);
-		// printf("Second Pipe Function: %d", global_exit_status);
+		if (status > 0)
+			global_exit_status = 128 + status;
+		if (status == 0)
+			global_exit_status = 0;
 	}
 	if (parser->input_fd > 2)
 		close(parser->input_fd);

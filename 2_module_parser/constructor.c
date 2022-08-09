@@ -69,6 +69,8 @@ int	parser(t_data *data, char **line)
 	tmp = ft_strtrim(*line, " \v\t\f\r\n");
 	free(*line);
 	*line = tmp;
+	// if (tmp)
+	// 	free(tmp);
 	if (!*line || !env_resolver(data, line))
 		return (parser_error(data, &data->lexar_list, line, NULL));
 	if (!lexer(*line, &data->lexar_list))
