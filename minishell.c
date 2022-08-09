@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char **envp)
 		if (line == NULL)
 			break ;
 		add_history(line);
-		parser(data, &line);
+		if (!parser(data, &line))
+			break;
 		print_all_input(data);
 		printf("End of Parser\n");
 		//printf("End of Parser, Start of Executor\n");

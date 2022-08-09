@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/08 21:06:27 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/09 11:54:42 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,12 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 	idx++;
 	if (input[idx] && input[idx] == '?')
 	{
+		// exit_status = 0;
+		// global_exit_status = 0;
 		exit_status = ft_itoa(global_exit_status);
+		printf("%d",global_exit_status);
+
+		// printf("%s",exit_status);
 		ret = str_replace_str_at(input, idx - 1, 2, exit_status);
 		if (exit_status)
 			free(exit_status);
