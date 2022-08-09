@@ -26,12 +26,14 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (i < 10)
 	{
+		data->lexar_list = NULL;
 		line = readline("minishell:> ");
 		if (line == NULL)
 			break ;
 		add_history(line);
 		parser(data, &line);
-		// print_all_input(data);
+		print_all_input(data);
+		printf("End of Parser\n");
 		//printf("End of Parser, Start of Executor\n");
 		executor(data);
 
@@ -41,12 +43,18 @@ int	main(int argc, char **argv, char **envp)
 		// if (data->to_parser_list.sections)
 		// 	ft_lstclear(data->to_parser_list.sections, (void (*)(void *))free_array);  ////Working last night
 
+		// free_lst_array(data->to_parser_list.sections);
 		// // data->to_parser_list = NULL;  //// Added in the Morning
 		// if (data->to_parser_list.paths)
 
 		// 	free_array(data->to_parser_list.paths); ////Working last night
 
+		// if (lexar_list)
+		// 	free(lexar_list);
+		if (line)
+			free(line);  ///// Most Definitely HERE
 		i++;
+		//free all
 	}
 	if (data->to_env_list)
 		ft_lstclear_env(&data->to_env_list, free);
@@ -60,7 +68,7 @@ t_data	*env_builder(char **envp)
 	t_data	*data;
 	(void)envp;
 	data = ft_calloc(1, sizeof(t_data));
-	data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));
+	// data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));  //// ///// Most Definitely Not Needed
 	return (data);
 }
 
@@ -99,9 +107,9 @@ int	print_all_input(t_data *data)
 	i = 0;
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);*/
-	printf("\nCOMMANDS:\n");
-	i = 0;
-	while (parser->command[i])
-	  	printf("%s\n", parser->command[i++]);
+	// printf("\nCOMMANDS:\n");
+	// i = 0;
+	// while (parser->command[i])
+	//   	printf("%s\n", parser->command[i++]);
 	return (1);
 }
