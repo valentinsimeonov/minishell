@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 19:41:54 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:49:50 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	executor(t_data *data)
 				exec_section(data);
 			else
 				exec_last_section(data);
+			free_str_array(parser->command);
 		}
-		free_str_array(parser->command);
 	}
 	end_execution(parser);
 	return (1);
@@ -77,46 +77,26 @@ int	exec_prep(t_list *sec, t_parser *parser)
 */
 int	exec_section(t_data *data)
 {
-	pid_t		pid;
-	int			status;
 	t_parser	*parser;
-	t_env		*env;
 
-	status = 0;
 	parser = &data->to_parser_list;
-	env = data->to_env_list;
 	if (pipe(parser->pipe_fd) < 0)
-		return (0);//error handling tbd
+		return (0);
 	if (parser->input_fd > 2 && dup2(parser->input_fd, STDIN_FILENO) < 0)
-		return (0);//error handling tbd
+	{
+		ft_error(1, "dup2", "exec_section: dup2 failed");//freeing/closing?
+		return (0);
+	}
 	if (check_builtins(data) == 0)
 	{
-		pid = fork();
-		if (pid < 0)
-			return (0);//error handling TBD
-		if (pid == 0)
-		{
-			signal(SIGQUIT, SIG_DFL);
-
-			if (parser->output_fd > 2 && dup2(parser->output_fd, STDOUT_FILENO) < 0)
-				return (0);//error handling TBD
-			if (parser->output_fd < 3 && dup2(parser->pipe_fd[1], STDOUT_FILENO) < 0)
-				return (0);//error handling TBD
-			close_pipe_fd(parser->pipe_fd);
-			execve(parser->command[0], parser->command, reassemble_env(env));
-			ft_error(127, parser->command[0], ": command not found");
-			exit(0);
-		}
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, signal_handler_parent);
-		if (status > 0)
-			global_exit_status = 128 + status;
-		if (status == 0)
-			global_exit_status = 0;
+		if (fork_section(parser, data->to_env_list) == 0)//return (0) überdenken
+			return (0);
 	}
 	if (parser->output_fd < 3 && dup2(parser->pipe_fd[0], parser->output_fd) < 0)
-		return (0);//error handling TBD
+	{
+		ft_error(1, "dup2", "exec_section: dup2 failed");//freeing/closing?
+		return (0);
+	}
 	close_pipe_fd(parser->pipe_fd);
 	if (parser->output_fd > 2)
 		close(parser->output_fd);
@@ -124,48 +104,24 @@ int	exec_section(t_data *data)
 }
 
 /**
- * Duplicates the input fd into STDIN to read the command input from there.
- * Creates a pipe and forks. TBD: checks for built-ins
- * In the child, duplicates the pipe's write-end into STDOUT, so the output is
- * written to pipe.
- * Duplicates the pipe's read end into the output fd.
- * @param parser [t_parser *] Struct containing parsed input & relevant values.
- * @param env [t_env *] List of environment variables.
+ * TBD:
+ * @param data [t_data *] Struct containing all minishell variables.
  * @return [int] 1 at success, 0 at failure.
 */
 int	exec_last_section(t_data *data)
 {
-	pid_t		pid;
-	int			status;
 	t_parser	*parser;
 	t_env		*env;
 
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
-	status = 0;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 		return (0);// error handling TBD
 	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
 		return (0);// error handling TBD
 	if (check_builtins(data) == 0)
 	{
-		pid = fork();
-		if (pid < 0)
-			return (0);//error handling TBD
-		if (pid == 0)
-		{
-			signal(SIGQUIT, SIG_DFL);
-			execve(parser->command[0], parser->command, reassemble_env(env));
-			ft_error(127, parser->command[0], ": command not found");
-			exit(0);
-		}
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		signal(SIGINT, signal_handler_parent);
-		if (status > 0)
-			global_exit_status = 128 + status;
-		if (status == 0)
-			global_exit_status = 0;
+		fork_last_section(parser, env);//error handling
 	}
 	if (parser->input_fd > 2)
 		close(parser->input_fd);

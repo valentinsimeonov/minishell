@@ -33,7 +33,6 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		if (parser(data, &line))
 			executor(data);
-		//else: free parser
 		if (line)
 			free(line);
 		i++;

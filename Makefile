@@ -21,6 +21,7 @@ SRC = 	minishell.c \
 		3_module_builtins/pwd.c \
 		3_module_builtins/unset.c \
 		4_module_executor/executor.c \
+		4_module_executor/exec_utils.c \
 		4_module_executor/commands.c \
 		4_module_executor/file_utils.c \
 		4_module_executor/infile.c \

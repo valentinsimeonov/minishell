@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:37:06 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 19:32:40 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:50:13 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int		exec_prep(t_list *sec, t_parser *parser);
 int		exec_section(t_data *data);
 int		exec_last_section(t_data *data);
 int		end_execution(t_parser *parser);
+
+int		fork_section(t_parser *parser, t_env *env);
+int		child_section(t_parser *parser, t_env *env);
+int		fork_last_section(t_parser *parser, t_env *env);
 
 int		open_files_count_cmds(t_parser *parser, t_list *sec);
 int		set_fds(t_parser *parser, int i);
