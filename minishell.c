@@ -31,8 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line == NULL)
 			break ;
 		add_history(line);
-		if (!parser(data, &line))
-			break;
+		parser(data, &line);
 		print_all_input(data);
 		printf("End of Parser\n");
 		//printf("End of Parser, Start of Executor\n");
@@ -69,7 +68,6 @@ t_data	*env_builder(char **envp)
 	t_data	*data;
 	(void)envp;
 	data = ft_calloc(1, sizeof(t_data));
-	// data->to_parser_list.sections = ft_calloc(1, sizeof(t_list *));  //// ///// Most Definitely Not Needed
 	return (data);
 }
 

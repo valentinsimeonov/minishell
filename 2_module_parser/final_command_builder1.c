@@ -32,6 +32,7 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 	sizeof(t_list *));
 	while (lexar_list)
 	{
+		
 		if (is_str_redir(lexar_list->line))
 			ft_lstadd_back(&data->to_parser_list.sections[i], \
 			ft_lstnew(lexar_list->line));
