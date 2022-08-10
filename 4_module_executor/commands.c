@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:28:19 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:15:39 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	add_path(t_parser *parser)
 
 int	is_exec(t_parser *parser, char *cmd)
 {
-	if (ft_strncmp("./", cmd, 2) == 0)
+	if (ft_strncmp("./", cmd, 2) == 0 || ft_strncmp("/", cmd, 1) == 0 ||
+		ft_strncmp("../", cmd, 3) == 0)
 	{
 		if (!access(cmd, F_OK))
 		{

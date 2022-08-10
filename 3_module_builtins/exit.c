@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:45:59 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 15:46:11 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:20:04 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	int			exit_value;
 
 	parser = &data->to_parser_list;
-	exit_value = EXIT_SUCCESS;
+	exit_value = g_exit_status;
 	ft_putstr_fd("exit\n", parser->store_stdout);
 	if (parser->command[1])
 	{

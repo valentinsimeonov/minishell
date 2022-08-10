@@ -79,9 +79,9 @@ int	print_all_input(t_data *data)
 	i = 0;
 	while (parser->paths[i])
 		printf("%s\n", parser->paths[i++]);*/
-	// printf("\nCOMMANDS:\n");
-	// i = 0;
-	// while (parser->command[i])
-	//   	printf("%s\n", parser->command[i++]);
+	printf("\nCOMMANDS:\n");
+	i = 0;
+	while (parser->command[i])
+	   	printf("%s\n", parser->command[i++]);
 	return (1);
 }
