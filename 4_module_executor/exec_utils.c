@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 21:01:03 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:54:32 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:37:48 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	fork_section(t_parser *parser, t_env *env)
 	waitpid(pid, &status, 0);
 	signal(SIGINT, signal_handler_parent);
 	if (status > 0)
-		global_exit_status = 128 + status;
+		g_exit_status = 128 + status;
 	if (status == 0)
-		global_exit_status = 0;
+		g_exit_status = 0;
 	return (1);
 }
 
@@ -81,9 +81,9 @@ int	fork_last_section(t_parser *parser, t_env *env)
 	waitpid(pid, &status, 0);
 	signal(SIGINT, signal_handler_parent);
 	if (status > 0)
-		global_exit_status = 128 + status;
+		g_exit_status = 128 + status;
 	if (status == 0)
-		global_exit_status = 0;
+		g_exit_status = 0;
 	return (1);
 }
 
