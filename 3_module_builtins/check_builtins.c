@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 17:30:31 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:42:11 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,48 @@
 
 int	check_builtins(t_data *data)
 {
-	int	flag_pipe;
-	int	len;
+	int			flag_pipe;
 	t_parser	*parser;
 	t_env		*env;
 
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
 	flag_pipe = 0;
+	if (parser->sections[1])
+		flag_pipe = 1;
+	if (builtin_switch(data, parser, env, flag_pipe) == 0)
+		return (0);
+	else
+	{
+		if (parser->pipe_fd[1] > 2)
+			close(parser->pipe_fd[1]);
+		return (1);
+	}
+}
+
+int	builtin_switch(t_data *data, t_parser *parser, t_env *env, int flag)
+{
+	int	len;
+
 	len = ft_strlen(parser->command[0]);
 	if (len == 0)
 		return (0);
-	if (parser->sections[1])
-		flag_pipe = 1;
 	if (ft_strncmp(parser->command[0], "cd", len) == 0)
-		ft_cd(env, parser, flag_pipe);
+		ft_cd(env, parser, flag);
 	else if (ft_strncmp(parser->command[0], "echo", len) == 0)
 		ft_echo(parser);
 	else if (ft_strncmp(parser->command[0], "env", len) == 0)
 		ft_env(env, parser);
 	else if (ft_strncmp(parser->command[0], "exit", len) == 0)
-		ft_exit(data, flag_pipe);
+		ft_exit(data, flag);
 	else if (ft_strncmp(parser->command[0], "export", len) == 0)
-		ft_export(env, parser, parser->command, flag_pipe);
+		ft_export(env, parser, parser->command, flag);
 	else if (ft_strncmp(parser->command[0], "pwd", len) == 0)
 		ft_pwd(parser);
 	else if (ft_strncmp(parser->command[0], "unset", len) == 0)
-		ft_unset(env, parser, flag_pipe);
+		ft_unset(env, parser, flag);
 	else
 		return (0);
-	close(parser->pipe_fd[1]);//check if this breaks minishell, since I am not checking if it is open -> maybe in executor is enough?
 	return (1);
 }
 

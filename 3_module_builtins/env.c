@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:53:23 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/07 19:38:21 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:50:07 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	ft_env(t_env *env, t_parser *parser)
 	int		output_fd;
 
 	if (parser->command[1])
-		return (0);//error handling: "env: too many arguments"?
+	{
+		ft_error(parser, 1, NULL, "env: too many arguments");
+		return (0);
+	}
 	if (parser->output_fd > 2 || parser->output_fd == 1)
 		output_fd = parser->output_fd;
 	else

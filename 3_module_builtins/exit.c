@@ -31,7 +31,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	close(parser->output_fd);
 	close(parser->store_stdin);
 	close(parser->store_stdout);
-	close_pipe_fd(parser->pipe_fd);
+	close_pipe_fd(parser);
 	if (env)
 		ft_lstclear_env(&env, free);
 	if (data)

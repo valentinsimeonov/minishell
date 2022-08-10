@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 16:52:54 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:53:16 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	infile(char *file, t_parser *parser, char *filemode)
 	else if (parser->input_fd > 2)
 		close(parser->input_fd);
 	if (ft_strncmp(filemode, "<<", 3) == 0)
-		parser->input_fd = here_doc(file);
+		parser->input_fd = here_doc(parser, file);
 	else
 		parser->input_fd = open_infile(parser, file);
 	if (flag_prv_file == -1 && parser->input_fd != -1)
@@ -58,7 +58,7 @@ int	infile(char *file, t_parser *parser, char *filemode)
 		close(parser->input_fd);
 		parser->input_fd = -1;
 	}
-	return (0);
+	return (1);
 }
 
 /**
@@ -69,7 +69,7 @@ int	infile(char *file, t_parser *parser, char *filemode)
  * @param lim [char *] String representing the delimiter, which stops user input.
  * @return [int] Returns the fd of the open heredoc, or -1 in case of error.
 */
-int	here_doc(char *lim)//implement CTRL+C signal during here_doc???
+int	here_doc(t_parser *parser, char *lim)//implement CTRL+C signal during here_doc???
 {
 	char	*tmp;
 	int		fd;
@@ -91,7 +91,7 @@ int	here_doc(char *lim)//implement CTRL+C signal during here_doc???
 		close(fd);
 	fd = open("/tmp/.heredoc", O_RDONLY | O_CREAT, 0666);
 	if (fd < 0)
-		ft_error(1, NULL, "<<: Heredoc failed");
+		ft_error(parser, 1, NULL, "<<: heredoc failed");
 	else
 		unlink("/tmp/.heredoc");
 	return (fd);
@@ -113,8 +113,8 @@ int	open_infile(t_parser *parser, char *filename)
 		fd = open(filename, O_RDONLY);
 	else
 	{	
-		if (parser->input_fd == STDIN_FILENO)
-			ft_error(1, filename, ": No such file or directory");
+		if (parser->input_fd >= 0)
+			ft_error(parser, 1, filename, ": No such file or directory");
 	}
 	return (fd);
 }

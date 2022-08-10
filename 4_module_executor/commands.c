@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 19:41:28 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:28:19 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@
 int	create_command_array(int count, t_parser *parser, t_list *sec)
 {
 	int	i;
+	int	test;
 
 	i = 0;
 	parser->command = ft_calloc(count + 1, sizeof(char *));
 	if (!parser->command)
-		return (0);//error handling TBD
+		return (0);
 	while (sec)
 	{
 		if ((is_infile(sec->line) || is_outfile(sec->line)) && sec->next)
@@ -39,10 +40,14 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 			parser->command[i++] = ft_strdup(sec->line);
 		sec = sec->next;
 	}
-	if (!is_builtin(parser->command[0]) && !is_exec(parser->command[0]))
+	test = is_exec(parser, parser->command[0]);
+	if (!is_builtin(parser->command[0]) && test < 2)
 	{
-		if (add_path(parser) == 0)
+		if (test == 1 || add_path(parser) == 0)
+		{
+			free_str_array(parser->command);
 			return (0);
+		}
 	}
 	return (1);
 }
@@ -54,7 +59,7 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
  * @param parser [t_parser *] Struct containing parsed input & relevant values.
  * @return [int] 1 at success, 0 at failure.
 */
-int	add_path(t_parser *parser)//OPEN: PATH HAS TO BE ADJUSTED AFTER EVERY COMMAND INPUT -> VALENTIN
+int	add_path(t_parser *parser)
 {
 	int		i;
 	char	*ex_path;
@@ -78,18 +83,25 @@ int	add_path(t_parser *parser)//OPEN: PATH HAS TO BE ADJUSTED AFTER EVERY COMMAN
 	}
 	free(add_slash);
 	add_slash = ft_strjoin(parser->command[0], ": command not found");
-	ft_error(127, NULL, add_slash);
+	ft_error(parser, 127, NULL, add_slash);
 	free(add_slash);
 	return (0);
 }
 
-int	is_exec(char *cmd)
+int	is_exec(t_parser *parser, char *cmd)
 {
 	if (ft_strncmp("./", cmd, 2) == 0)
 	{
-		if (!access(cmd, F_OK) && !access(cmd, X_OK))
-			return (1);
-		//error message if it is not executable
+		if (!access(cmd, F_OK))
+		{
+			if (!access(cmd, X_OK))
+				return (2);
+			else
+				ft_error(parser, 1, cmd, ": Permission denied");
+		}
+		else
+			ft_error(parser, 1, cmd, ": No such file or directory");
+		return (1);
 	}
 	return (0);
 }
