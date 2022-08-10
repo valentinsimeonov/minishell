@@ -6,10 +6,7 @@ int global_exit_status = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
-	// char		*line;
 	t_data		*data;
-	// t_list		*lexar_list;
-	// lexar_list = NULL;
 
 	/* Creating the ENV List */
 	data = env_builder(envp);
@@ -22,8 +19,6 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 
-	// int		i;
-	// i = 0;
 	while (10)
 	{
 		data->lexar_list = NULL;
@@ -35,7 +30,6 @@ int	main(int argc, char **argv, char **envp)
 			executor(data);
 		if (data->line)
 			free(data->line);
-		// i++;
 		//free all
 	}
 	return (0);

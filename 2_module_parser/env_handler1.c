@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/09 21:31:48 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:41:32 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	env_resolver(t_data *data, char **input)
 	i = 0;
 	while ((*input)[i])
 	{
-		if ((!quote /* || quote == "" */) && (*input)[i] == '$')
+		if ((!quote || quote == '"' ) && (*input)[i] == '$')
 		{
 			tmp = check_and_get_env(data, *input, i);
 			if (!tmp)
