@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:22:40 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:53:16 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:16:27 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	infile(char *file, t_parser *parser, char *filemode)
  * @param lim [char *] String representing the delimiter, which stops user input.
  * @return [int] Returns the fd of the open heredoc, or -1 in case of error.
 */
-int	here_doc(t_parser *parser, char *lim)//implement CTRL+C signal during here_doc???
+int	here_doc(t_parser *parser, char *lim)
 {
 	char	*tmp;
 	int		fd;
