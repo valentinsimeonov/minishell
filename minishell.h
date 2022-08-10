@@ -56,6 +56,8 @@ typedef struct s_data
 	t_parser	to_parser_list;
 	t_env		*to_env_list;
 	t_list		*lexar_list;
+	char		*line;
+
 }				t_data;
 
 /* Temporary Place for Function Prototypes (Will sort out Later) */
