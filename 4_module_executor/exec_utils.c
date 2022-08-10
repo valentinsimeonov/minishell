@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:17:08 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 17:17:10 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:48:27 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ int	fork_last_section(t_parser *parser, t_env *env)
 		signal(SIGQUIT, SIG_DFL);
 		execve(parser->command[0], parser->command, reassemble_env(env));
 		ft_error(parser, 127, parser->command[0], ": command not found");
-		exit(0);
+		exit(g_exit_status);
 	}
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	signal(SIGINT, signal_handler_parent);
-	if (status > 0)
+	if (status > 0 && status < 4)
 		g_exit_status = 128 + status;
 	if (status == 0)
-		g_exit_status = 0;
+		g_exit_status = 0 + status;
 	return (1);
 }
 
