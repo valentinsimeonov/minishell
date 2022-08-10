@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:02:48 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 11:41:36 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:20:13 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_parser	t_parser;
 typedef struct s_env	t_env;
 
 int		check_builtins(t_data *data);
-int		builtin_switch(t_data *data, t_parser *parser, t_env *env, int flag);
+int		bi_switch(t_data *data, t_parser *parser, t_env *env, int flag);
 t_env	*get_env(t_env *env, char *v_name);
 t_env	*get_env_previous(t_env *env, char *v_name);
 int		is_builtin(char	*cmd);
@@ -33,13 +33,14 @@ int		echo_valid_flag(char *str);
 int		echo_execute(t_parser *parser, int output_fd);
 
 int		ft_env(t_env *env, t_parser *parser);
+int		env_print(t_env *env, int output_fd);
 
 int		ft_exit(t_data *data, int flag_pipe);
+int		at_exit(t_data *data, t_parser *parser, t_env *env);
 int		exit_is_numeric_str(char *str);
-long	ft_atolong(char *str);
 
-int		ft_export(t_env *env, t_parser *parser, char **input, int flag_pipe);
-int		export_handle_input(t_env *env, char *input);
+int		ft_export(t_env *env, t_parser *parser, char **input, int flag);
+int		export_handle_input(t_parser *parser, t_env *env, char *input);
 int		export_add_variable(t_env *env, char **values);
 int		export_print(t_env *env, t_parser *parser);
 t_env	*export_get_next_smallest(t_env *small, t_env *env);

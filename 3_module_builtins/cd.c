@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 15:59:34 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 11:41:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 13:21:24 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	cd_update_env(t_parser *parser, t_env *env)
 	t_env	*pwd;
 	char	*values[2];
 
-	values[0] = ft_strdup("OLDPWD");
-	values[1] = NULL;
 	tmp = get_env(env, "OLDPWD");
 	pwd = get_env(env, "PWD");
 	if (!tmp)
 	{
+		values[0] = ft_strdup("OLDPWD");
+		values[1] = NULL;
 		ft_lstadd_back_env_element(&env, create_env_element(values));
 		tmp = get_env(env, "OLDPWD");
 	}

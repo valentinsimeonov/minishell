@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 11:42:11 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:02:19 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_builtins(t_data *data)
 	flag_pipe = 0;
 	if (parser->sections[1])
 		flag_pipe = 1;
-	if (builtin_switch(data, parser, env, flag_pipe) == 0)
+	if (bi_switch(data, parser, env, flag_pipe) == 0)
 		return (0);
 	else
 	{
@@ -33,7 +33,7 @@ int	check_builtins(t_data *data)
 	}
 }
 
-int	builtin_switch(t_data *data, t_parser *parser, t_env *env, int flag)
+int	bi_switch(t_data *data, t_parser *parser, t_env *env, int flag)
 {
 	int	len;
 
