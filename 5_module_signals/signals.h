@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 18:30:34 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 15:17:37 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:57:21 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_data	t_data;
 
+/* Signals */
 void	signal_handler_parent(int signum);
-void	signal_handler_child(int signum);
 
 #endif

@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 15:42:32 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 17:33:10 by smischni         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -73,30 +63,11 @@ typedef struct s_data
 
 }				t_data;
 
-/* Temporary Place for Function Prototypes (Will sort out Later) */
-void	free_minishell(t_data *data);
+/* Free */
 void	ft_lstclear_env(t_env **lst, void (*del)(void *));
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 
 /* Main */
 t_data	*initialiser(char **envp);
-
-/*  Module Parser */
-void	is_d_quotes_closed(t_list *lexar_list);
-
-/* Linked Lists Utils */
-t_list	*create_element(char *value);
-void	print_list(t_list **stack);
-void	free_list(t_list **list);
-void	delete_list(t_list **list);
-
-/*		ENV List	*/
-t_env	*create_env_list(char	**envp);
-t_env	*create_env_element(char **value);
-void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
-void	print_env_list(t_env **stack);
-
-/* Module Signals */
-void	signal_check(t_data *data);
 
 #endif
