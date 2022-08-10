@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:58:11 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:12:28 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	executor(t_data *data)
 		set_fds(parser, i);
 		if (exec_prep(cur_sec, parser) == 1)
 		{
-			//print_all_input(data);//TEST!!
 			if (parser->sections[i])
 				exec_section(data);
 			else
