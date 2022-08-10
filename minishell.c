@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:30:44 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 15:42:06 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:05:45 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	main(int argc, char **argv, char **envp)
 		if (data->line)
 			free(data->line);
 	}
-	return (0);
+	if (data->to_env_list)
+		ft_lstclear_env(&data->to_env_list, free);
+	exit(g_exit_status);
 }
 
 /* Initialises All Data */
