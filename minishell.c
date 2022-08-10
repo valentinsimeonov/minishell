@@ -2,7 +2,7 @@
 
 #include "minishell.h"
 
-int global_exit_status = 0;
+int g_exit_status = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 
-	while (10)
+	while (1)
 	{
 		data->lexar_list = NULL;
 		data->line = readline("minishell:> ");

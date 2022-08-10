@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:45:59 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 14:14:18 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:46:11 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	at_exit(t_data *data, t_parser *parser, t_env *env)
 	free_str_array(parser->command);
 	free_str_array(parser->paths);
 	free_lst_array(parser->sections);
-	free(data->line);
+	if (data->line)
+		free(data->line);
 	close(parser->input_fd);
 	close(parser->output_fd);
 	close(parser->store_stdin);

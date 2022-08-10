@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_handler1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 13:41:32 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:37:48 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 	idx++;
 	if (input[idx] && input[idx] == '?')
 	{
-		exit_status = ft_itoa(global_exit_status);
+		exit_status = ft_itoa(g_exit_status);
 		ret = str_replace_str_at(input, idx - 1, 2, exit_status);
 		if (exit_status)
 			free(exit_status);
