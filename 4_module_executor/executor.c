@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 21:49:50 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:58:11 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,21 @@ int	exec_section(t_data *data)
 		return (0);
 	if (parser->input_fd > 2 && dup2(parser->input_fd, STDIN_FILENO) < 0)
 	{
-		ft_error(1, "dup2", "exec_section: dup2 failed");//freeing/closing?
+		ft_error(parser, 1, "dup2", "exec_section: dup2 failed");
 		return (0);
 	}
 	if (check_builtins(data) == 0)
 	{
-		if (fork_section(parser, data->to_env_list) == 0)//return (0) überdenken
+		if (fork_section(parser, data->to_env_list) == 0)
 			return (0);
 	}
-	if (parser->output_fd < 3 && dup2(parser->pipe_fd[0], parser->output_fd) < 0)
+	if (parser->output_fd < 3
+		&& dup2(parser->pipe_fd[0], parser->output_fd) < 0)
 	{
-		ft_error(1, "dup2", "exec_section: dup2 failed");//freeing/closing?
+		ft_error(parser, 1, "dup2", "exec_section: dup2 failed");
 		return (0);
 	}
-	close_pipe_fd(parser->pipe_fd);
+	close_pipe_fd(parser);
 	if (parser->output_fd > 2)
 		close(parser->output_fd);
 	return (1);
@@ -116,16 +117,23 @@ int	exec_last_section(t_data *data)
 	parser = &data->to_parser_list;
 	env = data->to_env_list;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
-		return (0);// error handling TBD
+	{
+		ft_error(parser, 1, "dup2", "exec_last_section: dup2 failed");
+		return (0);
+	}
 	if (dup2(parser->output_fd, STDOUT_FILENO) < 0)
-		return (0);// error handling TBD
+	{
+		ft_error(parser, 1, "dup2", "exec_last_section: dup2 failed");
+		return (0);
+	}
 	if (check_builtins(data) == 0)
 	{
-		fork_last_section(parser, env);//error handling
+		if (fork_last_section(parser, env) == 0)
+			return (0);
 	}
 	if (parser->input_fd > 2)
 		close(parser->input_fd);
-	if (parser->output_fd > 2)	
+	if (parser->output_fd > 2)
 		close(parser->output_fd);
 	return (1);
 }

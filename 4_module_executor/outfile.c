@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 16:54:57 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 17:48:06 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:27:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	outfile(char *file, t_parser *parser, char *filemode)
 		close(parser->output_fd);
 	parser->output_fd = -1;
 	if (!access(file, F_OK) && access(file, W_OK) < 0)
-		ft_error(1, file, "OUTFILE: Permission denied");
+		ft_error(parser, 1, file, "OUTFILE: Permission denied");
 	else
 	{
 		if (ft_strncmp(filemode, ">>", 3) == 0)
@@ -56,7 +56,7 @@ int	outfile(char *file, t_parser *parser, char *filemode)
 		else
 			parser->output_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (parser->output_fd < 0)
-			ft_error(1, file, ": No such file or directory");
+			ft_error(parser, 1, file, ": No such file or directory");
 	}
 	return (1);
 }

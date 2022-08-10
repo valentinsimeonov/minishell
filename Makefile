@@ -26,8 +26,7 @@ SRC = 	minishell.c \
 		4_module_executor/file_utils.c \
 		4_module_executor/infile.c \
 		4_module_executor/outfile.c \
-		4_module_executor/utils.c \
-		4_module_executor/error.c \
+		4_module_executor/free_error.c \
 		5_module_signals/signals.c
 
 INCLUDE = minishell.h

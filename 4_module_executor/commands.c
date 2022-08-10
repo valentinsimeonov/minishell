@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:21 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/09 20:58:51 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:28:19 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	create_command_array(int count, t_parser *parser, t_list *sec)
 			parser->command[i++] = ft_strdup(sec->line);
 		sec = sec->next;
 	}
-	test = is_exec(parser->command[0]);
+	test = is_exec(parser, parser->command[0]);
 	if (!is_builtin(parser->command[0]) && test < 2)
 	{
 		if (test == 1 || add_path(parser) == 0)
@@ -83,12 +83,12 @@ int	add_path(t_parser *parser)
 	}
 	free(add_slash);
 	add_slash = ft_strjoin(parser->command[0], ": command not found");
-	ft_error(127, NULL, add_slash);
+	ft_error(parser, 127, NULL, add_slash);
 	free(add_slash);
 	return (0);
 }
 
-int	is_exec(char *cmd)
+int	is_exec(t_parser *parser, char *cmd)
 {
 	if (ft_strncmp("./", cmd, 2) == 0)
 	{
@@ -97,10 +97,10 @@ int	is_exec(char *cmd)
 			if (!access(cmd, X_OK))
 				return (2);
 			else
-				ft_error(1, cmd, ": Permission denied");
+				ft_error(parser, 1, cmd, ": Permission denied");
 		}
 		else
-			ft_error(1, cmd, ": No such file or directory");
+			ft_error(parser, 1, cmd, ": No such file or directory");
 		return (1);
 	}
 	return (0);
