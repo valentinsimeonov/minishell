@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_builder_standalone.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:06:17 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/08 12:20:53 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:39:13 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,4 @@ void	ft_lstadd_back_env_element(t_env **env_list, t_env *new)
 	}
 	else
 		*env_list = new;
-}
-
-/* Printing the Elements from a Linked List */
-void	print_env_list(t_env **env_list)
-{
-	t_env	*temp;
-
-	temp = *env_list;
-	if (*env_list == NULL)
-		printf("List is Empty\n");
-	if (*env_list != NULL)
-	{	
-		while (temp->next != NULL)
-		{
-			printf("%s", "The Pointer of the Element: ");
-			printf("%p\n", temp->next);
-			printf("%s", "In List1, bash_variable: ");
-			printf("%s\n", temp->bash_variable);
-			printf("%s", "In List1, bash_v_content: ");
-			printf("%s\n", temp->bash_v_content);
-			temp = temp->next;
-		}
-		printf("%s", "In List2: ");
-		printf("%s\n", temp->bash_variable);
-		printf("%s\n", temp->bash_v_content);
-	}
 }

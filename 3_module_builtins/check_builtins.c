@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 14:02:19 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:52:35 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_builtins(t_data *data)
 	t_parser	*parser;
 	t_env		*env;
 
-	parser = &data->to_parser_list;
+	parser = &data->par;
 	env = data->to_env_list;
 	flag_pipe = 0;
 	if (parser->sections[1])

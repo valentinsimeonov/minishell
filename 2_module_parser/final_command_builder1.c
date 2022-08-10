@@ -1,13 +1,23 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   final_command_builder1.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 14:51:34 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/08/10 15:08:44 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
-int	count_pipes_in_lexar_list(t_list *lexar_list)
+int	count_pipes_in_lexar(t_list *lexar)
 {
 	t_list	*head;
 	int		pipe_counter;
 
-	head = lexar_list;
+	head = lexar;
 	pipe_counter = 1;
 	while (head)
 	{
@@ -15,7 +25,6 @@ int	count_pipes_in_lexar_list(t_list *lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
-
 	if (head)
 		null_making(head);
 	if (head)
@@ -26,37 +35,32 @@ int	count_pipes_in_lexar_list(t_list *lexar_list)
 }
 
 /* Splits the Lexar List into Command List for executor */
-int	split_into_commands(t_data *data, t_list *lexar_list)
+int	split_into_commands(t_data *data, t_list *lexar)
 {
 	int		i;
 	int		pipe_counter;
 	t_list	*head;
 
 	i = 0;
-	head = lexar_list;
-	pipe_counter = count_pipes_in_lexar_list(head);
-	data->to_parser_list.sections = ft_calloc(pipe_counter + 1, \
+	head = lexar;
+	pipe_counter = count_pipes_in_lexar(head);
+	data->par.sections = ft_calloc(pipe_counter + 1, \
 	sizeof(t_list *));
-	while (lexar_list)
+	while (lexar)
 	{
-		if (is_str_redir(lexar_list->line))
-			ft_lstadd_back(&data->to_parser_list.sections[i], \
-			ft_lstnew(lexar_list->line));
-		else if (!ft_strncmp(lexar_list->line, "|", 2))
+		if (is_str_redir(lexar->line))
+			ft_laddb(&data->par.sections[i], ft_ln(lexar->line));
+		else if (!ft_strncmp(lexar->line, "|", 2))
 		{
-			ft_lstadd_back(&data->to_parser_list.pipe, \
-			ft_lstnew(lexar_list->line));
+			ft_laddb(&data->par.pipe, ft_ln(lexar->line));
 			i++;
 		}
-		else if (!is_str_redir(lexar_list->line))
-		{
-			ft_lstadd_back(&data->to_parser_list.sections[i], \
-			ft_lstnew(lexar_list->line));
-		}
-		lexar_list = lexar_list->next;
+		else if (!is_str_redir(lexar->line))
+			ft_laddb(&data->par.sections[i], ft_ln(lexar->line));
+		lexar = lexar->next;
 	}
-	if (data->to_parser_list.pipe)
-		ft_lstclear(&data->to_parser_list.pipe, free);
+	if (data->par.pipe)
+		ft_lstclear(&data->par.pipe, free);
 	return (1);
 }
 

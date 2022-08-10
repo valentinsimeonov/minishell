@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:35:19 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 19:46:17 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:14:19 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,20 @@ int	is_meta_char(int c)
 	if (c == '>' || c == '<' || c == '|' || c == '$')
 		return (1);
 	return (0);
+}
+
+/* Free 2D Char Array */
+void	free_array(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }

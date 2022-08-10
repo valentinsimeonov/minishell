@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 13:45:59 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 16:20:04 by smischni         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "builtins.h"
 
@@ -17,7 +7,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	t_parser	*parser;
 	int			exit_value;
 
-	parser = &data->to_parser_list;
+	parser = &data->par;
 	exit_value = g_exit_status;
 	ft_putstr_fd("exit\n", parser->store_stdout);
 	if (parser->command[1])

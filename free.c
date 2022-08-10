@@ -1,40 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 15:30:04 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/08/10 15:30:19 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-void	free_minishell(t_data *data)
-{
-	// //  Freeing to_parser_list  
-	// if (data->to_parser_list.sections)
-	// 	free(data->to_parser_list.sections);
-	// if (data->to_parser_list.sections)
-	// 	ft_lstclear(data->to_parser_list.sections, free);
-
-	// if (data->to_parser_list.paths)
-	// 	free(data->to_parser_list.paths);
-	
-	// if (data->to_parser_list.command)
-	// 	free(data->to_parser_list.command);
-	// Maybe Need to Add Freeing for *line
-
-	/* Freeing the Main Data Struct */
-	if (data)
-		free(data);
-	// if (data)
-	// 	ft_lstclear(data, free);
-
-	//  Freeing to_env_list 
-	// if (data->to_env_list->bash_variable)
-	// 	free(data->to_env_list->bash_variable);
-	// if (data->to_env_list->bash_variable)
-	// 	free(data->to_env_list->bash_v_content);
-	if (data->to_env_list)
-		ft_lstclear_env(&data->to_env_list, free);
-	
-	// if (data->to_env_list.bash_v_content)
-	// 	ft_lstclear(data->to_parser_list.sections, free);
-
-	// if (data->to_env_list)
-	// 	free(data);
-}
 
 void	ft_lstclear_env(t_env **lst, void (*del)(void *))
 {

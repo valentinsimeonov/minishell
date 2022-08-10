@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 15:42:32 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/08/10 15:48:34 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -8,8 +19,8 @@
 # include <fcntl.h> /// For Open 
 # include <signal.h>  /// For Signals
 # include <sys/wait.h>  /// For Wait
-# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>  /// For Readline
-# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>  /// For History
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/vsimeono/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/stat.h>  /// For Using WEXITSTATUS
 # include <limits.h> //for PATH_MAX
 /* Libft Library */
@@ -21,12 +32,12 @@
 /* 3 Module Builtins */
 # include "3_module_builtins/builtins.h"
 /* 4 Module Executor */
-#include "4_module_executor/executor.h"
+# include "4_module_executor/executor.h"
 /* 5 Module Signals */
-#include "5_module_signals/signals.h"
+# include "5_module_signals/signals.h"
 
 /*		Global Variable 		 */
-extern int global_exit_status;
+extern int	g_exit_status;
 
 /*      ENV Builder Standalone   */
 typedef struct s_env
@@ -53,9 +64,9 @@ typedef struct s_parser
 /* Main Struct Containing all other Structs */
 typedef struct s_data
 {
-	t_parser	to_parser_list;
+	t_parser	par;
 	t_env		*to_env_list;
-	t_list		*lexar_list;
+	t_list		*lexar;
 	char		*line;
 
 }				t_data;
@@ -66,8 +77,7 @@ void	ft_lstclear_env(t_env **lst, void (*del)(void *));
 void	ft_lstdelone_env(t_env *lst, void (*del)(void *));
 
 /* Main */
-t_data	*env_builder(char **envp);
-
+t_data	*initialiser(char **envp);
 
 /*  Module Parser */
 void	is_d_quotes_closed(t_list *lexar_list);
@@ -79,7 +89,6 @@ void	free_list(t_list **list);
 void	delete_list(t_list **list);
 
 /*		ENV List	*/
-// t_env		create_env_list(char	**envp);
 t_env	*create_env_list(char	**envp);
 t_env	*create_env_element(char **value);
 void	ft_lstadd_back_env_element(t_env **lst, t_env *new);
@@ -87,6 +96,5 @@ void	print_env_list(t_env **stack);
 
 /* Module Signals */
 void	signal_check(t_data *data);
-
 
 #endif
