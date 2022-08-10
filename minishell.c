@@ -12,7 +12,9 @@
 
 #include "minishell.h"
 
+
 int	g_exit_status = 0;
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	data->to_env_list = create_env_list(envp);
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
-	while (10)
+	while (1)
 	{
 		data->lexar = NULL;
 		data->line = readline("minishell:> ");

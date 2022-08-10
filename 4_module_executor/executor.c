@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 15:53:37 by vsimeono         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "executor.h"
 
@@ -37,7 +27,6 @@ int	executor(t_data *data)
 		set_fds(parser, i);
 		if (exec_prep(cur_sec, parser) == 1)
 		{
-			//print_all_input(data);//TEST!!
 			if (parser->sections[i])
 				exec_section(data);
 			else
