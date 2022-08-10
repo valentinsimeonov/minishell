@@ -6,15 +6,13 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:30:44 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 15:42:06 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:43:38 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	g_exit_status = 0;
-
 
 int	main(int argc, char **argv, char **envp)
 {
