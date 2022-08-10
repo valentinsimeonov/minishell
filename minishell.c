@@ -6,7 +6,7 @@ int global_exit_status = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*line;
+	// char		*line;
 	t_data		*data;
 	// t_list		*lexar_list;
 	// lexar_list = NULL;
@@ -22,25 +22,22 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 
-	int		i;
-	i = 0;
-	while (i < 10)
+	// int		i;
+	// i = 0;
+	while (10)
 	{
 		data->lexar_list = NULL;
-		line = readline("minishell:> ");
-		if (line == NULL)
+		data->line = readline("minishell:> ");
+		if (data->line == NULL)
 			break ;
-		add_history(line);
-		if (parser(data, &line))
+		add_history(data->line);
+		if (parser(data, &data->line))
 			executor(data);
-		if (line)
-			free(line);
-		i++;
+		if (data->line)
+			free(data->line);
+		// i++;
 		//free all
 	}
-	if (data->to_env_list)
-		ft_lstclear_env(&data->to_env_list, free);
-	free(data);
 	return (0);
 }
 

@@ -15,6 +15,13 @@ int	count_pipes_in_lexar_list(t_list *lexar_list)
 			pipe_counter++;
 		head = head->next;
 	}
+
+	if (head)
+		null_making(head);
+	if (head)
+		ft_lstclear(&head, free);
+	if (head)
+		free(head);
 	return (pipe_counter);
 }
 
@@ -32,12 +39,15 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 	sizeof(t_list *));
 	while (lexar_list)
 	{
-		
 		if (is_str_redir(lexar_list->line))
 			ft_lstadd_back(&data->to_parser_list.sections[i], \
 			ft_lstnew(lexar_list->line));
 		else if (!ft_strncmp(lexar_list->line, "|", 2))
+		{
+			ft_lstadd_back(&data->to_parser_list.pipe, \
+			ft_lstnew(lexar_list->line));
 			i++;
+		}
 		else if (!is_str_redir(lexar_list->line))
 		{
 			ft_lstadd_back(&data->to_parser_list.sections[i], \
@@ -45,8 +55,8 @@ int	split_into_commands(t_data *data, t_list *lexar_list)
 		}
 		lexar_list = lexar_list->next;
 	}
-	// if (lexar_list)
-	// 	ft_lstclear(&lexar_list, free);
+	if (data->to_parser_list.pipe)
+		ft_lstclear(&data->to_parser_list.pipe, free);
 	return (1);
 }
 
