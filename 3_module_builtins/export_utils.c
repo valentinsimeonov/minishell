@@ -6,13 +6,13 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:32:29 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/07 19:38:13 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:25:13 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	export_print(t_env *env, t_parser *parser)//PROBLEM: GOES IN LOOP!
+int	export_print(t_env *env, t_parser *parser)
 {
 	char	*values[2];
 	t_env	*start;

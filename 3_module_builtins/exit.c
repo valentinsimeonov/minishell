@@ -1,32 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 13:45:59 by smischni          #+#    #+#             */
+/*   Updated: 2022/08/10 14:14:18 by smischni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "builtins.h"
 
 int	ft_exit(t_data *data, int flag_pipe)
 {
 	t_parser	*parser;
-	t_env		*env;
 	int			exit_value;
-	int			i;
 
-	i = 1;
 	parser = &data->to_parser_list;
-	env = data->to_env_list;
 	exit_value = EXIT_SUCCESS;
-	if (parser->command[i++])
+	ft_putstr_fd("exit\n", parser->store_stdout);
+	if (parser->command[1])
 	{
-		if (parser->command[i])
-			return (0);//error handling, "exit: too many arguments"
+		if (parser->command[2])
+		{
+			ft_error(parser, 1, NULL, "exit: too many arguments");
+			return (0);
+		}
 		else if (exit_is_numeric_str(parser->command[1]) == 1)
 			exit_value = ft_atoi(parser->command[1]);
 		else
-			ft_putstr_fd("exit: numeric argument required", 2);//tbd error message: "exit: numeric argument required"
+		{
+			ft_putstr_fd("exit: numeric argument required\n", 2);
+			exit_value = 255;
+		}
 	}
 	if (flag_pipe == 1)
 		return (1);
+	at_exit(data, parser, data->to_env_list);
+	exit(exit_value);
+}
+
+int	at_exit(t_data *data, t_parser *parser, t_env *env)
+{
 	free_str_array(parser->command);
 	free_str_array(parser->paths);
 	free_lst_array(parser->sections);
-	ft_putstr_fd("exit\n", parser->store_stdout);
+	free(data->line);
 	close(parser->input_fd);
 	close(parser->output_fd);
 	close(parser->store_stdin);
@@ -36,47 +56,19 @@ int	ft_exit(t_data *data, int flag_pipe)
 		ft_lstclear_env(&env, free);
 	if (data)
 		free(data);
-	exit(exit_value);
 	return (1);
 }
 
 int	exit_is_numeric_str(char *str)
 {
 	int		i;
-	long	l;
 
 	i = 0;
 	if (str[i] == '-')
 		i++;
-	while(str[i] && ft_isdigit(str[i]) == 1)
+	while (str[i] && ft_isdigit(str[i]) == 1)
 		i++;
 	if (str[i])
 		return (0);
-	l = ft_atolong(str);
-	if (l > INT_MAX || l < INT_MIN)
-		return (0);
 	return (1);
-}
-
-long	ft_atolong(char *str)
-{
-	long	res;
-	int		sign;
-	int		i;
-
-	sign = 1;
-	res = 0;
-	i = 0;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = (res * 10) + (str[i] - '0');
-		i++;
-	}
-	res = res * sign;
-	return (res);
 }

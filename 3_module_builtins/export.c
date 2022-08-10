@@ -6,37 +6,40 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 13:16:47 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/04 19:10:27 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:22:12 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_export(t_env *env, t_parser *parser, char **input, int flag_pipe)
+int	ft_export(t_env *env, t_parser *parser, char **input, int flag)
 {
 	int		i;
 
 	i = 1;
 	if (!input[i])
 		export_print(env, parser);
-	if (flag_pipe == 1)
+	if (flag == 1)
 		return (1);
 	else
 	{
 		while (input[i])
-			export_handle_input(env, input[i++]);
+			export_handle_input(parser, env, input[i++]);
 	}
 	return (1);
 }
 
-int	export_handle_input(t_env *env, char *input)
+int	export_handle_input(t_parser *parser, t_env *env, char *input)
 {
 	char	*values[2];
 	int		j;
 
 	j = 0;
 	if (input[j] == '=')
-		return (0);//error handling tbd: export: `=': not a valid identifier
+	{
+		ft_error(parser, 1, NULL, "export: '=': not a valid identifier");
+		return (0);
+	}
 	while (input[j] && input[j] != '=')
 		j++;
 	values[0] = ft_calloc(j + 1, sizeof(char));
@@ -59,6 +62,7 @@ int	export_add_variable(t_env *env, char **values)
 	tmp = get_env(env, values[0]);
 	if (tmp)
 	{
+		free(values[0]);
 		if (tmp->bash_v_content)
 			free(tmp->bash_v_content);
 		tmp->bash_v_content = values[1];
