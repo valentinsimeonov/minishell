@@ -40,16 +40,17 @@ static int	get_clean_input(char *line, t_list **lexar_list,
 {
 	char	*content;
 	// char	*temp;
-	// int		len_content;
 
 	// temp = NULL;
-	// len_content = ft_strlen(content);
-
 	content = ft_substr(line, *start, *end - *start);
+
 	if (!content || !clean_quote(&content))
 		return (0);
 
-	// ft_strlcpy(temp, content, len_content);
+	// temp = ft_strdup(content);
+	// if (content)
+	// 	free(content);
+
 	ft_lstadd_back(lexar_list, ft_lstnew(content));
 	while (line[*end] && ft_isspace(line[*end]))
 		(*end)++;
