@@ -47,6 +47,7 @@ typedef struct s_parser
 	int		pipe_fd[2];
 	char	**paths;
 	char	**command;
+	t_list	*pipe;
 }			t_parser;
 
 /* Main Struct Containing all other Structs */

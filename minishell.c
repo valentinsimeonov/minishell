@@ -22,9 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler_parent);
 	signal(SIGQUIT, SIG_IGN);
 
-	int		i;
-	i = 0;
-	while (i < 10)
+	// int		i;
+	// i = 0;
+	while (10)
 	{
 		data->lexar_list = NULL;
 		line = readline("minishell:> ");
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 		//else: free parser
 		if (line)
 			free(line);
-		i++;
+		// i++;
 		//free all
 	}
 	if (data->to_env_list)
