@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:30:02 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 15:52:35 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:42:04 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	bi_switch(t_data *data, t_parser *parser, t_env *env, int flag)
 {
 	int	len;
 
+	g_exit_status = 0;
 	len = ft_strlen(parser->command[0]);
 	if (len == 0)
 		return (0);
