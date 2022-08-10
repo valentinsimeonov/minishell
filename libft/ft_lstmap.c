@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:17:13 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/03/21 14:52:42 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:29:18 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		return (0);
 	while (lst != 0)
 	{
-		temp_list = ft_lstnew(f(lst->line));
+		temp_list = ft_ln(f(lst->line));
 		if (temp_list == 0)
 		{
 			ft_lstclear(&new_list, del);
 			return (NULL);
 		}
 		lst = lst->next;
-		ft_lstadd_back(&new_list, temp_list);
+		ft_laddb(&new_list, temp_list);
 	}
 	return (new_list);
 }

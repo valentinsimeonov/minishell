@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 09:29:47 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/10 13:41:32 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:49:05 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static char	*resolving_env(t_env **to_env_list, char *env_name)
 		return (get_env_value(to_env_list, env_name));
 }
 
-/* Allocating a New String from a Value that will Replace the \
-   ENV Variable, Returns NULL if Error */
+/* Allocating a New String from a Value that will Replace
+   the ENV Variable, Returns NULL if Error */
 static char	*replace_str_env(t_data *data, char *input, int idx)
 {
 	char	*new_str;
@@ -41,7 +41,6 @@ static char	*replace_str_env(t_data *data, char *input, int idx)
 	int		length;
 
 	length = 0;
-	/* Getting the Length of the Bash Variable */
 	while (input[idx] && (ft_isalpha(input[idx])
 			|| ft_isdigit(input[idx]) || input[idx] == '_'))
 	{
@@ -50,32 +49,22 @@ static char	*replace_str_env(t_data *data, char *input, int idx)
 		if (!(length - 1) && ft_isdigit(input[idx - 1]))
 			break ;
 	}
-	/* Creating the String with the Bash Variable Name that will be Used to be Searched */
 	new_str = ft_substr(input, idx - length, length);
 	if (!new_str)
 		return (NULL);
-
-	/* Getting the Bash Variable Value */
 	env_value = resolving_env(&data->to_env_list, new_str);
 	if (new_str)
-	{
 		free(new_str);
-		new_str = NULL;
-	}
 	if (!env_value)
 		return (NULL);
 	new_str = str_replace_str_at(input, idx - length - 1, length + 1,
 			env_value);
-	if (env_value)
-	{
-		env_value = NULL;
-		free(env_value);
-	}
+	env_value = NULL;
 	return (new_str);
 }
 
-/* Check if ENV Variable is a Special Environment Variable (?) \
-   and Returns it if it Finds it, if not then Returns ENV from Original ENV */
+/* Check if ENV Variable is a $? and Returns \
+   it if it Finds it */
 static char	*check_and_get_env(t_data *data, char *input, int idx)
 {
 	char	*exit_status;
@@ -84,7 +73,7 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 	idx++;
 	if (input[idx] && input[idx] == '?')
 	{
-		exit_status = ft_itoa(global_exit_status);
+		exit_status = ft_itoa(g_exit_status);
 		ret = str_replace_str_at(input, idx - 1, 2, exit_status);
 		if (exit_status)
 			free(exit_status);
@@ -94,8 +83,8 @@ static char	*check_and_get_env(t_data *data, char *input, int idx)
 		return (replace_str_env(data, input, idx));
 }
 
-/* Checks All ENV Variables in the String and Resolves them, \
-   Returns 0 if Error */
+/* Checks All ENV Variables in the String \
+   and Resolves them */
 int	env_resolver(t_data *data, char **input)
 {
 	int		i;
@@ -111,8 +100,7 @@ int	env_resolver(t_data *data, char **input)
 			tmp = check_and_get_env(data, *input, i);
 			if (!tmp)
 				return (0);
-			if (*input)
-				free(*input);
+			free(*input);
 			*input = tmp;
 			if (!(*input)[i])
 				break ;

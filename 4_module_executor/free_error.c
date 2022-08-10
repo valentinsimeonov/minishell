@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 10:50:25 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:57:42 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:54:20 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_error(t_parser *parser, int err_code, char *name, char *cust_mes)
 		close(parser->input_fd);
 	if (parser->output_fd > 2)
 		close(parser->output_fd);
-	global_exit_status = err_code;
+	g_exit_status = err_code;
 	if (name && ft_strncmp(name, "", 2) != 0)
 		perror(name);
 	else

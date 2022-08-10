@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 15:09:10 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/08/10 15:09:39 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
@@ -12,12 +22,9 @@ int		parser(t_data *data, char **line);
 int		split_into_commands(t_data *data, t_list *clean_input);
 int		lexer(char *line, t_list **clean_input);
 
-
 /* Parser's calls */
 int		env_resolver(t_data *data, char **input);
-
 void	null_making(t_list *lexar_list);
-
 void	print_list(t_list **stack);
 void	free_array(char **arr);
 char	*str_remove_char_at1(char *str, int idx);

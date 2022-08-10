@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:45:59 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 14:14:18 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:53:00 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_exit(t_data *data, int flag_pipe)
 	t_parser	*parser;
 	int			exit_value;
 
-	parser = &data->to_parser_list;
+	parser = &data->par;
 	exit_value = EXIT_SUCCESS;
 	ft_putstr_fd("exit\n", parser->store_stdout);
 	if (parser->command[1])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 18:10:37 by smischni          #+#    #+#             */
-/*   Updated: 2022/08/10 10:58:11 by smischni         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:53:37 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	executor(t_data *data)
 	t_parser	*parser;
 
 	i = 0;
-	parser = &(data->to_parser_list);
+	parser = &(data->par);
 	store_fds(parser);
 	while (parser->sections[i])
 	{
@@ -79,7 +79,7 @@ int	exec_section(t_data *data)
 {
 	t_parser	*parser;
 
-	parser = &data->to_parser_list;
+	parser = &data->par;
 	if (pipe(parser->pipe_fd) < 0)
 		return (0);
 	if (parser->input_fd > 2 && dup2(parser->input_fd, STDIN_FILENO) < 0)
@@ -114,7 +114,7 @@ int	exec_last_section(t_data *data)
 	t_parser	*parser;
 	t_env		*env;
 
-	parser = &data->to_parser_list;
+	parser = &data->par;
 	env = data->to_env_list;
 	if (dup2(parser->input_fd, STDIN_FILENO) < 0)
 	{

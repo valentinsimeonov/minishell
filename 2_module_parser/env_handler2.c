@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:20:40 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/08/05 20:52:13 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:51:21 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_env_value(t_env **to_env_list, char *env)
 {
 	t_env	*temp;
 	int		variable_length;
-	
+
 	temp = *to_env_list;
 	variable_length = ft_strlen(env);
 	while (temp)
@@ -54,6 +54,5 @@ char	*get_env_value(t_env **to_env_list, char *env)
 			return (temp->bash_v_content);
 		temp = temp->next;
 	}
-	// if (!to_env_list)
 	return (ft_strdup(""));
 }

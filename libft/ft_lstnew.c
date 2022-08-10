@@ -6,7 +6,7 @@
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:05 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/03/21 14:52:09 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:05:46 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	’next’ is initialized to NULL.
 */
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_ln(void *content)
 {
 	t_list	*new_element;
 

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/10 15:09:58 by vsimeono          #+#    #+#             */
+/*   Updated: 2022/08/10 15:12:22 by vsimeono         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
@@ -21,8 +31,7 @@ static int	clean_quote(char **str)
 			else if (quote && (*str)[i] == quote)
 				quote = 0;
 			tmp = str_remove_char_at1(*str, i);
-			if (*str)
-				free(*str);
+			free(*str);
 			if (!tmp)
 				return (0);
 			*str = tmp;
@@ -39,19 +48,11 @@ static int	get_clean_input(char *line, t_list **lexar_list,
 	int *start, int *end)
 {
 	char	*content;
-	// char	*temp;
 
-	// temp = NULL;
 	content = ft_substr(line, *start, *end - *start);
-
 	if (!content || !clean_quote(&content))
 		return (0);
-
-	// temp = ft_strdup(content);
-	// if (content)
-	// 	free(content);
-
-	ft_lstadd_back(lexar_list, ft_lstnew(content));
+	ft_laddb(lexar_list, ft_ln(content));
 	while (line[*end] && ft_isspace(line[*end]))
 		(*end)++;
 	*start = *end;

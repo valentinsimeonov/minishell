@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_laddb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsimeono <vsimeono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:21:56 by vsimeono          #+#    #+#             */
-/*   Updated: 2022/03/21 11:22:13 by vsimeono         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:27:26 by vsimeono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	#2. The address of a pointer to the element to be added to the list.
 */
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_laddb(t_list **lst, t_list *new)
 {
 	t_list	*temp;
 
